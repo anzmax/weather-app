@@ -1,6 +1,6 @@
 import UIKit
 
-class OnboardingVC: UIViewController {
+class OnboardingView: UIView {
     
     lazy var imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "onboardingImage"))
@@ -41,7 +41,7 @@ class OnboardingVC: UIViewController {
         return label
     }()
     
-    private lazy var useGeoButton: UIButton = {
+    lazy var useGeoButton: UIButton = {
         let button = UIButton()
         button.setTitle("ИСПОЛЬЗОВАТЬ МЕСТОПОЛОЖЕНИЕ  УСТРОЙСТВА", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -51,7 +51,7 @@ class OnboardingVC: UIViewController {
         return button
     }()
     
-    private lazy var dismissGeoButton: UIButton = {
+    lazy var dismissGeoButton: UIButton = {
         let button = UIButton()
         button.setTitle("НЕТ, Я БУДУ ДОБАВЛЯТЬ ЛОКАЦИИ", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -61,20 +61,24 @@ class OnboardingVC: UIViewController {
         return button
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupViews()
         setupConstraints()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func setupViews() {
-        view.backgroundColor = .customBlue
-        view.addSubview(imageView)
-        view.addSubview(titleLabel)
-        view.addSubview(secondaryLabel)
-        view.addSubview(thirdLabel)
-        view.addSubview(useGeoButton)
-        view.addSubview(dismissGeoButton)
+        backgroundColor = .customBlue
+        addSubview(imageView)
+        addSubview(titleLabel)
+        addSubview(secondaryLabel)
+        addSubview(thirdLabel)
+        addSubview(useGeoButton)
+        addSubview(dismissGeoButton)
     }
     
     private func setupConstraints() {
@@ -86,36 +90,35 @@ class OnboardingVC: UIViewController {
         dismissGeoButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 148),
-            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 148),
+            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 196),
             imageView.widthAnchor.constraint(equalToConstant: 180),
             
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 400),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 27),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 400),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 27),
             titleLabel.widthAnchor.constraint(equalToConstant: 322),
             titleLabel.heightAnchor.constraint(equalToConstant: 63),
             
-            secondaryLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 519),
-            secondaryLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 31),
+            secondaryLabel.topAnchor.constraint(equalTo: topAnchor, constant: 519),
+            secondaryLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 31),
             secondaryLabel.widthAnchor.constraint(equalToConstant: 314),
             secondaryLabel.heightAnchor.constraint(equalToConstant: 36),
             
-            thirdLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 569),
-            thirdLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 31),
+            thirdLabel.topAnchor.constraint(equalTo: topAnchor, constant: 569),
+            thirdLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 31),
             thirdLabel.widthAnchor.constraint(equalToConstant: 314),
             thirdLabel.heightAnchor.constraint(equalToConstant: 36),
             
-            useGeoButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 649),
-            useGeoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            useGeoButton.topAnchor.constraint(equalTo: topAnchor, constant: 649),
+            useGeoButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             useGeoButton.widthAnchor.constraint(equalToConstant: 340),
             useGeoButton.heightAnchor.constraint(equalToConstant: 40),
             
-            dismissGeoButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 714),
-            dismissGeoButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -19),
+            dismissGeoButton.topAnchor.constraint(equalTo: topAnchor, constant: 714),
+            dismissGeoButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 66),
             dismissGeoButton.widthAnchor.constraint(equalToConstant: 291),
             dismissGeoButton.heightAnchor.constraint(equalToConstant: 21),
         ])
     }
-    
 }

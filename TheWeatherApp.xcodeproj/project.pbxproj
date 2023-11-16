@@ -17,6 +17,16 @@
 		F44476572B0636ED005A5CA7 /* rubik-medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F44476542B0636ED005A5CA7 /* rubik-medium.ttf */; };
 		F44476582B0636ED005A5CA7 /* rubik-semi-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F44476552B0636ED005A5CA7 /* rubik-semi-bold.ttf */; };
 		F44476592B0636ED005A5CA7 /* rubik-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F44476562B0636ED005A5CA7 /* rubik-regular.ttf */; };
+		F444765C2B064453005A5CA7 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F444765B2B064453005A5CA7 /* OnboardingView.swift */; };
+		F444765F2B064731005A5CA7 /* LocationManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F444765E2B064731005A5CA7 /* LocationManagerService.swift */; };
+		F44476622B064B30005A5CA7 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44476612B064B30005A5CA7 /* AppCoordinator.swift */; };
+		F44476652B0650CC005A5CA7 /* AddLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44476642B0650CC005A5CA7 /* AddLocationVC.swift */; };
+		F44476672B0650E0005A5CA7 /* AddLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44476662B0650E0005A5CA7 /* AddLocationView.swift */; };
+		F444766A2B065D16005A5CA7 /* SearchLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44476692B065D16005A5CA7 /* SearchLocationVC.swift */; };
+		F444766C2B065D2A005A5CA7 /* SearchLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F444766B2B065D2A005A5CA7 /* SearchLocationView.swift */; };
+		F444766E2B066C60005A5CA7 /* LocationSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F444766D2B066C60005A5CA7 /* LocationSearchService.swift */; };
+		F44476712B06752F005A5CA7 /* MainScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44476702B06752F005A5CA7 /* MainScreenVC.swift */; };
+		F44476732B067551005A5CA7 /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44476722B067551005A5CA7 /* MainScreenView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +42,16 @@
 		F44476542B0636ED005A5CA7 /* rubik-medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "rubik-medium.ttf"; sourceTree = "<group>"; };
 		F44476552B0636ED005A5CA7 /* rubik-semi-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "rubik-semi-bold.ttf"; sourceTree = "<group>"; };
 		F44476562B0636ED005A5CA7 /* rubik-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "rubik-regular.ttf"; sourceTree = "<group>"; };
+		F444765B2B064453005A5CA7 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		F444765E2B064731005A5CA7 /* LocationManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerService.swift; sourceTree = "<group>"; };
+		F44476612B064B30005A5CA7 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		F44476642B0650CC005A5CA7 /* AddLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationVC.swift; sourceTree = "<group>"; };
+		F44476662B0650E0005A5CA7 /* AddLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationView.swift; sourceTree = "<group>"; };
+		F44476692B065D16005A5CA7 /* SearchLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationVC.swift; sourceTree = "<group>"; };
+		F444766B2B065D2A005A5CA7 /* SearchLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationView.swift; sourceTree = "<group>"; };
+		F444766D2B066C60005A5CA7 /* LocationSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchService.swift; sourceTree = "<group>"; };
+		F44476702B06752F005A5CA7 /* MainScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenVC.swift; sourceTree = "<group>"; };
+		F44476722B067551005A5CA7 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +85,9 @@
 			isa = PBXGroup;
 			children = (
 				F444764B2B063075005A5CA7 /* App */,
-				F444764D2B0630A6005A5CA7 /* Controller */,
+				F44476602B064B19005A5CA7 /* Coordinator */,
+				F444764D2B0630A6005A5CA7 /* Controllers */,
+				F444765D2B06470B005A5CA7 /* Services */,
 				F44476502B06316D005A5CA7 /* Extensions */,
 				F444764C2B063085005A5CA7 /* Resources */,
 				F44476532B0636C8005A5CA7 /* Fonts */,
@@ -93,12 +115,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		F444764D2B0630A6005A5CA7 /* Controller */ = {
+		F444764D2B0630A6005A5CA7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F444764E2B0630D9005A5CA7 /* OnboardingVC.swift */,
+				F444765A2B064436005A5CA7 /* Onboarding */,
+				F444766F2B0674FE005A5CA7 /* MainScreen */,
+				F44476632B0650A6005A5CA7 /* AddLocation */,
+				F44476682B065CDE005A5CA7 /* SearchLocation */,
 			);
-			path = Controller;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		F44476502B06316D005A5CA7 /* Extensions */ = {
@@ -117,6 +142,59 @@
 				F44476552B0636ED005A5CA7 /* rubik-semi-bold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		F444765A2B064436005A5CA7 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				F444764E2B0630D9005A5CA7 /* OnboardingVC.swift */,
+				F444765B2B064453005A5CA7 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		F444765D2B06470B005A5CA7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F444765E2B064731005A5CA7 /* LocationManagerService.swift */,
+				F444766D2B066C60005A5CA7 /* LocationSearchService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F44476602B064B19005A5CA7 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				F44476612B064B30005A5CA7 /* AppCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		F44476632B0650A6005A5CA7 /* AddLocation */ = {
+			isa = PBXGroup;
+			children = (
+				F44476642B0650CC005A5CA7 /* AddLocationVC.swift */,
+				F44476662B0650E0005A5CA7 /* AddLocationView.swift */,
+			);
+			path = AddLocation;
+			sourceTree = "<group>";
+		};
+		F44476682B065CDE005A5CA7 /* SearchLocation */ = {
+			isa = PBXGroup;
+			children = (
+				F44476692B065D16005A5CA7 /* SearchLocationVC.swift */,
+				F444766B2B065D2A005A5CA7 /* SearchLocationView.swift */,
+			);
+			path = SearchLocation;
+			sourceTree = "<group>";
+		};
+		F444766F2B0674FE005A5CA7 /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F44476702B06752F005A5CA7 /* MainScreenVC.swift */,
+				F44476722B067551005A5CA7 /* MainScreenView.swift */,
+			);
+			path = MainScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,10 +271,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F444765F2B064731005A5CA7 /* LocationManagerService.swift in Sources */,
+				F44476672B0650E0005A5CA7 /* AddLocationView.swift in Sources */,
+				F44476652B0650CC005A5CA7 /* AddLocationVC.swift in Sources */,
+				F444766C2B065D2A005A5CA7 /* SearchLocationView.swift in Sources */,
 				F44476382B06306A005A5CA7 /* AppDelegate.swift in Sources */,
 				F444764F2B0630D9005A5CA7 /* OnboardingVC.swift in Sources */,
+				F44476712B06752F005A5CA7 /* MainScreenVC.swift in Sources */,
+				F444766E2B066C60005A5CA7 /* LocationSearchService.swift in Sources */,
 				F444763A2B06306A005A5CA7 /* SceneDelegate.swift in Sources */,
+				F44476732B067551005A5CA7 /* MainScreenView.swift in Sources */,
+				F444765C2B064453005A5CA7 /* OnboardingView.swift in Sources */,
 				F44476522B063182005A5CA7 /* Extensions.swift in Sources */,
+				F44476622B064B30005A5CA7 /* AppCoordinator.swift in Sources */,
+				F444766A2B065D16005A5CA7 /* SearchLocationVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +439,9 @@
 				DEVELOPMENT_TEAM = LS5WY3DH94;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheWeatherApp/Resources/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Приложение WeatherApp использует данные о местоположении вашего устройства для определения погоды";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Приложение WeatherApp использует данные о местоположении вашего устройства для определения погоды";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Приложение WeatherApp использует данные о местоположении вашего устройства для определения погоды";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -379,6 +470,9 @@
 				DEVELOPMENT_TEAM = LS5WY3DH94;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheWeatherApp/Resources/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Приложение WeatherApp использует данные о местоположении вашего устройства для определения погоды";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Приложение WeatherApp использует данные о местоположении вашего устройства для определения погоды";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Приложение WeatherApp использует данные о местоположении вашего устройства для определения погоды";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
