@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F443F0912B13B3E200066907 /* ForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F443F0902B13B3E200066907 /* ForecastCell.swift */; };
+		F443F0932B13BBBA00066907 /* DailyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F443F0922B13BBB900066907 /* DailyCell.swift */; };
 		F44476382B06306A005A5CA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44476372B06306A005A5CA7 /* AppDelegate.swift */; };
 		F444763A2B06306A005A5CA7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44476392B06306A005A5CA7 /* SceneDelegate.swift */; };
 		F444763F2B06306A005A5CA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F444763D2B06306A005A5CA7 /* Main.storyboard */; };
@@ -27,6 +29,8 @@
 		F444766E2B066C60005A5CA7 /* GeocodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F444766D2B066C60005A5CA7 /* GeocodeService.swift */; };
 		F44476712B06752F005A5CA7 /* MainScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44476702B06752F005A5CA7 /* MainScreenVC.swift */; };
 		F44476732B067551005A5CA7 /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44476722B067551005A5CA7 /* MainScreenView.swift */; };
+		F45721CC2B109DB000EE7248 /* CurrentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45721CB2B109DB000EE7248 /* CurrentCell.swift */; };
+		F45721CE2B10A4A600EE7248 /* HourlyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45721CD2B10A4A600EE7248 /* HourlyCell.swift */; };
 		F4B703C32B076A35002B1029 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B703C22B076A35002B1029 /* SettingsVC.swift */; };
 		F4B703C52B076A47002B1029 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B703C42B076A47002B1029 /* SettingsView.swift */; };
 		F4B703C82B0779AE002B1029 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B703C72B0779AE002B1029 /* CustomLabel.swift */; };
@@ -34,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F443F0902B13B3E200066907 /* ForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCell.swift; sourceTree = "<group>"; };
+		F443F0922B13BBB900066907 /* DailyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCell.swift; sourceTree = "<group>"; };
 		F44476342B06306A005A5CA7 /* TheWeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheWeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F44476372B06306A005A5CA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F44476392B06306A005A5CA7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +62,8 @@
 		F444766D2B066C60005A5CA7 /* GeocodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodeService.swift; sourceTree = "<group>"; };
 		F44476702B06752F005A5CA7 /* MainScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenVC.swift; sourceTree = "<group>"; };
 		F44476722B067551005A5CA7 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
+		F45721CB2B109DB000EE7248 /* CurrentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentCell.swift; sourceTree = "<group>"; };
+		F45721CD2B10A4A600EE7248 /* HourlyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyCell.swift; sourceTree = "<group>"; };
 		F4B703C22B076A35002B1029 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		F4B703C42B076A47002B1029 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F4B703C72B0779AE002B1029 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
@@ -201,10 +209,22 @@
 		F444766F2B0674FE005A5CA7 /* MainScreen */ = {
 			isa = PBXGroup;
 			children = (
+				F45721CA2B109D9E00EE7248 /* Cell */,
 				F44476702B06752F005A5CA7 /* MainScreenVC.swift */,
 				F44476722B067551005A5CA7 /* MainScreenView.swift */,
 			);
 			path = MainScreen;
+			sourceTree = "<group>";
+		};
+		F45721CA2B109D9E00EE7248 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F45721CB2B109DB000EE7248 /* CurrentCell.swift */,
+				F45721CD2B10A4A600EE7248 /* HourlyCell.swift */,
+				F443F0902B13B3E200066907 /* ForecastCell.swift */,
+				F443F0922B13BBB900066907 /* DailyCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		F4B703C12B076A1B002B1029 /* Settings */ = {
@@ -303,6 +323,7 @@
 				F444765F2B064731005A5CA7 /* LocationManagerService.swift in Sources */,
 				F44476672B0650E0005A5CA7 /* AddLocationView.swift in Sources */,
 				F44476652B0650CC005A5CA7 /* AddLocationVC.swift in Sources */,
+				F443F0912B13B3E200066907 /* ForecastCell.swift in Sources */,
 				F444766C2B065D2A005A5CA7 /* SearchLocationView.swift in Sources */,
 				F44476382B06306A005A5CA7 /* AppDelegate.swift in Sources */,
 				F4B703C82B0779AE002B1029 /* CustomLabel.swift in Sources */,
@@ -310,9 +331,12 @@
 				F44476712B06752F005A5CA7 /* MainScreenVC.swift in Sources */,
 				F444766E2B066C60005A5CA7 /* GeocodeService.swift in Sources */,
 				F444763A2B06306A005A5CA7 /* SceneDelegate.swift in Sources */,
+				F45721CE2B10A4A600EE7248 /* HourlyCell.swift in Sources */,
+				F45721CC2B109DB000EE7248 /* CurrentCell.swift in Sources */,
 				F4B703C52B076A47002B1029 /* SettingsView.swift in Sources */,
 				F44476732B067551005A5CA7 /* MainScreenView.swift in Sources */,
 				F444765C2B064453005A5CA7 /* OnboardingView.swift in Sources */,
+				F443F0932B13BBBA00066907 /* DailyCell.swift in Sources */,
 				F44476522B063182005A5CA7 /* Extensions.swift in Sources */,
 				F44476622B064B30005A5CA7 /* AppCoordinator.swift in Sources */,
 				F444766A2B065D16005A5CA7 /* SearchLocationVC.swift in Sources */,

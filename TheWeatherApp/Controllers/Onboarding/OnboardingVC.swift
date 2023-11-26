@@ -24,15 +24,15 @@ class OnboardingVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        locationService.onLocationUpdated = { [weak self] location in
-            print("Получено местоположение: \(location)")
-            
-            self?.geocodeService.getPlace(for: location) { placeName in
-                DispatchQueue.main.async {
-                    self?.coordinator.showMainViewController(with: placeName)
-                }
-            }
-        }
+//        locationService.onLocationUpdated = { [weak self] location in
+//            print("Получено местоположение: \(location)")
+//            
+//            self?.geocodeService.getPlace(for: location) { placeName in
+//                DispatchQueue.main.async {
+//                    self?.coordinator.showMainViewController(with: placeName)
+//                }
+//            }
+//        }
 
         onboardingView.useGeoButton.addTarget(self, action: #selector(buttonTapped(button: )), for: .touchUpInside)
         onboardingView.dismissGeoButton.addTarget(self, action: #selector(buttonTapped(button: )), for: .touchUpInside)
@@ -41,7 +41,18 @@ class OnboardingVC: UIViewController {
     @objc func buttonTapped(button: UIButton) {
         switch button {
         case onboardingView.useGeoButton:
+            
             locationService.requestLocationAuthorization()
+            
+            locationService.onLocationUpdated = { [weak self] location in
+                print("Получено местоположение: \(location)")
+                
+                self?.geocodeService.getPlace(for: location) { placeName in
+                    DispatchQueue.main.async {
+                        self?.coordinator.showMainViewController(with: placeName)
+                    }
+                }
+            }
         case onboardingView.dismissGeoButton:
             coordinator.showAddLocationScreen()
         default:
