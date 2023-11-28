@@ -148,6 +148,17 @@ extension HourlyCell: UICollectionViewDelegate, UICollectionViewDataSource {
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! HourlyCollectionCell
+        cell.contentView.backgroundColor = .customBlue
+        cell.timeLabel.textColor = .white
+        cell.tempLabel.textColor = .white
+    }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! HourlyCollectionCell
+        cell.contentView.backgroundColor = .white
+        cell.timeLabel.textColor = .black
+        cell.tempLabel.textColor = .black
+    }
 }

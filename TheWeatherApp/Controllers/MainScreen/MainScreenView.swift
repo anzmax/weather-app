@@ -16,7 +16,9 @@ class MainScreenView: UIView {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = .lightGray
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CurrentCell.self, forCellReuseIdentifier: CurrentCell.id)
@@ -76,15 +78,19 @@ extension MainScreenView: UITableViewDelegate, UITableViewDataSource {
             switch sectionType {
             case .current:
                 let cell = tableView.dequeueReusableCell(withIdentifier: CurrentCell.id, for: indexPath) as! CurrentCell
+                cell.selectionStyle = .none
                 return cell
             case .hourly:
                 let cell = tableView.dequeueReusableCell(withIdentifier: HourlyCell.id, for: indexPath) as! HourlyCell
+                cell.selectionStyle = .none
                 return cell
             case .forecast:
                 let cell = tableView.dequeueReusableCell(withIdentifier: ForecastCell.id, for: indexPath) as! ForecastCell
+                cell.selectionStyle = .none
                 return cell
             case .daily:
                 let cell = tableView.dequeueReusableCell(withIdentifier: DailyCell.id, for: indexPath) as! DailyCell
+                cell.selectionStyle = .none
                 return cell
             }
         }
