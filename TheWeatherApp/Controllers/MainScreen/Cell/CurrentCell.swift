@@ -259,12 +259,12 @@ class CurrentCell: UITableViewCell {
             detailButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             sunriseTimeLabel.heightAnchor.constraint(equalToConstant: 19),
-            sunriseTimeLabel.widthAnchor.constraint(equalToConstant: 38),
+            //sunriseTimeLabel.widthAnchor.constraint(equalToConstant: 38),
             sunriseTimeLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 17),
             sunriseTimeLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 167),
             
             sunsetTimeLabel.heightAnchor.constraint(equalToConstant: 19),
-            sunsetTimeLabel.widthAnchor.constraint(equalToConstant: 38),
+            //sunsetTimeLabel.widthAnchor.constraint(equalToConstant: 39),
             sunsetTimeLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -17),
             sunsetTimeLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 167),
             
@@ -285,12 +285,12 @@ class CurrentCell: UITableViewCell {
             ellipseImageView.centerXAnchor.constraint(equalTo: mainView.centerXAnchor),
             
             degreeRangeLabel.heightAnchor.constraint(equalToConstant: 20),
-            degreeRangeLabel.widthAnchor.constraint(equalToConstant: 50),
+            degreeRangeLabel.widthAnchor.constraint(equalToConstant: 70),
             degreeRangeLabel.centerXAnchor.constraint(equalTo: mainView.centerXAnchor),
             degreeRangeLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 33),
             
             degreeLabel.heightAnchor.constraint(equalToConstant: 40),
-            degreeLabel.widthAnchor.constraint(equalToConstant: 80),
+            degreeLabel.widthAnchor.constraint(equalToConstant: 90),
             degreeLabel.centerXAnchor.constraint(equalTo: mainView.centerXAnchor),
             degreeLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 58),
             
@@ -315,12 +315,12 @@ class CurrentCell: UITableViewCell {
             humidityImageView.leadingAnchor.constraint(equalTo: windLabel.trailingAnchor, constant: 20),
             
             cloudLabel.heightAnchor.constraint(equalToConstant: 18),
-            cloudLabel.widthAnchor.constraint(equalToConstant: 14),
+            cloudLabel.widthAnchor.constraint(equalToConstant: 16),
             cloudLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 138),
             cloudLabel.leadingAnchor.constraint(equalTo: cloudImageView.trailingAnchor, constant: 5),
             
             windLabel.heightAnchor.constraint(equalToConstant: 18),
-            windLabel.widthAnchor.constraint(equalToConstant: 40),
+            windLabel.widthAnchor.constraint(equalToConstant: 47),
             windLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 138),
             windLabel.leadingAnchor.constraint(equalTo: windImageView.trailingAnchor, constant: 5),
             
@@ -332,20 +332,27 @@ class CurrentCell: UITableViewCell {
             currentDayTimeLabel.heightAnchor.constraint(equalToConstant: 20),
             currentDayTimeLabel.widthAnchor.constraint(equalToConstant: 158),
             currentDayTimeLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 171),
-            currentDayTimeLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 105)
+            currentDayTimeLabel.centerXAnchor.constraint(equalTo: mainView.centerXAnchor)
         ])
     }
-    
-    func update(with weather: WeatherData) {
+
+    func update(with weather: Weather) {
+        let tempMin = weather.forecasts[0].parts.dayShort.temp ?? 0
+        let tempMax = weather.forecasts[0].parts.nightShort.temp ?? 0
         
-        let weatherDescription = weather.current.weather.first?.description ?? "Нет данных"
-        
-        degreeLabel.attributedText = createAttributedText(for: "\(Int(weather.current.temp))°", fontSize: 36)
-        descriptionLabel.attributedText = createAttributedText(for: weatherDescription, fontSize: 16)
-        cloudLabel.attributedText = createAttributedText(for: "\(weather.current.clouds)%", fontSize: 14)
-        windLabel.attributedText = createAttributedText(for: "\(weather.current.wind_speed) м/с", fontSize: 14)
-        humidityLabel.attributedText = createAttributedText(for: "\(weather.current.humidity)%", fontSize: 14)
-       }
+        if let weatherCondition = WeatherCondition(rawValue: weather.fact.condition) {
+            descriptionLabel.text = weatherCondition.russianDescription
+        } else {
+            descriptionLabel.text = "Неизвестно"
+        }
+        sunriseTimeLabel.text = "\(weather.forecasts[0].riseBegin)"
+        sunsetTimeLabel.text = "\(weather.forecasts[0].setEnd)"
+        degreeLabel.attributedText = createAttributedText(for: "\(weather.fact.temp)°", fontSize: 36)
+        cloudLabel.attributedText = createAttributedText(for: "\(weather.fact.cloudness)%", fontSize: 14)
+        windLabel.attributedText = createAttributedText(for: "\(weather.fact.windSpeed) м/с", fontSize: 14)
+        humidityLabel.attributedText = createAttributedText(for: "\(weather.fact.humidity)%", fontSize: 14)
+        degreeRangeLabel.attributedText = createAttributedText(for: "\(tempMin)° /\(tempMax)°", fontSize: 16)
+    }
     
     private func createAttributedText(for string: String, fontSize: CGFloat) -> NSAttributedString {
         let font = UIFont.rubik(.regular, size: fontSize)

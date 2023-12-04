@@ -10,6 +10,9 @@ enum CellType: Int, CaseIterable {
 class MainScreenView: UIView {
     
     var onButtonTapped: ((IndexPath) -> Void)?
+    var actionButtonTapped: ((IndexPath) -> Void)?
+    
+    var weather: Weather?
 
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -74,7 +77,17 @@ class MainScreenView: UIView {
     }
 }
 
+extension MainScreenView {
+    func update(_ weather: Weather) {
+        self.weather = weather
+    }
+}
+
 extension MainScreenView: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return CellType.allCases.count
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let sectionType = CellType.init(rawValue: section) {
@@ -102,10 +115,17 @@ extension MainScreenView: UITableViewDelegate, UITableViewDataSource {
                 cell.buttonAction = { [weak self] in
                     self?.onButtonTapped?(indexPath)
                 }
+                
+                if let weather {
+                    cell.update(with: weather)
+                }
                 return cell
             case .hourly:
                 let cell = tableView.dequeueReusableCell(withIdentifier: HourlyCell.id, for: indexPath) as! HourlyCell
                 cell.selectionStyle = .none
+                if let hours = weather?.forecasts[0].hours {
+                    cell.update(hours)
+                }
                 return cell
             case .forecast:
                 let cell = tableView.dequeueReusableCell(withIdentifier: ForecastCell.id, for: indexPath) as! ForecastCell
@@ -114,16 +134,20 @@ extension MainScreenView: UITableViewDelegate, UITableViewDataSource {
             case .daily:
                 let cell = tableView.dequeueReusableCell(withIdentifier: DailyCell.id, for: indexPath) as! DailyCell
                 cell.selectionStyle = .none
+                cell.action = { [weak self] in
+                    self?.actionButtonTapped?(indexPath)
+                }
+                
                 cell.dateLabel.attributedText = attributedDateString(daysToAdd: indexPath.row)
+                
+                if let forecast = weather?.forecasts[indexPath.row] {
+                    cell.update(with: forecast)
+                }
+
                 return cell
             }
         }
         return UITableViewCell()
     }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return CellType.allCases.count
-    }
-    
 }
 

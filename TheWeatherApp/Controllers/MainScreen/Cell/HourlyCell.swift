@@ -48,8 +48,17 @@ class HourlyCollectionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func update(with time: String) {
-        timeLabel.text = time
+    func formatTime(hourString: String) -> String {
+        if let hourInt = Int(hourString) {
+            return String(format: "%02d:00", hourInt)
+        } else {
+            return "00:00"
+        }
+    }
+
+    func updateHour(with hour: Hour) {
+        timeLabel.text = formatTime(hourString: hour.hour)
+        tempLabel.text = "\(hour.temp)°"
     }
     
     private func setupViews() {
@@ -92,7 +101,7 @@ class HourlyCell: UITableViewCell {
     
     static let id = "HourlyCell"
     
-    var timeRange = ["00:00", "03:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00"]
+    var hours: [Hour] = []
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -102,6 +111,7 @@ class HourlyCell: UITableViewCell {
         layout.minimumLineSpacing = 16
         
         let collection = UICollectionView.init(frame: .zero, collectionViewLayout: layout)
+        collection.showsHorizontalScrollIndicator = false
         collection.register(HourlyCollectionCell.self, forCellWithReuseIdentifier: HourlyCollectionCell.id)
         collection.delegate = self
         collection.dataSource = self
@@ -134,17 +144,21 @@ class HourlyCell: UITableViewCell {
             collectionView.heightAnchor.constraint(equalToConstant: 85),
         ])
     }
+    
+    func update(_ hours: [Hour]) {
+        self.hours = hours
+    }
 }
 
 extension HourlyCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        timeRange.count
+        hours.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HourlyCollectionCell.id, for: indexPath) as! HourlyCollectionCell
-        let time = timeRange[indexPath.item]
-        cell.update(with: time)
+        let hour = hours[indexPath.row]
+        cell.updateHour(with: hour)
         return cell
     }
     

@@ -4,6 +4,8 @@ class DailyCell: UITableViewCell {
     
     static let id = "DailyCell"
     
+    var action: (() -> Void)?
+    
     lazy var mainView: UIView = {
         let view = UIView()
         view.backgroundColor = .customLightBlue
@@ -62,12 +64,13 @@ class DailyCell: UITableViewCell {
         return label
     }()
     
-    lazy var detailButton: UIButton = {
+    lazy var currentDetailButton: UIButton = {
         let button = UIButton()
         let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 14, weight: .light)
         let image = UIImage(systemName: "chevron.right", withConfiguration: symbolConfiguration)
         button.setImage(image, for: .normal)
         button.tintColor = .black
+        button.addTarget(self, action: #selector(currentDetailButtonPressed), for: .touchUpInside)
         return button
     }()
     
@@ -80,7 +83,20 @@ class DailyCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    func update(with forecast: Forecast) {
+        
+        if let weatherCondition = WeatherCondition(rawValue: forecast.parts.dayShort.condition) {
+            descriptionLabel.text = weatherCondition.russianDescription
+        } else {
+            descriptionLabel.text = "Неизвестно"
+        }
+        percentageLabel.text = "\(forecast.parts.dayShort.precipitation)%"
+        let tempMin = forecast.parts.dayShort.tempMin ?? 0
+        let tempMax = forecast.parts.dayShort.tempMax ?? 0
+        tempLabel.text = "\(tempMin)° - \(tempMax)°"
+    }
+
     private func setupViews() {
         contentView.addSubview(mainView)
         mainView.addSubview(dateLabel)
@@ -88,7 +104,7 @@ class DailyCell: UITableViewCell {
         mainView.addSubview(percentageLabel)
         mainView.addSubview(descriptionLabel)
         mainView.addSubview(tempLabel)
-        mainView.addSubview(detailButton)
+        mainView.addSubview(currentDetailButton)
     }
     
     private func setupConstraints() {
@@ -98,7 +114,7 @@ class DailyCell: UITableViewCell {
         percentageLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         tempLabel.translatesAutoresizingMaskIntoConstraints = false
-        detailButton.translatesAutoresizingMaskIntoConstraints = false
+        currentDetailButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             mainView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
@@ -121,7 +137,7 @@ class DailyCell: UITableViewCell {
             percentageLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 31),
             percentageLabel.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -9.81),
             percentageLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 30),
-            percentageLabel.widthAnchor.constraint(equalToConstant: 23),
+            percentageLabel.widthAnchor.constraint(equalToConstant: 25),
             percentageLabel.heightAnchor.constraint(equalToConstant: 15),
             
             descriptionLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 19),
@@ -133,11 +149,15 @@ class DailyCell: UITableViewCell {
             tempLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 17),
             tempLabel.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -17.17),
             tempLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -28),
-            tempLabel.widthAnchor.constraint(equalToConstant: 48),
+            tempLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
             tempLabel.heightAnchor.constraint(equalToConstant: 21.8),
             
-            detailButton.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -10),
-            detailButton.centerYAnchor.constraint(equalTo: mainView.centerYAnchor)
+            currentDetailButton.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -10),
+            currentDetailButton.centerYAnchor.constraint(equalTo: mainView.centerYAnchor)
         ])
+    }
+    
+    @objc func currentDetailButtonPressed() {
+        action?()
     }
 }

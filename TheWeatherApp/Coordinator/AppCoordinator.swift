@@ -28,18 +28,10 @@ final class AppCoordinator {
         navigation.present(vc, animated: true)
     }
     
-//    func showMainViewController(with location: String?) {
-//         let vc = MainScreenVC(coordinator: self)
-//         //vc.currentLocation = location
-//         vc.title = location ?? "Неизвестное местоположение"
-//         navigation.setViewControllers([vc], animated: true)
-//     }
-//    
-    
-    func showMainViewController(with latitude: Double, longitude: Double) {
+    func showMainViewController(with model: Weather) {
         let vc = MainScreenVC(coordinator: self)
-        vc.currentLocation = CLLocation(latitude: latitude, longitude: longitude)
-        vc.title = "Долгота: \(longitude), Широта: \(latitude)"
+        vc.currentWeather = model
+        vc.title = "\(model.geoObject.locality.name), \(model.geoObject.country.name)"
         navigation.setViewControllers([vc], animated: true)
     }
     
@@ -54,4 +46,9 @@ final class AppCoordinator {
         navigation.present(vc, animated: true)
     }
     
+    func showCurrentDayVC() {
+        let vc = CurrentDayVC()
+        vc.modalPresentationStyle = .fullScreen
+        navigation.present(vc, animated: true)
+    }
 }
