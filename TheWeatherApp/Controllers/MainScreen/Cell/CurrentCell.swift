@@ -180,23 +180,6 @@ class CurrentCell: UITableViewCell {
         label.attributedText = attributedCurrentDateTime()
         return label
     }()
-
-    func attributedCurrentDateTime() -> NSAttributedString {
-        let now = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ru_RU")
-        dateFormatter.dateFormat = "HH:mm, EEE d MMMM"
-
-        let font = UIFont(name: "Rubik-Regular", size: 16) ?? UIFont.systemFont(ofSize: 16)
-        let textColor = UIColor.customYellow
-
-        let attributedString = NSMutableAttributedString(string: dateFormatter.string(from: now), attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: 0.14
-        ])
-        return attributedString
-    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -259,12 +242,10 @@ class CurrentCell: UITableViewCell {
             detailButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             sunriseTimeLabel.heightAnchor.constraint(equalToConstant: 19),
-            //sunriseTimeLabel.widthAnchor.constraint(equalToConstant: 38),
             sunriseTimeLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 17),
             sunriseTimeLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 167),
             
             sunsetTimeLabel.heightAnchor.constraint(equalToConstant: 19),
-            //sunsetTimeLabel.widthAnchor.constraint(equalToConstant: 39),
             sunsetTimeLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -17),
             sunsetTimeLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 167),
             
@@ -302,7 +283,7 @@ class CurrentCell: UITableViewCell {
             cloudImageView.heightAnchor.constraint(equalToConstant: 18),
             cloudImageView.widthAnchor.constraint(equalToConstant: 23),
             cloudImageView.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 138),
-            cloudImageView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 83),
+            cloudImageView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 67),
             
             windImageView.heightAnchor.constraint(equalToConstant: 18),
             windImageView.widthAnchor.constraint(equalToConstant: 25),
@@ -315,17 +296,14 @@ class CurrentCell: UITableViewCell {
             humidityImageView.leadingAnchor.constraint(equalTo: windLabel.trailingAnchor, constant: 20),
             
             cloudLabel.heightAnchor.constraint(equalToConstant: 18),
-            cloudLabel.widthAnchor.constraint(equalToConstant: 16),
             cloudLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 138),
             cloudLabel.leadingAnchor.constraint(equalTo: cloudImageView.trailingAnchor, constant: 5),
             
             windLabel.heightAnchor.constraint(equalToConstant: 18),
-            windLabel.widthAnchor.constraint(equalToConstant: 47),
             windLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 138),
             windLabel.leadingAnchor.constraint(equalTo: windImageView.trailingAnchor, constant: 5),
             
             humidityLabel.heightAnchor.constraint(equalToConstant: 18),
-            humidityLabel.widthAnchor.constraint(equalToConstant: 27),
             humidityLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 138),
             humidityLabel.leadingAnchor.constraint(equalTo: humidityImageView.trailingAnchor, constant: 5),
             
@@ -336,12 +314,13 @@ class CurrentCell: UITableViewCell {
         ])
     }
 
+    //MARK: - Update
     func update(with weather: Weather) {
         let tempMin = weather.forecasts[0].parts.dayShort.temp ?? 0
         let tempMax = weather.forecasts[0].parts.nightShort.temp ?? 0
         
         if let weatherCondition = WeatherCondition(rawValue: weather.fact.condition) {
-            descriptionLabel.text = weatherCondition.russianDescription
+            descriptionLabel.text = weatherCondition.ruDescription
         } else {
             descriptionLabel.text = "Неизвестно"
         }

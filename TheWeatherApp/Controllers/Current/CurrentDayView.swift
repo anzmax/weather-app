@@ -10,6 +10,14 @@ enum CurrentCellType: Int, CaseIterable {
 
 class CurrentDayView: UIView {
     
+    var forecasts: [Forecast] = []
+    
+    var currentParts: Parts? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     lazy var backButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "backButton"), for: .normal)
@@ -61,7 +69,7 @@ class CurrentDayView: UIView {
         addSubview(locationLabel)
         addSubview(tableView)
     }
-    
+        
     private func setupConstraints() {
         backButton.translatesAutoresizingMaskIntoConstraints = false
         detailLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -82,14 +90,20 @@ class CurrentDayView: UIView {
             locationLabel.topAnchor.constraint(equalTo: detailLabel.bottomAnchor, constant: 15),
             locationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
             
-            tableView.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 40),
+            tableView.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 20),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
         ])
     }
+    
+    //MARK: - Update
+    func update(_ forecast: [Forecast]) {
+        self.forecasts = forecast
+    }
 }
 
+//MARK: - Extension
 extension CurrentDayView: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         CurrentCellType.allCases.count
@@ -117,14 +131,29 @@ extension CurrentDayView: UITableViewDelegate, UITableViewDataSource {
             switch sectionType {
             case .dates:
                 let cell = tableView.dequeueReusableCell(withIdentifier: DateCell.id, for: indexPath) as! DateCell
+                
+                cell.onDateCellTapped = { index in
+                    
+                    self.currentParts = self.forecasts[index].parts
+                }
                 return cell
+                
             case .day:
                 let cell = tableView.dequeueReusableCell(withIdentifier: WeatherCell.id, for: indexPath) as! WeatherCell
+                if let day = currentParts?.dayShort {
+                    cell.update(with: day)
+                }
                 return cell
+                
             case .night:
                 let cell = tableView.dequeueReusableCell(withIdentifier: WeatherCell.id, for: indexPath) as! WeatherCell
+                
+                if let day = currentParts?.nightShort {
+                    cell.update(with: day)
+                }
                 cell.titleLabel.text = "Ночь"
                 return cell
+                
             case .sunMoon:
                 return UITableViewCell()
             case .info:

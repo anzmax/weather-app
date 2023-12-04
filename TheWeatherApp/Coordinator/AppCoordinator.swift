@@ -40,14 +40,16 @@ final class AppCoordinator {
         navigation.present(vc, animated: true)
     }
     
-    func showTwentyFourHourVC() {
+    func showDailyForecastVC(with model: Weather) {
         let vc = DailyForecastVC(coordinator: self)
+        vc.currentWeather = model
         vc.modalPresentationStyle = .fullScreen
         navigation.present(vc, animated: true)
     }
     
-    func showCurrentDayVC() {
+    func showCurrentDayVC(with model: Weather) {
         let vc = CurrentDayVC()
+        vc.currentWeather = model
         vc.modalPresentationStyle = .fullScreen
         navigation.present(vc, animated: true)
     }

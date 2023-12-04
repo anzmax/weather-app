@@ -49,7 +49,6 @@ class SearchLocationView: UIView {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         cityLabel.translatesAutoresizingMaskIntoConstraints = false
         addLocationButton.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: topAnchor, constant: 30),
             searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),

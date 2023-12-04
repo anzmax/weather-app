@@ -123,7 +123,7 @@ class DailyForecastCell: UITableViewCell {
         contentView.addSubview(precipIndicatorLabel)
         contentView.addSubview(cloudIndicatorLabel)
     }
-    
+        
     private func setupConstraints() {
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -143,7 +143,6 @@ class DailyForecastCell: UITableViewCell {
         precipIndicatorLabel.translatesAutoresizingMaskIntoConstraints = false
         cloudIndicatorLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            dateLabel.widthAnchor.constraint(equalToConstant: 79),
             dateLabel.heightAnchor.constraint(equalToConstant: 22),
             dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             dateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
@@ -208,5 +207,19 @@ class DailyForecastCell: UITableViewCell {
             cloudIndicatorLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
             cloudIndicatorLabel.topAnchor.constraint(equalTo: precipIndicatorLabel.bottomAnchor, constant: 8)
         ])
+    }
+    
+    //MARK: - Update
+    func update(with hour: Hour) {
+        timeLabel.text = formattedTime(hourString: hour.hour)
+        currentDegreeLabel.text = "\(hour.temp)°"
+        if let weatherCondition = WeatherCondition(rawValue: hour.condition) {
+            moonLabel.text = "\(weatherCondition.ruDescription). По ощущению \(hour.feelsLike)°"
+        } else {
+            moonLabel.text = "Состояние погоды неизвестно"
+        }
+        windIndicatorLabel.text = "\(hour.windSpeed) m/s CCS"
+        precipIndicatorLabel.text = "\(hour.precipitation) %"
+        cloudIndicatorLabel.text = "\(hour.cloudness) %"
     }
 }

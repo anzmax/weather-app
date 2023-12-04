@@ -51,7 +51,6 @@ class ForecastCell: UITableViewCell {
     private func setupConstraints() {
         forecastLabel.translatesAutoresizingMaskIntoConstraints = false
         detailButton.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             forecastLabel.widthAnchor.constraint(equalToConstant: 200),
             forecastLabel.heightAnchor.constraint(equalToConstant: 22),

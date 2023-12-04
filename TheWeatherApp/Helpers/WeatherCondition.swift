@@ -14,7 +14,7 @@ enum WeatherCondition: String {
     case lightSnow = "light-snow"
     case snow = "snow"
 
-    var russianDescription: String {
+    var ruDescription: String {
         switch self {
         case .clear:
             return "Ясно"

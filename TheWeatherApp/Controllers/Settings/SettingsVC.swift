@@ -5,7 +5,6 @@ class SettingsVC: UIViewController {
     private let settingsView = SettingsView()
     private let coordinator: AppCoordinator
 
-    
     init(coordinator: AppCoordinator) {
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)

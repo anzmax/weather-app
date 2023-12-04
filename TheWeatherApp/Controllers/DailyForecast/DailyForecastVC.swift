@@ -2,11 +2,12 @@ import UIKit
 
 class DailyForecastVC: UIViewController {
     
-    private let twentyFourHourView = DailyForecastView()
+    private let dailyForecastView = DailyForecastView()
     private let coordinator: AppCoordinator
+    var currentWeather: Weather?
     
     override func loadView() {
-        view = twentyFourHourView
+        view = dailyForecastView
     }
     
     init(coordinator: AppCoordinator) {
@@ -20,7 +21,11 @@ class DailyForecastVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        twentyFourHourView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        dailyForecastView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        dailyForecastView.locationLabel.text = "\(currentWeather?.geoObject.locality.name ?? "")"
+        
+        guard let hours = currentWeather?.forecasts[0].hours else { return }
+        dailyForecastView.updateHour(hours)
     }
     
     @objc func backButtonTapped() {

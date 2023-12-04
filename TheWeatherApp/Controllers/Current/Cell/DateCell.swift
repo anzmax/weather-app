@@ -28,10 +28,6 @@ class DateCollectionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func update(with date: String) {
-        dateLabel.text = date
-    }
-    
     private func setupViews() {
         contentView.layer.cornerRadius = 5
         contentView.addSubview(dateLabel)
@@ -49,30 +45,19 @@ class DateCollectionCell: UICollectionViewCell {
             dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -7),
         ])
     }
+    
+    //MARK: - Update
+    func update(with date: String) {
+        dateLabel.text = date
+    }
 }
 
 class DateCell: UITableViewCell {
     
+    var onDateCellTapped: ((Int)->())?
+    
     static let id = "DateCell"
-    
-    func generateDateRange() -> [String] {
-        var dates: [String] = []
-        let calendar = Calendar.current
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ru_RU")
-        dateFormatter.dateFormat = "dd/MM EEE"
 
-        for i in 0..<7 {
-            if let date = calendar.date(byAdding: .day, value: i, to: Date()) {
-                let dateString = dateFormatter.string(from: date)
-                let capitalizedDateString = dateString.uppercased()
-                dates.append(capitalizedDateString)
-            }
-        }
-        return dates
-    }
-
-    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         
@@ -132,6 +117,9 @@ extension DateCell: UICollectionViewDelegate, UICollectionViewDataSource {
         let cell = collectionView.cellForItem(at: indexPath) as! DateCollectionCell
         cell.contentView.backgroundColor = .customBlue
         cell.dateLabel.textColor = .white
+        
+        print(indexPath.row)
+        onDateCellTapped?(indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

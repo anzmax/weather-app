@@ -28,7 +28,6 @@ class MainScreenView: UIView {
         return tableView
     }()
 
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -54,29 +53,9 @@ class MainScreenView: UIView {
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
         ])
     }
-    
-    func attributedDateString(daysToAdd: Int) -> NSAttributedString {
-        let now = Date()
-        let calendar = Calendar.current
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ru_RU")
-        dateFormatter.dateFormat = "dd/MM"
-
-        guard let futureDate = calendar.date(byAdding: .day, value: daysToAdd, to: now) else { return NSAttributedString() }
-
-        let font = UIFont.rubik(.regular, size: 16)
-        let textColor = UIColor.customGray
-
-        let attributedString = NSMutableAttributedString(string: dateFormatter.string(from: futureDate), attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: 0.16
-        ])
-        
-        return attributedString
-    }
 }
 
+//MARK: - Extensions
 extension MainScreenView {
     func update(_ weather: Weather) {
         self.weather = weather

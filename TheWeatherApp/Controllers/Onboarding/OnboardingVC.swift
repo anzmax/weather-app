@@ -27,6 +27,7 @@ class OnboardingVC: UIViewController {
         onboardingView.dismissGeoButton.addTarget(self, action: #selector(buttonTapped(button: )), for: .touchUpInside)
     }
 
+    //MARK: - Action
     @objc func buttonTapped(button: UIButton) {
         switch button {
         case onboardingView.useGeoButton:
@@ -37,29 +38,6 @@ class OnboardingVC: UIViewController {
             break
         }
     }
-    
-//    private func handleUseGeoButtonTap() {
-//        locationService.requestLocationAuthorization()
-//        locationService.onLocationUpdated = { [weak self] location in
-//            print("Получено местоположение: \(location)")
-//            
-//            WeatherService.shared.fetchWeather(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude) { result in
-//                DispatchQueue.main.async {
-//                    switch result {
-//                    case .success(let weatherData):
-//                        let latitude = weatherData.lat
-//                        let longitude = weatherData.lon
-//                        
-//                        print("Долгота: \(latitude), Широта: \(longitude)")
-//                        
-//                        self?.coordinator.showMainViewController(with: latitude, longitude: longitude)
-//                    case .failure(let error):
-//                        print("Ошибка при запросе погоды: \(error)")
-//                    }
-//                }
-//            }
-//        }
-//    }
     
     private func handleUseGeoButtonTap() {
         locationService.requestLocationAuthorization()
@@ -75,10 +53,8 @@ class OnboardingVC: UIViewController {
                         let longitude = weather.info.lon
                         
                         print("Долгота: \(latitude), Широта: \(longitude)")
-                        
                         print(weather)
                         self?.coordinator.showMainViewController(with: weather)
-                        //self?.coordinator.showMainViewController()
                     case .failure(let error):
                         print("Ошибка при запросе погоды: \(error)")
                     }

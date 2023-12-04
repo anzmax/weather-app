@@ -48,19 +48,6 @@ class HourlyCollectionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func formatTime(hourString: String) -> String {
-        if let hourInt = Int(hourString) {
-            return String(format: "%02d:00", hourInt)
-        } else {
-            return "00:00"
-        }
-    }
-
-    func updateHour(with hour: Hour) {
-        timeLabel.text = formatTime(hourString: hour.hour)
-        tempLabel.text = "\(hour.temp)°"
-    }
-    
     private func setupViews() {
         contentView.layer.cornerRadius = 22
         contentView.layer.borderWidth = 0.5
@@ -94,6 +81,12 @@ class HourlyCollectionCell: UICollectionViewCell {
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
 
         ])
+    }
+    
+    //MARK: - Update
+    func updateHour(with hour: Hour) {
+        timeLabel.text = formattedTime(hourString: hour.hour)
+        tempLabel.text = "\(hour.temp)°"
     }
 }
 
@@ -145,11 +138,20 @@ class HourlyCell: UITableViewCell {
         ])
     }
     
+    //MARK: - Update
     func update(_ hours: [Hour]) {
-        self.hours = hours
+        var result: [Hour] = []
+        for (index, hour) in hours.enumerated() {
+            
+            if index % 3 == 0 {
+                result.append(hour)
+            }
+        }
+        self.hours = result
     }
 }
 
+//MARK: - Extension
 extension HourlyCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         hours.count

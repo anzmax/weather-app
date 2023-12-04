@@ -7,7 +7,7 @@ class WeatherCell: UITableViewCell {
     lazy var feelsLikeLabel = CustomDescriptionLabel(text: "По ощущениям", color: .customBlack)
     lazy var windLabel = CustomDescriptionLabel(text: "Ветер", color: .customBlack)
     lazy var uvIndexLabel = CustomDescriptionLabel(text: "УФ индекс", color: .customBlack)
-    lazy var rainChanceLabel = CustomDescriptionLabel(text: "Дождь", color: .customBlack)
+    lazy var rainChanceLabel = CustomDescriptionLabel(text: "Осадки", color: .customBlack)
     lazy var cloudinessLabel = CustomDescriptionLabel(text: "Облачность", color: .customBlack)
     
     lazy var currentImageView = WeatherIconView(named: "precIcon")
@@ -83,7 +83,7 @@ class WeatherCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+        
     private func setupViews() {
         contentView.backgroundColor = .customLightBlue
         contentView.layer.cornerRadius = 5
@@ -238,5 +238,20 @@ class WeatherCell: UITableViewCell {
              separator.topAnchor.constraint(equalTo: belowView.bottomAnchor, constant: 8)
          ])
      }
+    
+    //MARK: - Update
+    func update(with day: Day) {
+        if let weatherCondition = WeatherCondition(rawValue: day.condition) {
+            conditionLabel.text = "\(weatherCondition.ruDescription)"
+        } else {
+            conditionLabel.text = "Состояние погоды неизвестно"
+        }
+        tempLabel.text = "\(day.temp ?? 0)"
+        feelsLikePercentageLabel.text = "\(day.feelsLike)°"
+        speedLabel.text = "\(day.windSpeed) m\\s ЗЮЗ"
+        uvNumberLabel.text = "\(day.uvIndex ?? 0)"
+        rainPercentageLabel.text = "\(day.precipitation)%"
+        cloudPercentageLabel.text = "\(Int(day.cloudness))%"
+    }
  }
 

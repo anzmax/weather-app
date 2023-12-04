@@ -47,6 +47,7 @@ class DailyCell: UITableViewCell {
             .kern: 0.16
         ])
         label.attributedText = attributedString
+        label.numberOfLines = 0
         return label
     }()
     
@@ -83,20 +84,7 @@ class DailyCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    func update(with forecast: Forecast) {
-        
-        if let weatherCondition = WeatherCondition(rawValue: forecast.parts.dayShort.condition) {
-            descriptionLabel.text = weatherCondition.russianDescription
-        } else {
-            descriptionLabel.text = "Неизвестно"
-        }
-        percentageLabel.text = "\(forecast.parts.dayShort.precipitation)%"
-        let tempMin = forecast.parts.dayShort.tempMin ?? 0
-        let tempMax = forecast.parts.dayShort.tempMax ?? 0
-        tempLabel.text = "\(tempMin)° - \(tempMax)°"
-    }
-
+    
     private func setupViews() {
         contentView.addSubview(mainView)
         mainView.addSubview(dateLabel)
@@ -155,6 +143,19 @@ class DailyCell: UITableViewCell {
             currentDetailButton.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -10),
             currentDetailButton.centerYAnchor.constraint(equalTo: mainView.centerYAnchor)
         ])
+    }
+    
+    //MARK: - Update
+    func update(with forecast: Forecast) {
+        if let weatherCondition = WeatherCondition(rawValue: forecast.parts.dayShort.condition) {
+            descriptionLabel.text = weatherCondition.ruDescription
+        } else {
+            descriptionLabel.text = "Неизвестно"
+        }
+        percentageLabel.text = "\(forecast.parts.dayShort.precipitation)%"
+        let tempMin = forecast.parts.dayShort.tempMin ?? 0
+        let tempMax = forecast.parts.dayShort.tempMax ?? 0
+        tempLabel.text = "\(tempMin)° - \(tempMax)°"
     }
     
     @objc func currentDetailButtonPressed() {

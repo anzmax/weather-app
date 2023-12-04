@@ -2,6 +2,12 @@ import UIKit
 
 class DailyForecastView: UIView {
     
+    var hours: [Hour] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     lazy var backButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "backButton"), for: .normal)
@@ -45,7 +51,7 @@ class DailyForecastView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+        
     private func setupViews() {
         backgroundColor = .white
         addSubview(backButton)
@@ -81,32 +87,28 @@ class DailyForecastView: UIView {
         ])
     }
     
-    func generateTimeSlots() -> [String] {
-        var timeSlots: [String] = []
-        var dateComponents = DateComponents()
-        for hour in stride(from: 0, to: 24, by: 3) {
-            dateComponents.hour = hour
-            if let date = Calendar.current.date(from: dateComponents) {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "HH:mm"
-                let timeString = dateFormatter.string(from: date)
-                timeSlots.append(timeString)
+    //MARK: - Update
+    func updateHour(_ hours: [Hour]) {
+        var result: [Hour] = []
+        for (index, hour) in hours.enumerated() {
+            if index % 3 == 0 {
+                result.append(hour)
             }
         }
-        return timeSlots
+        self.hours = result
     }
 }
 
+//MARK: - Extension
 extension DailyForecastView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return generateTimeSlots().count
+        hours.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DailyForecastCell.id, for: indexPath) as! DailyForecastCell
-        let timeSlots = generateTimeSlots()
-        let slotIndex = indexPath.row % timeSlots.count
-        cell.timeLabel.text = timeSlots[slotIndex]
+        let hour = hours[indexPath.row]
+        cell.update(with: hour)
         return cell
     }
 }
