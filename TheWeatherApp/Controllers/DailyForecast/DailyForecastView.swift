@@ -8,28 +8,15 @@ class DailyForecastView: UIView {
         }
     }
     
+    lazy var detailLabel = RegularLabel(text: "Прогноз на 24 часа", color: .customGray, size: 16)
+    lazy var locationLabel = MediumLabel(text: "Location", color: .customBlack, size: 18)
+    
     lazy var backButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "backButton"), for: .normal)
         return button
     }()
-    
-    lazy var detailLabel = CustomLabel(text: "Прогноз на 24 часа")
-    
-    lazy var locationLabel: UILabel = {
-        let label = UILabel()
-        let font = UIFont(name: "Rubik-Medium", size: 18) ?? UIFont.systemFont(ofSize: 18)
-        let textColor = UIColor.black
-
-        let attributedString = NSMutableAttributedString(string: "Location", attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: 3.06
-        ])
-        label.attributedText = attributedString
-        return label
-    }()
-    
+        
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .customLightBlue
@@ -54,17 +41,13 @@ class DailyForecastView: UIView {
         
     private func setupViews() {
         backgroundColor = .white
-        addSubview(backButton)
-        addSubview(detailLabel)
-        addSubview(locationLabel)
-        addSubview(tableView)
+        [backButton, detailLabel, locationLabel, tableView].forEach {
+            addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
     
     private func setupConstraints() {
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        detailLabel.translatesAutoresizingMaskIntoConstraints = false
-        locationLabel.translatesAutoresizingMaskIntoConstraints = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             backButton.widthAnchor.constraint(equalToConstant: 15),
             backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 17),

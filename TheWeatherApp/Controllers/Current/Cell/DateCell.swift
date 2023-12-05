@@ -4,19 +4,7 @@ class DateCollectionCell: UICollectionViewCell {
     
     static let id = "DateCollectionCell"
     
-    lazy var dateLabel: UILabel = {
-        let label = UILabel()
-        let font = UIFont.rubik(.regular, size: 17)
-        let textColor = UIColor.customBlack
-
-        let attributedString = NSMutableAttributedString(string: "00/00", attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: -0.18
-        ])
-        label.attributedText = attributedString
-        return label
-    }()
+    lazy var dateLabel = RegularLabel(text: "00/00", color: .black, size: 17)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,7 +24,7 @@ class DateCollectionCell: UICollectionViewCell {
     private func setupConstraints() {
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            dateLabel.widthAnchor.constraint(equalToConstant: 80),
+            dateLabel.widthAnchor.constraint(equalToConstant: 82),
             dateLabel.heightAnchor.constraint(equalToConstant: 22),
             dateLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             dateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 7),
@@ -61,7 +49,7 @@ class DateCell: UITableViewCell {
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         
-        layout.itemSize = CGSize(width: 88, height: 36)
+        layout.itemSize = CGSize(width: 90, height: 36)
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 18
         
@@ -117,8 +105,6 @@ extension DateCell: UICollectionViewDelegate, UICollectionViewDataSource {
         let cell = collectionView.cellForItem(at: indexPath) as! DateCollectionCell
         cell.contentView.backgroundColor = .customBlue
         cell.dateLabel.textColor = .white
-        
-        print(indexPath.row)
         onDateCellTapped?(indexPath.row)
     }
     

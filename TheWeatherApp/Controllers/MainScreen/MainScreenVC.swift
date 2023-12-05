@@ -5,7 +5,6 @@ class MainScreenVC: UIViewController {
     
     private let mainScreenView = MainScreenView()
     private let coordinator: AppCoordinator
-    //var currentLocation: CLLocation?
     var currentWeather: Weather?
     
     override func loadView() {
@@ -24,6 +23,7 @@ class MainScreenVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         buttonAction()
+        setupBarButton()
         if let currentWeather {
             mainScreenView.update(currentWeather)
         }

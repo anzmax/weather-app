@@ -39,7 +39,6 @@ class MainScreenView: UIView {
     }
     
     private func setupViews() {
-
         backgroundColor = .white
         addSubview(tableView)
     }

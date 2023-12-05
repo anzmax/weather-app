@@ -30,6 +30,28 @@ func attributedDateString(daysToAdd: Int) -> NSAttributedString {
     return attributedString
 }
 
+func attributedDateString() -> NSAttributedString {
+    let now = Date()
+    let dateFormatter = DateFormatter()
+    dateFormatter.locale = Locale(identifier: "ru_RU")
+    dateFormatter.dateFormat = "E dd/MM"
+
+    var dateString = dateFormatter.string(from: now)
+    dateString = dateString.capitalizingFirstLetter()
+
+    let font = UIFont.rubik(.medium, size: 18)
+
+    let textColor = UIColor.customBlack
+
+    let attributedString = NSMutableAttributedString(string: dateString, attributes: [
+        .font: font,
+        .foregroundColor: textColor,
+        .kern: 0.16
+    ])
+    
+    return attributedString
+}
+
 func attributedCurrentDateTime() -> NSAttributedString {
     let now = Date()
     let dateFormatter = DateFormatter()

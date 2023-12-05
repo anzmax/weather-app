@@ -9,6 +9,7 @@ extension UIColor {
     static let customBlack = UIColor(red: 0.154, green: 0.152, blue: 0.135, alpha: 1)
     static let customPaleOrange = UIColor(red: 0.996, green: 0.929, blue: 0.914, alpha: 1)
     static let customYellow = UIColor(red: 0.965, green: 0.867, blue: 0.004, alpha: 1)
+    static let customGreen = UIColor(red: 0.507, green: 0.792, blue: 0.501, alpha: 1)
 }
 
 
@@ -16,6 +17,8 @@ extension String {
     func capitalizingFirstLetter() -> String {
         return prefix(1).lowercased() + dropFirst()
     }
+    
+    static let descriptionText = "Качество воздуха считается\nудовлетворительным и загрязнения \nвоздуха представляются незначительными \nв пределах нормы"
 }
 
 extension UIFont {

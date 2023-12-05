@@ -73,22 +73,13 @@ class OnboardingView: UIView {
     
     private func setupViews() {
         backgroundColor = .customBlue
-        addSubview(imageView)
-        addSubview(titleLabel)
-        addSubview(secondaryLabel)
-        addSubview(thirdLabel)
-        addSubview(useGeoButton)
-        addSubview(dismissGeoButton)
+        [imageView, titleLabel, secondaryLabel, thirdLabel, useGeoButton, dismissGeoButton].forEach {
+            addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
     
     private func setupConstraints() {
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        secondaryLabel.translatesAutoresizingMaskIntoConstraints = false
-        thirdLabel.translatesAutoresizingMaskIntoConstraints = false
-        useGeoButton.translatesAutoresizingMaskIntoConstraints = false
-        dismissGeoButton.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor, constant: 148),
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),

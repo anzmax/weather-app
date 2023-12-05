@@ -1,42 +1,12 @@
 import UIKit
 
-class HourlyCollectionCell: UICollectionViewCell {
+final class HourlyCollectionCell: UICollectionViewCell {
     
     static let id = "HourlyCollectionCell"
         
-    lazy var timeLabel: UILabel = {
-        let label = UILabel()
-        let font = UIFont.rubik(.regular, size: 12.5)
-        let textColor = UIColor.customBlack
-
-        let attributedString = NSMutableAttributedString(string: "00:00", attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: 0.28
-        ])
-        label.attributedText = attributedString
-        return label
-    }()
-    
-    lazy var tempLabel: UILabel = {
-        let label = UILabel()
-        let font = UIFont.rubik(.regular, size: 12)
-        let textColor = UIColor.customBlack
-
-        let attributedString = NSMutableAttributedString(string: "23°", attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: 0.28
-        ])
-        label.attributedText = attributedString
-        return label
-    }()
-    
-    lazy var imageView: UIImageView = {
-        let view = UIImageView ()
-        view.image = UIImage(named: "sun")
-        return view
-    }()
+    lazy var timeLabel = RegularLabel(text: "00:00", color: .customBlack, size: 12.5)
+    lazy var tempLabel = RegularLabel(text: "23°", color: .customBlack, size: 12)
+    lazy var imageView = CustomImageView(named: "sun")
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,24 +22,19 @@ class HourlyCollectionCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 22
         contentView.layer.borderWidth = 0.5
         contentView.layer.borderColor = UIColor.customDarkBlue.cgColor
-        
-        contentView.addSubview(timeLabel)
-        contentView.addSubview(tempLabel)
-        contentView.addSubview(imageView)
+
+        [timeLabel, tempLabel, imageView].forEach {
+            contentView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
     
     private func setupConstraints() {
-        timeLabel.translatesAutoresizingMaskIntoConstraints = false
-        tempLabel.translatesAutoresizingMaskIntoConstraints = false
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
-            timeLabel.widthAnchor.constraint(equalToConstant: 37),
             timeLabel.heightAnchor.constraint(equalToConstant: 18),
             timeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
             timeLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             
-            tempLabel.widthAnchor.constraint(equalToConstant: 20),
             tempLabel.heightAnchor.constraint(equalToConstant: 18),
             tempLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 57),
             tempLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
@@ -98,7 +63,6 @@ class HourlyCell: UITableViewCell {
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        
         layout.itemSize = CGSize(width: 43, height: 84)
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 16

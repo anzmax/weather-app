@@ -1,21 +1,10 @@
 import UIKit
 
-class ForecastCell: UITableViewCell {
+final class ForecastCell: UITableViewCell {
     
     static let id = "ForecastCell"
     
-    lazy var forecastLabel: UILabel = {
-        let label = UILabel()
-        let font = UIFont.rubik(.medium, size: 18)
-        let textColor = UIColor.black
-        let attributedString = NSMutableAttributedString(string: "Ежедневный прогноз", attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: 0.36
-        ])
-        label.attributedText = attributedString
-        return label
-    }()
+    lazy var forecastLabel = MediumLabel(text: "Ежедневный прогноз", color: .customBlack, size: 18)
     
     lazy var detailButton: UIButton = {
         let button = UIButton()
@@ -44,13 +33,13 @@ class ForecastCell: UITableViewCell {
     }
     
     private func setupViews() {
-        contentView.addSubview(forecastLabel)
-        contentView.addSubview(detailButton)
+        [forecastLabel, detailButton].forEach {
+            contentView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
     
     private func setupConstraints() {
-        forecastLabel.translatesAutoresizingMaskIntoConstraints = false
-        detailButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             forecastLabel.widthAnchor.constraint(equalToConstant: 200),
             forecastLabel.heightAnchor.constraint(equalToConstant: 22),

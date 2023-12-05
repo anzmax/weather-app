@@ -215,16 +215,18 @@ struct Hour: Codable {
 struct Parts: Codable {
     let dayShort: Day
     let nightShort: Day
-    //let morning, day: Day
-    //let evening, night: Day
+    let morning: Day
+    let day: Day
+    let evening: Day
+    let night: Day
     
     enum CodingKeys: String, CodingKey {
         case dayShort = "day_short"
         case nightShort = "night_short"
-        //case morning
-        //case day
-        //case evening
-        //case night
+        case morning
+        case day
+        case evening
+        case night
     }
 }
 

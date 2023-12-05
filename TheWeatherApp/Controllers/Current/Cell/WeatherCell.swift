@@ -4,76 +4,35 @@ class WeatherCell: UITableViewCell {
     
     static let id = "WeatherCell"
     
-    lazy var feelsLikeLabel = CustomDescriptionLabel(text: "По ощущениям", color: .customBlack)
-    lazy var windLabel = CustomDescriptionLabel(text: "Ветер", color: .customBlack)
-    lazy var uvIndexLabel = CustomDescriptionLabel(text: "УФ индекс", color: .customBlack)
-    lazy var rainChanceLabel = CustomDescriptionLabel(text: "Осадки", color: .customBlack)
-    lazy var cloudinessLabel = CustomDescriptionLabel(text: "Облачность", color: .customBlack)
+    lazy var tempLabel = RegularLabel(text: "13°", color: .customBlack, size: 30)
+    lazy var conditionLabel = MediumLabel(text: "Ливни", color: .customBlack, size: 18)
+    lazy var titleLabel = RegularLabel(text: "День", color: .customBlack, size: 18)
     
-    lazy var currentImageView = WeatherIconView(named: "precIcon")
-    lazy var feelsLikeImageView = WeatherIconView(named: "feelsLike")
-    lazy var windImageView = WeatherIconView(named: "wind")
-    lazy var uvIndexImageView = WeatherIconView(named: "sun")
-    lazy var rainImageView = WeatherIconView(named: "precIcon")
-    lazy var cloudinessImageView = WeatherIconView(named: "cloudness")
+    lazy var feelsLikeLabel = RegularLabel(text: "По ощущениям", color: .customBlack, size: 14)
+    lazy var windLabel = RegularLabel(text: "Ветер", color: .customBlack, size: 14)
+    lazy var uvIndexLabel = RegularLabel(text: "УФ индекс", color: .customBlack, size: 14)
+    lazy var rainChanceLabel = RegularLabel(text: "Осадки", color: .customBlack, size: 14)
+    lazy var cloudinessLabel = RegularLabel(text: "Облачность", color: .customBlack, size: 14)
     
-    lazy var feelsLikePercentageLabel = ConditionLabel(text: "13°")
-    lazy var speedLabel = ConditionLabel(text: "5 m\\s ЗЮЗ")
-    lazy var uvNumberLabel = ConditionLabel(text: "4( умерен.)")
-    lazy var rainPercentageLabel = ConditionLabel(text: "55%")
-    lazy var cloudPercentageLabel = ConditionLabel(text: "72%")
+    lazy var currentImageView = CustomImageView(named: "precIcon")
+    lazy var feelsLikeImageView = CustomImageView(named: "feelsLike")
+    lazy var windImageView = CustomImageView(named: "wind")
+    lazy var uvIndexImageView = CustomImageView(named: "sun")
+    lazy var rainImageView = CustomImageView(named: "precIcon")
+    lazy var cloudinessImageView = CustomImageView(named: "cloudness")
+    
+    lazy var feelsLikePercentageLabel = RegularLabel(text: "13°", color: .customBlack, size: 18)
+    lazy var speedLabel = RegularLabel(text: "5 m\\s ЗЮЗ", color: .customBlack, size: 18)
+    lazy var uvNumberLabel = RegularLabel(text: "4( умерен.)", color: .customBlack, size: 18)
+    lazy var rainPercentageLabel = RegularLabel(text: "55%", color: .customBlack, size: 18)
+    lazy var cloudPercentageLabel = RegularLabel(text: "72%", color: .customBlack, size: 18)
     
     lazy var feelsLikeSeparator = createSeparator()
     lazy var windSeparator = createSeparator()
     lazy var uvIndexSeparator = createSeparator()
     lazy var rainSeparator = createSeparator()
     lazy var cloudinessSeparator = createSeparator()
-    
-    lazy var tempLabel: UILabel = {
-        let label = UILabel()
-        let font = UIFont.rubik(.regular, size: 30)
-        let textColor = UIColor.customBlack
-        
-        let attributedString = NSMutableAttributedString(string: "13°", attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: 0.6
-        ])
-        
-        label.attributedText = attributedString
-        return label
-    }()
-    
-    lazy var conditionLabel: UILabel = {
-        let label = UILabel()
-        let font = UIFont.rubik(.medium, size: 18)
-        let textColor = UIColor.customBlack
-        
-        let attributedString = NSMutableAttributedString(string: "Ливни", attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: 0.36
-        ])
-        
-        label.attributedText = attributedString
-        return label
-    }()
-    
-    lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        let font = UIFont.rubik(.regular, size: 18)
-        let textColor = UIColor.customBlack
-        
-        let attributedString = NSMutableAttributedString(string: "День", attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: -0.18
-        ])
-        
-        label.attributedText = attributedString
-        return label
-    }()
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -83,65 +42,36 @@ class WeatherCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
+    
+    //MARK: - Update
+    func update(with day: Day) {
+        if let weatherCondition = WeatherCondition(rawValue: day.condition) {
+            conditionLabel.text = "\(weatherCondition.ruDescription)"
+        } else {
+            conditionLabel.text = "Состояние погоды неизвестно"
+        }
+        tempLabel.text = "\(day.temp ?? 0)"
+        feelsLikePercentageLabel.text = "\(day.feelsLike)°"
+        speedLabel.text = "\(day.windSpeed) m\\s ЗЮЗ"
+        uvNumberLabel.text = "\(day.uvIndex ?? 0)"
+        rainPercentageLabel.text = "\(day.precipitation)%"
+        cloudPercentageLabel.text = "\(Int(day.cloudness))%"
+    }
+ }
+
+//MARK: - Layout
+extension WeatherCell {
     private func setupViews() {
         contentView.backgroundColor = .customLightBlue
         contentView.layer.cornerRadius = 5
         contentView.layer.masksToBounds = true
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(tempLabel)
-        contentView.addSubview(currentImageView)
-        contentView.addSubview(conditionLabel)
-        
-        contentView.addSubview(feelsLikeImageView)
-        contentView.addSubview(windImageView)
-        contentView.addSubview(uvIndexImageView)
-        contentView.addSubview(rainImageView)
-        contentView.addSubview(cloudinessImageView)
-        
-        contentView.addSubview(feelsLikeLabel)
-        contentView.addSubview(windLabel)
-        contentView.addSubview(uvIndexLabel)
-        contentView.addSubview(rainChanceLabel)
-        contentView.addSubview(cloudinessLabel)
-        
-        contentView.addSubview(feelsLikePercentageLabel)
-        contentView.addSubview(speedLabel)
-        contentView.addSubview(uvNumberLabel)
-        contentView.addSubview(rainPercentageLabel)
-        contentView.addSubview(cloudPercentageLabel)
-        
-        contentView.addSubview(feelsLikeSeparator)
-        contentView.addSubview(windSeparator)
-        contentView.addSubview(uvIndexSeparator)
-        contentView.addSubview(rainSeparator)
-        contentView.addSubview(cloudinessSeparator)
+        [titleLabel, tempLabel, currentImageView, conditionLabel, feelsLikeImageView, windImageView, uvIndexImageView, rainImageView, cloudinessImageView, feelsLikeLabel, windLabel, uvIndexLabel, rainChanceLabel, cloudinessLabel, feelsLikePercentageLabel, speedLabel, uvNumberLabel, rainPercentageLabel, cloudPercentageLabel, feelsLikeSeparator, windSeparator, uvIndexSeparator, rainSeparator, cloudinessSeparator].forEach {
+            contentView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
     
     private func setupConstraints() {
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        tempLabel.translatesAutoresizingMaskIntoConstraints = false
-        currentImageView.translatesAutoresizingMaskIntoConstraints = false
-        conditionLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        feelsLikeImageView.translatesAutoresizingMaskIntoConstraints = false
-        windImageView.translatesAutoresizingMaskIntoConstraints = false
-        uvIndexImageView.translatesAutoresizingMaskIntoConstraints = false
-        rainImageView.translatesAutoresizingMaskIntoConstraints = false
-        cloudinessImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        feelsLikeLabel.translatesAutoresizingMaskIntoConstraints = false
-        windLabel.translatesAutoresizingMaskIntoConstraints = false
-        uvIndexLabel.translatesAutoresizingMaskIntoConstraints = false
-        rainChanceLabel.translatesAutoresizingMaskIntoConstraints = false
-        cloudinessLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        feelsLikePercentageLabel.translatesAutoresizingMaskIntoConstraints = false
-        speedLabel.translatesAutoresizingMaskIntoConstraints = false
-        uvNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-        rainPercentageLabel.translatesAutoresizingMaskIntoConstraints = false
-        cloudPercentageLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         setupSeparatorConstraints(separator: feelsLikeSeparator, belowView: feelsLikeLabel)
         setupSeparatorConstraints(separator: windSeparator, belowView: windLabel)
         setupSeparatorConstraints(separator: uvIndexSeparator, belowView: uvIndexLabel)
@@ -151,7 +81,7 @@ class WeatherCell: UITableViewCell {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 21),
-            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -298),
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -284),
             
             tempLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 32),
             tempLabel.heightAnchor.constraint(equalToConstant: 36),
@@ -226,7 +156,6 @@ class WeatherCell: UITableViewCell {
     private func createSeparator() -> UIView {
          let separator = UIView()
          separator.backgroundColor = UIColor.customDarkBlue
-         separator.translatesAutoresizingMaskIntoConstraints = false
          return separator
      }
 
@@ -238,20 +167,4 @@ class WeatherCell: UITableViewCell {
              separator.topAnchor.constraint(equalTo: belowView.bottomAnchor, constant: 8)
          ])
      }
-    
-    //MARK: - Update
-    func update(with day: Day) {
-        if let weatherCondition = WeatherCondition(rawValue: day.condition) {
-            conditionLabel.text = "\(weatherCondition.ruDescription)"
-        } else {
-            conditionLabel.text = "Состояние погоды неизвестно"
-        }
-        tempLabel.text = "\(day.temp ?? 0)"
-        feelsLikePercentageLabel.text = "\(day.feelsLike)°"
-        speedLabel.text = "\(day.windSpeed) m\\s ЗЮЗ"
-        uvNumberLabel.text = "\(day.uvIndex ?? 0)"
-        rainPercentageLabel.text = "\(day.precipitation)%"
-        cloudPercentageLabel.text = "\(Int(day.cloudness))%"
-    }
- }
-
+}

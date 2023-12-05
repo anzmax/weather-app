@@ -2,11 +2,18 @@ import UIKit
 
 class SettingsView: UIView {
     
-    lazy var backgroundImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "settingsBG")
-        return imageView
-    }()
+    lazy var backgroundImageView = CustomImageView(named: "settingsBG")
+    
+    lazy var settingsLabel = MediumLabel(text: "Настройки", color: .customBlack, size: 18)
+    lazy var tempLabel = RegularLabel(text: "Температура", color: .customGray, size: 16)
+    lazy var speedLabel = RegularLabel(text: "Скорость ветра", color: .customGray, size: 16)
+    lazy var dateFormatLabel = RegularLabel(text: "Формат времени", color: .customGray, size: 16)
+    lazy var notificationLabel = RegularLabel(text: "Уведомления", color: .customGray, size: 16)
+    
+    lazy var tempSegmentControl = CustomSegmentedControl(items: ["C", "F"])
+    lazy var speedSegmentControl = CustomSegmentedControl(items: ["Mi", "Km"])
+    lazy var dateFormatSegmentControl = CustomSegmentedControl(items: ["12", "24"])
+    lazy var notificationSegmentControl = CustomSegmentedControl(items: ["On", "Off"])
     
     lazy var centerView: UIView = {
         let view = UIView()
@@ -14,24 +21,6 @@ class SettingsView: UIView {
         view.layer.cornerRadius = 10
         return view
     }()
-    
-    lazy var settingsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Настройки"
-        label.font = UIFont(name: "Rubik-Medium", size: 18)
-        label.textColor = .black
-        return label
-    }()
-    
-    lazy var tempLabel = CustomLabel(text: "Температура")
-    lazy var speedLabel = CustomLabel(text: "Скорость ветра")
-    lazy var dateFormatLabel = CustomLabel(text: "Формат времени")
-    lazy var notificationLabel = CustomLabel(text: "Уведомления")
-    
-    lazy var tempSegmentControl = CustomSegmentedControl(items: ["C", "F"])
-    lazy var speedSegmentControl = CustomSegmentedControl(items: ["Mi", "Km"])
-    lazy var dateFormatSegmentControl = CustomSegmentedControl(items: ["12", "24"])
-    lazy var notificationSegmentControl = CustomSegmentedControl(items: ["On", "Off"])
     
     lazy var acceptSettingsButton: UIButton = {
         let button = UIButton()
@@ -53,38 +42,22 @@ class SettingsView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+}
+
+//MARK: - Layout
+extension SettingsView {
     private func setupViews() {
-        addSubview(backgroundImageView)
-        addSubview(centerView)
-        centerView.addSubview(settingsLabel)
-        centerView.addSubview(tempLabel)
-        centerView.addSubview(speedLabel)
-        centerView.addSubview(dateFormatLabel)
-        centerView.addSubview(notificationLabel)
-        centerView.addSubview(tempSegmentControl)
-        centerView.addSubview(speedSegmentControl)
-        centerView.addSubview(dateFormatSegmentControl)
-        centerView.addSubview(notificationSegmentControl)
-        centerView.addSubview(acceptSettingsButton)
+        [backgroundImageView, centerView].forEach {
+            addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        [settingsLabel, tempLabel, speedLabel, dateFormatLabel, notificationLabel, tempSegmentControl, speedSegmentControl, dateFormatSegmentControl, notificationSegmentControl, acceptSettingsButton].forEach {
+            centerView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
     
     private func setupConstraints() {
-        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-        centerView.translatesAutoresizingMaskIntoConstraints = false
-        settingsLabel.translatesAutoresizingMaskIntoConstraints = false
-        acceptSettingsButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        tempLabel.translatesAutoresizingMaskIntoConstraints = false
-        speedLabel.translatesAutoresizingMaskIntoConstraints = false
-        dateFormatLabel.translatesAutoresizingMaskIntoConstraints = false
-        notificationLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        tempSegmentControl.translatesAutoresizingMaskIntoConstraints = false
-        speedSegmentControl.translatesAutoresizingMaskIntoConstraints = false
-        dateFormatSegmentControl.translatesAutoresizingMaskIntoConstraints = false
-        notificationSegmentControl.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
             backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor),

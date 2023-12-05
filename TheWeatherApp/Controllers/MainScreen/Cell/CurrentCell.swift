@@ -1,103 +1,36 @@
 import UIKit
 
-class CurrentCell: UITableViewCell {
+final class CurrentCell: UITableViewCell {
     
     static let id = "CurrentCell"
     
     var buttonAction: (() -> Void)?
     
-    lazy var mainView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .customBlue
-        view.layer.cornerRadius = 5
-        return view
-    }()
+    lazy var mainView = CustomView(backgroundColor: .customBlue, cornerRadius: 5)
     
-    lazy var sunriseTimeLabel: UILabel = {
+    lazy var sunriseImageView = CustomImageView(named: "sunrise")
+    lazy var sunsetImageView = CustomImageView(named: "sunset")
+    lazy var ellipseImageView = CustomImageView(named: "ellipse")
+    lazy var cloudImageView = CustomImageView(named: "cloudSun")
+    lazy var windImageView = CustomImageView(named: "windWhite")
+    lazy var humidityImageView = CustomImageView(named: "humidityWhite")
+    
+    lazy var cloudLabel = RegularLabel(text: "0", color: .white, size: 14)
+    lazy var windLabel = RegularLabel(text: "3 м/с", color: .white, size: 14)
+    lazy var humidityLabel = RegularLabel(text: "75%", color: .white, size: 14)
+    lazy var degreeRangeLabel = RegularLabel(text: "7°/13°", color: .white, size: 16)
+    lazy var descriptionLabel = RegularLabel(text: "Возможен небольшой дождь", color: .white, size: 16)
+    
+    lazy var sunriseTimeLabel = MediumLabel(text: "05:41", color: .white, size: 14)
+    lazy var sunsetTimeLabel = MediumLabel(text: "19:31", color: .white, size: 14)
+    lazy var degreeLabel = MediumLabel(text: "13°", color: .white, size: 36)
+    
+    lazy var currentDayTimeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.rubik(.medium, size: 14)
-        label.textColor = .white
-        label.text = "05:41"
+        label.attributedText = attributedCurrentDateTime()
         return label
     }()
     
-    lazy var sunsetTimeLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.rubik(.medium, size: 14)
-        label.textColor = .white
-        label.text = "19:31"
-        return label
-    }()
-    
-    lazy var sunriseImageView: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(named: "sunrise")
-        return view
-    }()
-    
-    lazy var sunsetImageView: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(named: "sunset")
-        return view
-    }()
-    
-    lazy var ellipseImageView: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(named: "ellipse")
-        return view
-    }()
-    
-    lazy var degreeRangeLabel: UILabel = {
-        let label = UILabel()
-        let font = UIFont.rubik(.regular, size: 16)
-        let textColor = UIColor.white
-
-        let attributedString = NSMutableAttributedString(string: "7°/13°", attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: 0.32
-        ])
-        
-        label.attributedText = attributedString
-        return label
-    }()
-    
-    lazy var descriptionLabel: UILabel = {
-        let label = UILabel()
-        let font = UIFont.rubik(.regular, size: 16)
-        let textColor = UIColor.white
-
-        let attributedString = NSMutableAttributedString(string: "Возможен небольшой дождь", attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: 0.16,
-            .paragraphStyle: {
-                let paragraphStyle = NSMutableParagraphStyle()
-                paragraphStyle.alignment = .center
-                return paragraphStyle
-            }()
-        ])
-        
-        label.attributedText = attributedString
-        label.numberOfLines = 0
-        return label
-    }()
-
-    lazy var degreeLabel: UILabel = {
-        let label = UILabel()
-        let font = UIFont.rubik(.medium, size: 36)
-        let textColor = UIColor.white
-
-        let attributedString = NSMutableAttributedString(string: "13°", attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: 3.06
-        ])
-        
-        label.attributedText = attributedString
-        return label
-    }()
-
     lazy var detailButton: UIButton = {
         let button = UIButton()
         let titleString = "Подробнее на 24 часа"
@@ -112,75 +45,6 @@ class CurrentCell: UITableViewCell {
         return button
     }()
     
-    lazy var cloudImageView: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(named: "cloudSun")
-        return view
-    }()
-    
-    lazy var windImageView: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(named: "windWhite")
-        return view
-    }()
-    
-    lazy var humidityImageView: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(named: "humidityWhite")
-        return view
-    }()
-    
-    lazy var cloudLabel: UILabel = {
-        let label = UILabel()
-        let font = UIFont.rubik(.regular, size: 14)
-        let textColor = UIColor.white
-
-        let attributedString = NSMutableAttributedString(string: "0", attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: 0.14
-        ])
-        
-        label.attributedText = attributedString
-        return label
-    }()
-    
-    lazy var windLabel: UILabel = {
-        let label = UILabel()
-        let font = UIFont.rubik(.regular, size: 14)
-        let textColor = UIColor.white
-
-        let attributedString = NSMutableAttributedString(string: "3 м/с", attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: 0.14
-        ])
-        
-        label.attributedText = attributedString
-        return label
-    }()
-    
-    lazy var humidityLabel: UILabel = {
-        let label = UILabel()
-        let font = UIFont.rubik(.regular, size: 14)
-        let textColor = UIColor.white
-
-        let attributedString = NSMutableAttributedString(string: "75%", attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: 0.14
-        ])
-        
-        label.attributedText = attributedString
-        return label
-    }()
-
-    lazy var currentDayTimeLabel: UILabel = {
-        let label = UILabel()
-        label.attributedText = attributedCurrentDateTime()
-        return label
-    }()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -191,45 +55,44 @@ class CurrentCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Update
+    func update(with weather: Weather) {
+        let tempMin = weather.forecasts[0].parts.dayShort.temp ?? 0
+        let tempMax = weather.forecasts[0].parts.nightShort.temp ?? 0
+        
+        if let weatherCondition = WeatherCondition(rawValue: weather.fact.condition) {
+            descriptionLabel.text = weatherCondition.ruDescription
+        } else {
+            descriptionLabel.text = "Неизвестно"
+        }
+        sunriseTimeLabel.text = "\(weather.forecasts[0].riseBegin)"
+        sunsetTimeLabel.text = "\(weather.forecasts[0].setEnd)"
+        degreeLabel.text = "\(weather.fact.temp)°"
+        cloudLabel.text = "\(weather.fact.cloudness)%"
+        windLabel.text = "\(weather.fact.windSpeed) м/с"
+        humidityLabel.text = "\(weather.fact.humidity)%"
+        degreeRangeLabel.text = "\(tempMin)° /\(tempMax)°"
+    }
+    
+    @objc func detailButtonPressed() {
+        buttonAction?()
+    }
+}
+
+//MARK: - Layout
+extension CurrentCell {
     private func setupViews() {
-        contentView.addSubview(mainView)
-        contentView.addSubview(detailButton)
-        mainView.addSubview(sunriseTimeLabel)
-        mainView.addSubview(sunsetTimeLabel)
-        mainView.addSubview(sunriseImageView)
-        mainView.addSubview(sunsetImageView)
-        mainView.addSubview(ellipseImageView)
-        mainView.addSubview(degreeRangeLabel)
-        mainView.addSubview(degreeLabel)
-        mainView.addSubview(descriptionLabel)
-        mainView.addSubview(cloudImageView)
-        mainView.addSubview(windImageView)
-        mainView.addSubview(humidityImageView)
-        mainView.addSubview(cloudLabel)
-        mainView.addSubview(windLabel)
-        mainView.addSubview(humidityLabel)
-        mainView.addSubview(currentDayTimeLabel)
+        [mainView, detailButton].forEach {
+            contentView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        [sunriseTimeLabel, sunsetTimeLabel, sunriseImageView, sunsetImageView, ellipseImageView, degreeRangeLabel, degreeLabel, descriptionLabel, cloudImageView, windImageView, humidityImageView, cloudLabel, windLabel, humidityLabel, currentDayTimeLabel].forEach {
+            mainView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
     
     private func setupConstraints() {
-        mainView.translatesAutoresizingMaskIntoConstraints = false
-        detailButton.translatesAutoresizingMaskIntoConstraints = false
-        sunriseTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        sunsetTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        sunriseImageView.translatesAutoresizingMaskIntoConstraints = false
-        sunsetImageView.translatesAutoresizingMaskIntoConstraints = false
-        ellipseImageView.translatesAutoresizingMaskIntoConstraints = false
-        degreeRangeLabel.translatesAutoresizingMaskIntoConstraints = false
-        degreeLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        cloudImageView.translatesAutoresizingMaskIntoConstraints = false
-        windImageView.translatesAutoresizingMaskIntoConstraints = false
-        humidityImageView.translatesAutoresizingMaskIntoConstraints = false
-        cloudLabel.translatesAutoresizingMaskIntoConstraints = false
-        windLabel.translatesAutoresizingMaskIntoConstraints = false
-        humidityLabel.translatesAutoresizingMaskIntoConstraints = false
-        currentDayTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             mainView.heightAnchor.constraint(equalToConstant: 212),
             mainView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -271,19 +134,17 @@ class CurrentCell: UITableViewCell {
             degreeRangeLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 33),
             
             degreeLabel.heightAnchor.constraint(equalToConstant: 40),
-            degreeLabel.widthAnchor.constraint(equalToConstant: 90),
             degreeLabel.centerXAnchor.constraint(equalTo: mainView.centerXAnchor),
             degreeLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 58),
             
             descriptionLabel.heightAnchor.constraint(equalToConstant: 20),
-            descriptionLabel.widthAnchor.constraint(equalToConstant: 270),
             descriptionLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 103),
             descriptionLabel.centerXAnchor.constraint(equalTo: mainView.centerXAnchor),
             
             cloudImageView.heightAnchor.constraint(equalToConstant: 18),
             cloudImageView.widthAnchor.constraint(equalToConstant: 23),
             cloudImageView.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 138),
-            cloudImageView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 67),
+            cloudImageView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 70),
             
             windImageView.heightAnchor.constraint(equalToConstant: 18),
             windImageView.widthAnchor.constraint(equalToConstant: 25),
@@ -312,42 +173,5 @@ class CurrentCell: UITableViewCell {
             currentDayTimeLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 171),
             currentDayTimeLabel.centerXAnchor.constraint(equalTo: mainView.centerXAnchor)
         ])
-    }
-
-    //MARK: - Update
-    func update(with weather: Weather) {
-        let tempMin = weather.forecasts[0].parts.dayShort.temp ?? 0
-        let tempMax = weather.forecasts[0].parts.nightShort.temp ?? 0
-        
-        if let weatherCondition = WeatherCondition(rawValue: weather.fact.condition) {
-            descriptionLabel.text = weatherCondition.ruDescription
-        } else {
-            descriptionLabel.text = "Неизвестно"
-        }
-        sunriseTimeLabel.text = "\(weather.forecasts[0].riseBegin)"
-        sunsetTimeLabel.text = "\(weather.forecasts[0].setEnd)"
-        degreeLabel.attributedText = createAttributedText(for: "\(weather.fact.temp)°", fontSize: 36)
-        cloudLabel.attributedText = createAttributedText(for: "\(weather.fact.cloudness)%", fontSize: 14)
-        windLabel.attributedText = createAttributedText(for: "\(weather.fact.windSpeed) м/с", fontSize: 14)
-        humidityLabel.attributedText = createAttributedText(for: "\(weather.fact.humidity)%", fontSize: 14)
-        degreeRangeLabel.attributedText = createAttributedText(for: "\(tempMin)° /\(tempMax)°", fontSize: 16)
-    }
-    
-    private func createAttributedText(for string: String, fontSize: CGFloat) -> NSAttributedString {
-        let font = UIFont.rubik(.regular, size: fontSize)
-        let textColor = UIColor.white
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
-
-        return NSMutableAttributedString(string: string, attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: 0.14,
-            .paragraphStyle: paragraphStyle
-        ])
-    }
-    
-    @objc func detailButtonPressed() {
-        buttonAction?()
     }
 }

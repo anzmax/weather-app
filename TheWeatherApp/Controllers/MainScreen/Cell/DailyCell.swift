@@ -6,62 +6,15 @@ class DailyCell: UITableViewCell {
     
     var action: (() -> Void)?
     
-    lazy var mainView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .customLightBlue
-        view.layer.cornerRadius = 5
-        return view
-    }()
+    lazy var mainView = CustomView(backgroundColor: .customLightBlue, cornerRadius: 5)
+    lazy var weatherImageView = CustomImageView(named: "precIcon")
+    
+    lazy var percentageLabel = RegularLabel(text: "57%", color: .customBlue, size: 12)
+    lazy var descriptionLabel = RegularLabel(text: "Местами дождь", color: .customBlack, size: 16)
+    lazy var tempLabel = RegularLabel(text: "4°-11°", color: .customBlack, size: 18)
     
     lazy var dateLabel: UILabel = {
         let label = UILabel()
-        return label
-    }()
-
-    lazy var weatherImageView: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(named: "precIcon")
-        return view
-    }()
-    
-    lazy var percentageLabel: UILabel = {
-        let label = UILabel()
-        let font = UIFont.rubik(.regular, size: 12)
-        let textColor = UIColor.customBlue
-        let attributedString = NSMutableAttributedString(string: "57%", attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: -0.12
-        ])
-        label.attributedText = attributedString
-        return label
-    }()
-    
-    lazy var descriptionLabel: UILabel = {
-        let label = UILabel()
-        let font = UIFont.rubik(.regular, size: 16)
-        let textColor = UIColor.black
-        let attributedString = NSMutableAttributedString(string: "Местами дождь", attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: 0.16
-        ])
-        label.attributedText = attributedString
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    lazy var tempLabel: UILabel = {
-        let label = UILabel()
-        let font = UIFont.rubik(.regular, size: 18)
-        let textColor = UIColor.customBlack
-        
-        let attributedString = NSMutableAttributedString(string: "4°-11°", attributes: [
-            .font: font,
-            .foregroundColor: textColor,
-            .kern: -0.18
-        ])
-        label.attributedText = attributedString
         return label
     }()
     
@@ -85,25 +38,36 @@ class DailyCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Update
+    func update(with forecast: Forecast) {
+        if let weatherCondition = WeatherCondition(rawValue: forecast.parts.dayShort.condition) {
+            descriptionLabel.text = weatherCondition.ruDescription
+        } else {
+            descriptionLabel.text = "Неизвестно"
+        }
+        percentageLabel.text = "\(forecast.parts.dayShort.precipitation)%"
+        let tempMin = forecast.parts.dayShort.tempMin ?? 0
+        let tempMax = forecast.parts.dayShort.tempMax ?? 0
+        tempLabel.text = "\(tempMin)° - \(tempMax)°"
+    }
+    
+    @objc func currentDetailButtonPressed() {
+        action?()
+    }
+}
+
+//MARK: - Layout
+extension DailyCell {
     private func setupViews() {
         contentView.addSubview(mainView)
-        mainView.addSubview(dateLabel)
-        mainView.addSubview(weatherImageView)
-        mainView.addSubview(percentageLabel)
-        mainView.addSubview(descriptionLabel)
-        mainView.addSubview(tempLabel)
-        mainView.addSubview(currentDetailButton)
+        [dateLabel, weatherImageView, percentageLabel, descriptionLabel, tempLabel, currentDetailButton].forEach {
+            mainView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
     
     private func setupConstraints() {
         mainView.translatesAutoresizingMaskIntoConstraints = false
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        weatherImageView.translatesAutoresizingMaskIntoConstraints = false
-        percentageLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        tempLabel.translatesAutoresizingMaskIntoConstraints = false
-        currentDetailButton.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             mainView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             mainView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
@@ -143,22 +107,5 @@ class DailyCell: UITableViewCell {
             currentDetailButton.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -10),
             currentDetailButton.centerYAnchor.constraint(equalTo: mainView.centerYAnchor)
         ])
-    }
-    
-    //MARK: - Update
-    func update(with forecast: Forecast) {
-        if let weatherCondition = WeatherCondition(rawValue: forecast.parts.dayShort.condition) {
-            descriptionLabel.text = weatherCondition.ruDescription
-        } else {
-            descriptionLabel.text = "Неизвестно"
-        }
-        percentageLabel.text = "\(forecast.parts.dayShort.precipitation)%"
-        let tempMin = forecast.parts.dayShort.tempMin ?? 0
-        let tempMax = forecast.parts.dayShort.tempMax ?? 0
-        tempLabel.text = "\(tempMin)° - \(tempMax)°"
-    }
-    
-    @objc func currentDetailButtonPressed() {
-        action?()
     }
 }

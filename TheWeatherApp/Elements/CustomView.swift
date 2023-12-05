@@ -1,6 +1,6 @@
 import UIKit
 
-class WeatherIconView: UIImageView {
+class CustomView: UIImageView {
     
     init(named imageName: String) {
         super.init(frame: .zero)

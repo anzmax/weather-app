@@ -13,6 +13,12 @@ enum WeatherCondition: String {
     case showers = "showers"
     case lightSnow = "light-snow"
     case snow = "snow"
+    case wetSnow = "wet-snow"
+    case snowShowers = "snow-showers"
+    case hail
+    case thunderstorm
+    case thunderstormRain = "thunderstorm-with-rain"
+    case thunderstormHail = "thunderstorm-with-hail"
 
     var ruDescription: String {
         switch self {
@@ -40,6 +46,18 @@ enum WeatherCondition: String {
             return "Небольшой снег"
         case .snow:
             return "Снег"
+        case .wetSnow:
+            return "Дождь со снегом"
+        case .snowShowers:
+            return "Снегопад"
+        case .hail:
+            return "Град"
+        case .thunderstorm:
+            return "Гроза"
+        case .thunderstormRain:
+            return "Дождь с грозой"
+        case .thunderstormHail:
+            return "Гроза с градом"
         }
     }
 }
