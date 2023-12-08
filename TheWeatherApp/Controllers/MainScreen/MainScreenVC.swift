@@ -3,9 +3,11 @@ import CoreLocation
 
 class MainScreenVC: UIViewController {
     
-    private let mainScreenView = MainScreenView()
+    let mainScreenView = MainScreenView()
     private let coordinator: AppCoordinator
     var currentWeather: Weather?
+    
+    var pageChanged: ((Int) -> Void)?
     
     override func loadView() {
         view = mainScreenView
@@ -27,16 +29,28 @@ class MainScreenVC: UIViewController {
         if let currentWeather {
             mainScreenView.update(currentWeather)
         }
+        mainScreenView.pageControl.addTarget(self, action: #selector(pageControlChanged(_:)), for: .valueChanged)
+    }
+
+    @objc private func pageControlChanged(_ sender: UIPageControl) {
+        pageChanged?(sender.currentPage)
     }
     
     func setupBarButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "settings"), style: .plain, target: self, action: #selector(settingsButtonTapped(_:)))
         navigationItem.leftBarButtonItem?.tintColor = .customBlack
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "locationImage"), style: .plain, target: self, action: #selector(locationButtonTapped(_:)))
+        navigationItem.rightBarButtonItem?.tintColor = .customBlack
     }
     
     //MARK: - Action
     @objc func settingsButtonTapped(_ sender: UIBarButtonItem) {
         coordinator.showSettingsViewController()
+    }
+    
+    @objc func locationButtonTapped(_ sender: UIBarButtonItem) {
+        coordinator.showListVC()
     }
     
     func buttonAction() {

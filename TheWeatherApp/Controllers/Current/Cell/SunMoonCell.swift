@@ -39,9 +39,15 @@ class SunMoonCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Update
     func update(with forecast: Forecast) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
+        
+        sunriseTimeLabel.text = forecast.sunrise
+        sunsetTimeLabel.text = forecast.sunset
+        moonriseTimeLabel.text = forecast.riseBegin
+        moonsetTimeLabel.text = forecast.setEnd
  
         if let sunriseDate = dateFormatter.date(from: forecast.sunrise), let sunsetDate = dateFormatter.date(from: forecast.sunset) {
             let timeInterval = sunsetDate.timeIntervalSince(sunriseDate)

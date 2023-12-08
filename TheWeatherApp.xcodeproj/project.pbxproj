@@ -34,6 +34,10 @@
 		F44476732B067551005A5CA7 /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44476722B067551005A5CA7 /* MainScreenView.swift */; };
 		F45721CC2B109DB000EE7248 /* CurrentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45721CB2B109DB000EE7248 /* CurrentCell.swift */; };
 		F45721CE2B10A4A600EE7248 /* HourlyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45721CD2B10A4A600EE7248 /* HourlyCell.swift */; };
+		F46312602B230BAB00AAD692 /* LocationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F463125F2B230BAB00AAD692 /* LocationListView.swift */; };
+		F46312632B23163A00AAD692 /* LocationsArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46312622B23163A00AAD692 /* LocationsArchiver.swift */; };
+		F46312652B2324CD00AAD692 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46312642B2324CD00AAD692 /* Location.swift */; };
+		F46312682B232CA600AAD692 /* ContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46312672B232CA600AAD692 /* ContainerVC.swift */; };
 		F48224E12B1DE053000B5F32 /* TimeDateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48224E02B1DE053000B5F32 /* TimeDateFormat.swift */; };
 		F48E7D4D2B1A2650006A4F9C /* WeatherCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E7D4C2B1A2650006A4F9C /* WeatherCondition.swift */; };
 		F4B703C32B076A35002B1029 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B703C22B076A35002B1029 /* SettingsVC.swift */; };
@@ -50,6 +54,7 @@
 		F4D202422B1F78AC00B38322 /* DashedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D202412B1F78AC00B38322 /* DashedLineView.swift */; };
 		F4D202442B1F834300B38322 /* AirInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D202432B1F834300B38322 /* AirInfoCell.swift */; };
 		F4D202462B1F8B8600B38322 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D202452B1F8B8600B38322 /* ImageView.swift */; };
+		F4F88B542B230AEB000C8F9F /* LocationListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F88B532B230AEB000C8F9F /* LocationListVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +87,10 @@
 		F44476722B067551005A5CA7 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 		F45721CB2B109DB000EE7248 /* CurrentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentCell.swift; sourceTree = "<group>"; };
 		F45721CD2B10A4A600EE7248 /* HourlyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyCell.swift; sourceTree = "<group>"; };
+		F463125F2B230BAB00AAD692 /* LocationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListView.swift; sourceTree = "<group>"; };
+		F46312622B23163A00AAD692 /* LocationsArchiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsArchiver.swift; sourceTree = "<group>"; };
+		F46312642B2324CD00AAD692 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		F46312672B232CA600AAD692 /* ContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerVC.swift; sourceTree = "<group>"; };
 		F48224E02B1DE053000B5F32 /* TimeDateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDateFormat.swift; sourceTree = "<group>"; };
 		F48E7D4C2B1A2650006A4F9C /* WeatherCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCondition.swift; sourceTree = "<group>"; };
 		F4B703C22B076A35002B1029 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
@@ -98,6 +107,7 @@
 		F4D202412B1F78AC00B38322 /* DashedLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedLineView.swift; sourceTree = "<group>"; };
 		F4D202432B1F834300B38322 /* AirInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirInfoCell.swift; sourceTree = "<group>"; };
 		F4D202452B1F8B8600B38322 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		F4F88B532B230AEB000C8F9F /* LocationListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,16 +135,9 @@
 			isa = PBXGroup;
 			children = (
 				F443F09D2B177AA400066907 /* Weather.swift */,
+				F46312642B2324CD00AAD692 /* Location.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		F443F09F2B177ABB00066907 /* NetworkService */ = {
-			isa = PBXGroup;
-			children = (
-				F443F0A02B177CB300066907 /* WeatherService.swift */,
-			);
-			path = NetworkService;
 			sourceTree = "<group>";
 		};
 		F444762B2B06306A005A5CA7 = {
@@ -159,9 +162,8 @@
 				F444764B2B063075005A5CA7 /* App */,
 				F44476602B064B19005A5CA7 /* Coordinator */,
 				F444764D2B0630A6005A5CA7 /* Controllers */,
-				F444765D2B06470B005A5CA7 /* LocationServices */,
 				F443F09C2B177A9400066907 /* Model */,
-				F443F09F2B177ABB00066907 /* NetworkService */,
+				F46312612B2315FF00AAD692 /* Services */,
 				F44476502B06316D005A5CA7 /* Helpers */,
 				F4B703C62B077990002B1029 /* Elements */,
 				F444764C2B063085005A5CA7 /* Resources */,
@@ -193,8 +195,10 @@
 		F444764D2B0630A6005A5CA7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F46312662B232C8B00AAD692 /* Container */,
 				F444765A2B064436005A5CA7 /* Onboarding */,
 				F444766F2B0674FE005A5CA7 /* MainScreen */,
+				F4F88B522B230ACC000C8F9F /* LocationList */,
 				F443F0992B1620F900066907 /* DailyForecast */,
 				F4C0EAA42B18DAD400A52F17 /* Current */,
 				F4B703C12B076A1B002B1029 /* Settings */,
@@ -231,15 +235,6 @@
 				F444765B2B064453005A5CA7 /* OnboardingView.swift */,
 			);
 			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		F444765D2B06470B005A5CA7 /* LocationServices */ = {
-			isa = PBXGroup;
-			children = (
-				F444765E2B064731005A5CA7 /* LocationManagerService.swift */,
-				F444766D2B066C60005A5CA7 /* GeocodeService.swift */,
-			);
-			path = LocationServices;
 			sourceTree = "<group>";
 		};
 		F44476602B064B19005A5CA7 /* Coordinator */ = {
@@ -289,6 +284,25 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		F46312612B2315FF00AAD692 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F46312622B23163A00AAD692 /* LocationsArchiver.swift */,
+				F444765E2B064731005A5CA7 /* LocationManagerService.swift */,
+				F444766D2B066C60005A5CA7 /* GeocodeService.swift */,
+				F443F0A02B177CB300066907 /* WeatherService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F46312662B232C8B00AAD692 /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				F46312672B232CA600AAD692 /* ContainerVC.swift */,
+			);
+			path = Container;
+			sourceTree = "<group>";
+		};
 		F4B703C12B076A1B002B1029 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,6 +350,15 @@
 				F4D202432B1F834300B38322 /* AirInfoCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		F4F88B522B230ACC000C8F9F /* LocationList */ = {
+			isa = PBXGroup;
+			children = (
+				F4F88B532B230AEB000C8F9F /* LocationListVC.swift */,
+				F463125F2B230BAB00AAD692 /* LocationListView.swift */,
+			);
+			path = LocationList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -413,6 +436,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4B703CA2B0780BB002B1029 /* CustomSegmentedConrol.swift in Sources */,
+				F4F88B542B230AEB000C8F9F /* LocationListVC.swift in Sources */,
 				F4C0EAAB2B18E4D700A52F17 /* DateCell.swift in Sources */,
 				F4C0EAA62B18DAF200A52F17 /* CurrentDayVC.swift in Sources */,
 				F444765F2B064731005A5CA7 /* LocationManagerService.swift in Sources */,
@@ -429,12 +453,14 @@
 				F444764F2B0630D9005A5CA7 /* OnboardingVC.swift in Sources */,
 				F44476712B06752F005A5CA7 /* MainScreenVC.swift in Sources */,
 				F444766E2B066C60005A5CA7 /* GeocodeService.swift in Sources */,
+				F46312632B23163A00AAD692 /* LocationsArchiver.swift in Sources */,
 				F443F0A12B177CB300066907 /* WeatherService.swift in Sources */,
 				F443F09B2B16212700066907 /* DailyForecastVC.swift in Sources */,
 				F4D202462B1F8B8600B38322 /* ImageView.swift in Sources */,
 				F444763A2B06306A005A5CA7 /* SceneDelegate.swift in Sources */,
 				F45721CE2B10A4A600EE7248 /* HourlyCell.swift in Sources */,
 				F443F09E2B177AA400066907 /* Weather.swift in Sources */,
+				F46312602B230BAB00AAD692 /* LocationListView.swift in Sources */,
 				F45721CC2B109DB000EE7248 /* CurrentCell.swift in Sources */,
 				F4B703C52B076A47002B1029 /* SettingsView.swift in Sources */,
 				F4C0EAA22B18B53400A52F17 /* DailyForecastCell.swift in Sources */,
@@ -445,7 +471,9 @@
 				F44476522B063182005A5CA7 /* Extensions.swift in Sources */,
 				F4D202402B1F65B100B38322 /* SunMoonCell.swift in Sources */,
 				F4D202422B1F78AC00B38322 /* DashedLineView.swift in Sources */,
+				F46312682B232CA600AAD692 /* ContainerVC.swift in Sources */,
 				F4D202442B1F834300B38322 /* AirInfoCell.swift in Sources */,
+				F46312652B2324CD00AAD692 /* Location.swift in Sources */,
 				F44476622B064B30005A5CA7 /* AppCoordinator.swift in Sources */,
 				F444766A2B065D16005A5CA7 /* SearchLocationVC.swift in Sources */,
 				F4B703C32B076A35002B1029 /* SettingsVC.swift in Sources */,

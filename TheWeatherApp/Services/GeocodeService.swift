@@ -7,6 +7,22 @@ class GeocodeService {
     
     private init() {}
     
+    func searchLocation(by query: String, completion: @escaping (CLPlacemark) -> Void) {
+        geocoder.cancelGeocode()
+        
+        geocoder.geocodeAddressString(query) { placemarks, error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            if let placemark = placemarks?.first {
+//                let placeName = placemark.locality ?? ""
+//                let country = placemark.country ?? ""
+//                let administrativeArea = placemark.administrativeArea ?? ""
+                completion(placemark)
+            } 
+        }
+    }
+    
     func searchLocation(for query: String, completion: @escaping (String) -> Void) {
         geocoder.cancelGeocode()
         
@@ -15,6 +31,10 @@ class GeocodeService {
                 print(error.localizedDescription)
             }
             if let placemark = placemarks?.first {
+                
+                //placemark.location
+                //placemark.locality
+                
                 let placeName = placemark.locality ?? ""
                 let country = placemark.country ?? ""
                 let administrativeArea = placemark.administrativeArea ?? ""

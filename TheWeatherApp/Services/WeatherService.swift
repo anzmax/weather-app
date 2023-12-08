@@ -1,37 +1,6 @@
 import Foundation
 import UIKit
 
-//class WeatherService {
-//    
-//    static let shared = WeatherService()
-//    
-//    func fetchWeather(latitude: Double, longitude: Double, completion: @escaping (Result<WeatherData, Error>) -> Void) {
-//        let session = URLSession.shared
-//        
-//        if let url = URL(string: "https://api.openweathermap.org/data/3.0/onecall?lat=\(latitude.description)&lon=\(longitude.description)&units=metric&lang=ru&exclude=hourly,daily&appid=b36a62334435e6536855534982102e75") {
-//            
-//            let task = session.dataTask(with: url) { data, response, error in
-//                if let error = error {
-//                    completion(.failure(error))
-//                    return
-//                }
-//                
-//                if let data = data {
-//                    do {
-//                        let decoder = JSONDecoder()
-//                        let weatherData = try decoder.decode(WeatherData.self, from: data)
-//                        completion(.success(weatherData))
-//                    } catch {
-//                        completion(.failure(error))
-//                    }
-//                }
-//            }
-//            task.resume()
-//        }
-//    }
-//}
-//
-
 class WeatherService {
     
     static let shared = WeatherService()

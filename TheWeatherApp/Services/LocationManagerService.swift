@@ -11,15 +11,13 @@ class LocationManagerService: NSObject {
         super.init()
         locationManager.delegate = self
     }
-    
-    //метод для запроса разрешения пользователя на использование геолокации при использовании приложения
+
     func requestLocationAuthorization() {
         locationManager.requestWhenInUseAuthorization()
         
         startUpdatingLocation()
     }
     
-    //метод для начала процесса получения обновлений о местоположении пользователя
     func startUpdatingLocation() {
         locationManager.startUpdatingLocation()
     }

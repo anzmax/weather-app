@@ -13,6 +13,14 @@ class MainScreenView: UIView {
     var actionButtonTapped: ((IndexPath) -> Void)?
     
     var weather: Weather?
+    
+    lazy var pageControl: UIPageControl = {
+        let control = UIPageControl()
+        control.currentPageIndicatorTintColor = .customBlack
+        control.pageIndicatorTintColor = .customGray
+        control.numberOfPages = 3
+        return control
+    }()
 
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -41,15 +49,20 @@ class MainScreenView: UIView {
     private func setupViews() {
         backgroundColor = .white
         addSubview(tableView)
+        addSubview(pageControl)
     }
     
     private func setupConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: topAnchor, constant: 112),
+            tableView.topAnchor.constraint(equalTo: topAnchor, constant: 130),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            
+            pageControl.centerXAnchor.constraint(equalTo: centerXAnchor),
+            pageControl.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -10)
         ])
     }
 }

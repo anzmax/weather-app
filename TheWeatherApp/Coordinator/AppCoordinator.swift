@@ -21,11 +21,13 @@ final class AppCoordinator {
     func showAddLocationScreen() {
         let vc = AddLocationVC(coordinator: self)
         navigation.pushViewController(vc, animated: true)
+//        navigation.present(vc, animated: true)
     }
     
     func showSearchLocationScreen() {
         let vc = SearchLocationVC(coordinator: self)
-        navigation.present(vc, animated: true)
+        navigation.pushViewController(vc, animated: true)
+        //navigation.present(vc, animated: true)
     }
     
     func showMainViewController(with model: Weather) {
@@ -34,6 +36,20 @@ final class AppCoordinator {
         vc.title = "\(model.geoObject.locality.name), \(model.geoObject.country.name)"
         navigation.setViewControllers([vc], animated: true)
     }
+    
+//    func showMainViewController(with model: Weather) {
+//        let mainScreenVC = MainScreenVC(coordinator: self)
+//        mainScreenVC.currentWeather = model
+//        mainScreenVC.title = "\(model.geoObject.locality.name), \(model.geoObject.country.name)"
+//
+//        if let containerVC = navigation.viewControllers.first(where: { $0 is ContainerVC }) as? ContainerVC {
+//            containerVC.addPage(for: mainScreenVC)
+//        } else {
+//            let containerVC = ContainerVC()
+//            containerVC.addPage(for: mainScreenVC)
+//            navigation.setViewControllers([containerVC], animated: true)
+//        }
+//    }
     
     func showSettingsViewController() {
         let vc = SettingsVC(coordinator: self)
@@ -52,5 +68,11 @@ final class AppCoordinator {
         vc.currentWeather = model
         vc.modalPresentationStyle = .fullScreen
         navigation.present(vc, animated: true)
+    }
+    
+    func showListVC() {
+        let vc = LocationListVC(coordinator: self)
+//        navigation.present(vc, animated: true)
+        navigation.pushViewController(vc, animated: true)
     }
 }

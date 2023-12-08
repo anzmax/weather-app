@@ -1,4 +1,5 @@
 import UIKit
+import CoreLocation
 
 class SearchLocationView: UIView {
     
@@ -42,7 +43,7 @@ class SearchLocationView: UIView {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: topAnchor, constant: 30),
+            searchBar.topAnchor.constraint(equalTo: topAnchor, constant: 120),
             searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             
@@ -55,5 +56,29 @@ class SearchLocationView: UIView {
             addLocationButton.widthAnchor.constraint(equalToConstant: 300),
             addLocationButton.heightAnchor.constraint(equalToConstant: 40)
         ])
+    }
+}
+
+extension SearchLocationView {
+    
+    func update(_ placemark: CLPlacemark? = nil) {
+        
+        guard let placemark else {
+            cityLabel.text = ""
+            return
+        }
+//        if placemark == nil {
+//            cityLabel.text = ""
+//            return
+//        }
+        
+        let placeName = placemark.locality ?? ""
+        let country = placemark.country ?? ""
+        let administrativeArea = placemark.administrativeArea ?? ""
+        let formattedString = "\(placeName), \(administrativeArea), \(country)"
+        
+        cityLabel.text = formattedString
+        addLocationButton.isHidden = false
+        
     }
 }

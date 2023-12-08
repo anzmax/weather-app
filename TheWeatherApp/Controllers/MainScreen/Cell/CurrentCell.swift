@@ -129,7 +129,6 @@ extension CurrentCell {
             ellipseImageView.centerXAnchor.constraint(equalTo: mainView.centerXAnchor),
             
             degreeRangeLabel.heightAnchor.constraint(equalToConstant: 20),
-            degreeRangeLabel.widthAnchor.constraint(equalToConstant: 70),
             degreeRangeLabel.centerXAnchor.constraint(equalTo: mainView.centerXAnchor),
             degreeRangeLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 33),
             

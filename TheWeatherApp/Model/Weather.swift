@@ -209,6 +209,10 @@ struct Hour: Codable {
         //case precMm = "prec_mm"
         //case precPeriod = "prec_period"
     }
+    
+    var iconEnum: Icon? {
+        return Icon(rawValue: icon)
+    }
 }
 
 // MARK: - Parts
@@ -309,12 +313,13 @@ struct Tzinfo: Codable {
 //    case w = "w"
 //}
 //
-//enum Icon: String, Codable {
-//    case iconOvcSn = "ovc_sn"
-//    case ovcRaSn = "ovc_ra_sn"
-//    case ovcSn = "ovc_-sn"
-//    case purpleOvcSn = "ovc_+sn"
-//}
+enum Icon: String, Codable {
+    case snow = "ovc_sn"
+    case snowRain = "ovc_ra_sn"
+    case lightSnow = "ovc_-sn"
+    case bigSnow = "ovc_+sn"
+    case yellowMoon = "skc_n"
+}
 
 //enum PurpleDaytime: String, Codable {
 //    case day = "d"
