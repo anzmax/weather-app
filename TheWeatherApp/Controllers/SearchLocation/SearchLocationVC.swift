@@ -35,6 +35,27 @@ class SearchLocationVC: UIViewController {
 //        searchLocationView.addLocationButton.isHidden = false
 //    }
     
+//    @objc func addButtonTapped() {
+//        
+//        guard let placemark = currentPlacemark else { return }
+//        
+//        let name = placemark.name ?? ""
+//        let id = UUID().uuidString
+//        let lat = Double(placemark.location?.coordinate.latitude ?? 0.0)
+//        let lon = Double(placemark.location?.coordinate.longitude ?? 0.0)
+//        let country = placemark.country ?? ""
+//    
+//        
+//        let location: Location = Location.init(name: name, country: country, id: id, latitude: lat, longtitude: lon)
+//        
+//        var locations = locationArchiver.fetch()
+//        locations.append(location)
+//        locationArchiver.save(locations)
+//        
+//        print(locationArchiver.fetch())
+//        self.navigationController?.popViewController(animated: true)
+//    }
+    
     @objc func addButtonTapped() {
         
         guard let placemark = currentPlacemark else { return }
@@ -44,40 +65,39 @@ class SearchLocationVC: UIViewController {
         let lat = Double(placemark.location?.coordinate.latitude ?? 0.0)
         let lon = Double(placemark.location?.coordinate.longitude ?? 0.0)
         let country = placemark.country ?? ""
-    
-        
-        let location: Location = Location.init(name: name, country: country, id: id, latitude: lat, longtitude: lon)
+
+        let newLocation = Location(name: name, country: country, id: id, latitude: lat, longtitude: lon)
         
         var locations = locationArchiver.fetch()
-        locations.append(location)
-        locationArchiver.save(locations)
-        
-        print(locationArchiver.fetch())
+
+        if !locations.contains(where: {
+            $0.latitude == newLocation.latitude &&
+            $0.longtitude == newLocation.longtitude &&
+            $0.name == newLocation.name }) {
+            
+            locations.append(newLocation)
+            locationArchiver.save(locations)
+        } else {
+            print("Location already exists")
+        }
+        self.navigationController?.popViewController(animated: true)
     }
+
 }
 
 extension SearchLocationVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //        locationSearchService.searchLocation(for: searchText) { [weak self] formattedAddress in
-        //                DispatchQueue.main.async {
-        //                    self?.updateCityLabel(with: formattedAddress)
-        //                }
-        //            }
-        
-        locationSearchService.searchLocation(by: searchText) { [weak self] placemark in
-            DispatchQueue.main.async {
-                self?.currentPlacemark = placemark
-                self?.searchLocationView.update(placemark)
+        if searchText.isEmpty {
+            self.currentPlacemark = nil
+            self.searchLocationView.update()
+        } else {
+            locationSearchService.searchLocation(by: searchText) { [weak self] placemark in
+                DispatchQueue.main.async {
+                    self?.currentPlacemark = placemark
+                    self?.searchLocationView.update(placemark)
+                }
             }
         }
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = nil
-        searchBar.resignFirstResponder()
-        print("No")
-        //self.updateCityLabel(with: "")
-        self.searchLocationView.update()
     }
 }

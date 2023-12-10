@@ -49,6 +49,14 @@ class DailyCell: UITableViewCell {
         let tempMin = forecast.parts.dayShort.tempMin ?? 0
         let tempMax = forecast.parts.dayShort.tempMax ?? 0
         tempLabel.text = "\(tempMin)° - \(tempMax)°"
+        
+//        if !forecast.hours.isEmpty {
+//            if let weatherCondition = WeatherCondition(rawValue: forecast.hours[0].condition) {
+//                weatherImageView.image = imageForWeatherCondition(weatherCondition)
+//            } else {
+//                weatherImageView.image = UIImage(named: "precIcon")
+//            }
+//        } 
     }
     
     @objc func currentDetailButtonPressed() {

@@ -69,5 +69,4 @@ extension LocationListView: UITableViewDelegate, UITableViewDataSource {
             archiver.save(locations)
         }
     }
-
 }

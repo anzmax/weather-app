@@ -37,8 +37,9 @@ class GeocodeService {
                 
                 let placeName = placemark.locality ?? ""
                 let country = placemark.country ?? ""
-                let administrativeArea = placemark.administrativeArea ?? ""
-                let formattedString = "\(placeName), \(administrativeArea), \(country)"
+                //let administrativeArea = placemark.administrativeArea ?? ""
+                //let formattedString = "\(placeName), \(administrativeArea), \(country)"
+                let formattedString = "\(placeName), \(country)"
                 completion(formattedString)
             } else {
                 completion("Местоположение не найдено")

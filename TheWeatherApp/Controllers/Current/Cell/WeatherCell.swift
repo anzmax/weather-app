@@ -56,6 +56,12 @@ class WeatherCell: UITableViewCell {
         uvNumberLabel.text = "\(day.uvIndex ?? 0)"
         rainPercentageLabel.text = "\(day.precipitation)%"
         cloudPercentageLabel.text = "\(Int(day.cloudness))%"
+        
+        if let weatherCondition = WeatherCondition(rawValue: day.condition) {
+            currentImageView.image = imageForWeatherCondition(weatherCondition)
+        } else {
+            currentImageView.image = UIImage(named: "sun")
+        }
     }
  }
 
@@ -88,8 +94,8 @@ extension WeatherCell {
             tempLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 170),
             tempLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
             
-            currentImageView.widthAnchor.constraint(greaterThanOrEqualToConstant: 32),
-            currentImageView.heightAnchor.constraint(equalToConstant: 36),
+            currentImageView.widthAnchor.constraint(equalToConstant: 30),
+            currentImageView.heightAnchor.constraint(equalToConstant: 30),
             currentImageView.trailingAnchor.constraint(equalTo: tempLabel.leadingAnchor, constant: -5),
             currentImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 17),
             

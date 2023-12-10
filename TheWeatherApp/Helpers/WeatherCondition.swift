@@ -62,3 +62,43 @@ enum WeatherCondition: String {
     }
 }
 
+func imageForWeatherCondition(_ condition: WeatherCondition) -> UIImage? {
+    switch condition {
+    case .clear:
+        return UIImage(named: "sun")
+    case .partlyCloudy:
+        return UIImage(named: "sunny")
+    case .cloudy:
+        return UIImage(named: "sunny")
+    case .overcast:
+        return UIImage(named: "rainy")
+    case .drizzle:
+        return UIImage(named: "rainy")
+    case .lightRain:
+        return UIImage(named: "rainy")
+    case .rain:
+        return UIImage(named: "rainy")
+    case .moderateRain:
+        return UIImage(named: "rainy")
+    case .heavyRain:
+        return UIImage(named: "rainy")
+    case .showers:
+        return UIImage(named: "rainy")
+    case .lightSnow:
+        return UIImage(named: "snowflake")
+    case .snow:
+        return UIImage(named: "snowflake")
+    case .wetSnow:
+        return UIImage(named: "snowflake")
+    case .snowShowers:
+        return UIImage(named: "snowflake")
+    case .hail:
+        return UIImage(named: "snowflake")
+    case .thunderstorm:
+        return UIImage(named: "thunder")
+    case .thunderstormRain:
+        return UIImage(named: "thunder")
+    case .thunderstormHail:
+        return UIImage(named: "thunder")
+    }
+}

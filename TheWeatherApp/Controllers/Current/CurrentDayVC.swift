@@ -17,6 +17,16 @@ class CurrentDayVC: UIViewController {
         currentDayView.update(currentWeather?.forecasts ?? [])
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        DispatchQueue.main.async {
+            if let dateCell = self.currentDayView.tableView.cellForRow(at: IndexPath(row: 0, section: CurrentCellType.dates.rawValue)) as? DateCell {
+                dateCell.collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .left)
+                dateCell.collectionView(dateCell.collectionView, didSelectItemAt: IndexPath(item: 0, section: 0))
+            }
+        }
+    }
+    
     @objc func backButtonTapped() {
         self.dismiss(animated: true, completion: nil)
     }

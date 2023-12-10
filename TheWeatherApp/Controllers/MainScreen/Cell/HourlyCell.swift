@@ -52,68 +52,73 @@ final class HourlyCollectionCell: UICollectionViewCell {
     func updateHour(with hour: Hour) {
         timeLabel.text = formattedTime(hourString: hour.hour)
         tempLabel.text = "\(hour.temp)°"
+        if let weatherCondition = WeatherCondition(rawValue: hour.condition) {
+            imageView.image = imageForWeatherCondition(weatherCondition)
+        } else {
+            imageView.image = UIImage(named: "sun")
+        }
     }
 }
+
+class HourlyCell: UITableViewCell {
     
-    class HourlyCell: UITableViewCell {
+    static let id = "HourlyCell"
+    
+    var hours: [Hour] = []
+    
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 43, height: 84)
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 16
         
-        static let id = "HourlyCell"
+        let collection = UICollectionView.init(frame: .zero, collectionViewLayout: layout)
+        collection.showsHorizontalScrollIndicator = false
+        collection.register(HourlyCollectionCell.self, forCellWithReuseIdentifier: HourlyCollectionCell.id)
+        collection.delegate = self
+        collection.dataSource = self
         
-        var hours: [Hour] = []
         
-        lazy var collectionView: UICollectionView = {
-            let layout = UICollectionViewFlowLayout()
-            layout.itemSize = CGSize(width: 43, height: 84)
-            layout.scrollDirection = .horizontal
-            layout.minimumLineSpacing = 16
-            
-            let collection = UICollectionView.init(frame: .zero, collectionViewLayout: layout)
-            collection.showsHorizontalScrollIndicator = false
-            collection.register(HourlyCollectionCell.self, forCellWithReuseIdentifier: HourlyCollectionCell.id)
-            collection.delegate = self
-            collection.dataSource = self
-            
-            
-            return collection
-        }()
-        
-        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: style, reuseIdentifier: reuseIdentifier)
-            setupViews()
-            setupConstraints()
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        private func setupViews() {
-            contentView.addSubview(collectionView)
-        }
-        
-        private func setupConstraints() {
-            collectionView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
-                collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-                collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                collectionView.heightAnchor.constraint(equalToConstant: 85),
-            ])
-        }
-        
-        //MARK: - Update
-        func update(_ hours: [Hour]) {
-            var result: [Hour] = []
-            for (index, hour) in hours.enumerated() {
-                
-                if index % 3 == 0 {
-                    result.append(hour)
-                }
-            }
-            self.hours = result
-        }
+        return collection
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupViews()
+        setupConstraints()
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupViews() {
+        contentView.addSubview(collectionView)
+    }
+    
+    private func setupConstraints() {
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: 85),
+        ])
+    }
+    
+    //MARK: - Update
+    func update(_ hours: [Hour]) {
+        var result: [Hour] = []
+        for (index, hour) in hours.enumerated() {
+            
+            if index % 3 == 0 {
+                result.append(hour)
+            }
+        }
+        self.hours = result
+    }
+}
 
 //MARK: - Extension
 extension HourlyCell: UICollectionViewDelegate, UICollectionViewDataSource {
