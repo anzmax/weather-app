@@ -30,10 +30,7 @@ class ContainerVC: UIPageViewController {
         self.delegate = self
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        NotificationCenter.default.addObserver(self, selector: #selector(handleLocationRemoval(notification:)), name: NSNotification.Name("LocationDidRemove"), object: nil)
-    }
+  
     
     func setupBarButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "settings"), style: .plain, target: self, action: #selector(settingsButtonTapped(_:)))
@@ -51,18 +48,19 @@ class ContainerVC: UIPageViewController {
         coordinator.showListVC()
     }
     
-//    @objc func handleLocationRemoval(notification: Notification) {
-//        guard let userInfo = notification.userInfo,
-//              let removedLocation = userInfo["removedLocation"] as? Location else { return }
-//        
-//        if let index = weatherData.firstIndex(where: { $0.geoObject.locality.name == removedLocation.name }) {
-//            weatherData.remove(at: index)
-//        }
-//    }
-//
-//    deinit {
-//        NotificationCenter.default.removeObserver(self)
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let weathersFromArchiver = weatherArchiver.fetch()
+        print(weathersFromArchiver.count)
+        
+        weatherData = weathersFromArchiver
+        
+        self.pageControl?.numberOfPages = weatherData.count
+        
+        setupControllers()
+        
+    }
     
     func setupData() {
         let weathersFromArchiver = weatherArchiver.fetch()
@@ -92,6 +90,7 @@ class ContainerVC: UIPageViewController {
     }
     
     func setupControllers() {
+        pages = []
         for weather in weatherData {
             let mainVC = MainScreenVC(coordinator: coordinator)
             mainVC.currentWeather = weather
@@ -102,7 +101,10 @@ class ContainerVC: UIPageViewController {
         if let firstPage = pages.first {
             setViewControllers([firstPage], direction: .forward, animated: true, completion: nil)
         }
-        self.title = "\(weatherData[0].geoObject.locality.name), \(weatherData[0].geoObject.country.name)"
+        if !weatherData.isEmpty {
+            self.title = "\(weatherData[0].geoObject.locality.name), \(weatherData[0].geoObject.country.name)"
+        }
+        
     }
         
     func setupPageControl() {

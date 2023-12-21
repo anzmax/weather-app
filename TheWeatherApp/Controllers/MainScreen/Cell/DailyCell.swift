@@ -47,8 +47,8 @@ class DailyCell: UITableViewCell {
         }
         percentageLabel.text = "\(forecast.parts.dayShort.precipitation)%"
         let tempMin = forecast.parts.dayShort.tempMin ?? 0
-        let tempMax = forecast.parts.dayShort.tempMax ?? 0
-        tempLabel.text = "\(tempMin)° - \(tempMax)°"
+        let temp = forecast.parts.dayShort.temp ?? 0
+        tempLabel.text = "\(tempMin)° - \(temp)°"
     }
     
     @objc func currentDetailButtonPressed() {
@@ -95,13 +95,12 @@ extension DailyCell {
             descriptionLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 19),
             descriptionLabel.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -18),
             descriptionLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 66),
-            descriptionLabel.widthAnchor.constraint(equalToConstant: 206),
+            //descriptionLabel.widthAnchor.constraint(equalToConstant: 206),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 19),
             
             tempLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 17),
             tempLabel.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -17.17),
             tempLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -28),
-            tempLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
             tempLabel.heightAnchor.constraint(equalToConstant: 21.8),
             
             currentDetailButton.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -10),

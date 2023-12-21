@@ -50,7 +50,7 @@ class WeatherCell: UITableViewCell {
         } else {
             conditionLabel.text = "Состояние погоды неизвестно"
         }
-        tempLabel.text = "\(day.temp ?? 0)"
+        tempLabel.text = "\(day.temp ?? 0)°"
         feelsLikePercentageLabel.text = "\(day.feelsLike)°"
         speedLabel.text = "\(day.windSpeed) m\\s ЗЮЗ"
         uvNumberLabel.text = "\(day.uvIndex ?? 0)"

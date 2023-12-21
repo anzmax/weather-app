@@ -62,25 +62,32 @@ extension LocationListView: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            locations.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            let archiver = LocationsArchiver()
-            archiver.save(locations)
-        }
-    }
-    
 //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 //        if editingStyle == .delete {
-//            let locationToRemove = locations[indexPath.row]
 //            locations.remove(at: indexPath.row)
 //            tableView.deleteRows(at: [indexPath], with: .fade)
-//
 //            let archiver = LocationsArchiver()
 //            archiver.save(locations)
-//
-//            NotificationCenter.default.post(name: NSNotification.Name("LocationDidRemove"), object: nil, userInfo: ["removedLocation": locationToRemove])
 //        }
 //    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let locationToRemove = locations[indexPath.row]
+            locations.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+
+            //
+            let archiver = LocationsArchiver()
+            archiver.save(locations)
+            
+            //
+            let weatherArchiver = WeatherArchiver()
+            var weathers = weatherArchiver.fetch()
+            weathers.remove(at: indexPath.row)
+            
+            weatherArchiver.save(weathers)
+
+        }
+    }
 }

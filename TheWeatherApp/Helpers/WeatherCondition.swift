@@ -65,7 +65,7 @@ enum WeatherCondition: String {
 func imageForWeatherCondition(_ condition: WeatherCondition) -> UIImage? {
     switch condition {
     case .clear:
-        return UIImage(named: "sun")
+        return UIImage(named: "bigsun")
     case .partlyCloudy:
         return UIImage(named: "sunny")
     case .cloudy:

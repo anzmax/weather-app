@@ -39,8 +39,8 @@ final class AppCoordinator {
     
     func showMainViewController() {
         let vc = ContainerVC(coordinator: self)
-        //navigation.setViewControllers([vc], animated: true)
-        navigation.pushViewController(vc, animated: true)
+        navigation.setViewControllers([vc], animated: true)
+        //navigation.pushViewController(vc, animated: true)
     }
     
     func showSettingsViewController() {

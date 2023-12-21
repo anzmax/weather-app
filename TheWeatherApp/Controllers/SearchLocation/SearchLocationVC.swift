@@ -73,7 +73,8 @@ class SearchLocationVC: UIViewController {
                     let weathersUpdated = self.weatherArchiver.fetch()
                     print(weathersUpdated.count)
                     
-                    self.navigationController?.popViewController(animated: true)
+                    //self.navigationController?.popViewController(animated: true)
+                    self.coordinator.showMainViewController()
                     
                 case .failure(let error):
                     print(error)

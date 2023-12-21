@@ -2,14 +2,12 @@ import Foundation
 
 // MARK: - Weather
 struct Weather: Codable {
-    let nowDateTime: String
     let info: Info
     let geoObject: GeoObject
     let fact: Fact
     let forecasts: [Forecast]
 
     enum CodingKeys: String, CodingKey {
-        case nowDateTime = "now_dt"
         case info
         case fact
         case geoObject = "geo_object"
@@ -25,10 +23,6 @@ struct Fact: Codable {
     let cloudness: Double
     let condition: String
     let windSpeed: Double
-    let daytime: String
-    //let accumPrec: [String: Double]?
-//    let soilMoisture: Double
-//    let soilTemp: Int
     let uvIndex: Double
     let humidity: Int
 
@@ -39,10 +33,6 @@ struct Fact: Codable {
         case cloudness
         case condition
         case windSpeed = "wind_speed"
-        case daytime
-        //case accumPrec = "accum_prec"
-//        case soilMoisture = "soil_moisture"
-//        case soilTemp = "soil_temp"
         case uvIndex = "uv_index"
         case humidity
     }
@@ -71,10 +61,9 @@ struct Forecast: Codable {
 
 // MARK: - Day
 struct Day: Codable {
-    let source: String
+    let temp: Int?
     let tempMin: Int?
     let tempMax: Int?
-    let tempAvg: Int?
     let windSpeed: Double
     let cloudness: Double
     let humidity: Int
@@ -83,14 +72,11 @@ struct Day: Codable {
     let condition: String
     let uvIndex: Int?
     let feelsLike: Int
-    let daytime: String
-    let temp: Int?
 
     enum CodingKeys: String, CodingKey {
-        case source = "_source"
+        case temp
         case tempMin = "temp_min"
         case tempMax = "temp_max"
-        case tempAvg = "temp_avg"
         case windSpeed = "wind_speed"
         case humidity
         case precipitation = "prec_prob"
@@ -99,8 +85,6 @@ struct Day: Codable {
         case condition
         case uvIndex = "uv_index"
         case feelsLike = "feels_like"
-        case daytime
-        case temp
     }
 }
 
@@ -136,52 +120,32 @@ struct Hour: Codable {
 struct Parts: Codable {
     let dayShort: Day
     let nightShort: Day
-    let morning: Day
-    let day: Day
-    let evening: Day
-    let night: Day
     
     enum CodingKeys: String, CodingKey {
         case dayShort = "day_short"
         case nightShort = "night_short"
-        case morning
-        case day
-        case evening
-        case night
     }
 }
 
 // MARK: - GeoObject
 struct GeoObject: Codable {
-    let district: Country
     let locality: Country
-    let province: Country
     let country: Country
 }
 
 // MARK: - Country
 struct Country: Codable {
-    let id: Int
     let name: String
 }
 
 // MARK: - Info
 struct Info: Codable {
-    let url: String
     let lat: Double
     let lon: Double
-    let tzinfo: Tzinfo
 
     enum CodingKeys: String, CodingKey {
-        case url
         case lat
         case lon
-        case tzinfo
     }
 }
 
-// MARK: - Tzinfo
-struct Tzinfo: Codable {
-    let name: String
-    let abbr: String
-}
