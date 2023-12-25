@@ -3,7 +3,7 @@ import Foundation
 
 //Plain model
 //Модель для сохранения в UserDefaults
-struct WeatherModel {
+struct WeatherTestModel {
     
     var latitude: Double
     var longitude: Double

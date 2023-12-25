@@ -19,7 +19,7 @@ class SearchLocationView: UIView {
         button.backgroundColor = .customOrange
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 10
-        button.isHidden = true  
+        button.isHidden = true
         return button
     }()
 
@@ -67,11 +67,7 @@ extension SearchLocationView {
             cityLabel.text = ""
             return
         }
-//        if placemark == nil {
-//            cityLabel.text = ""
-//            return
-//        }
-        
+
         let placeName = placemark.locality ?? ""
         let country = placemark.country ?? ""
         let administrativeArea = placemark.administrativeArea ?? ""

@@ -5,10 +5,13 @@ class SearchLocationVC: UIViewController {
     
     private let searchLocationView = SearchLocationView()
     private let coordinator: AppCoordinator
+    
+    //MARK: Services
     private let locationSearchService = GeocodeService.shared
     private let locationArchiver = LocationsArchiver()
     private let weatherService = WeatherService()
     private let weatherArchiver = WeatherArchiver()
+    private let coreDataService = CoreDataService()
     
     var currentPlacemark: CLPlacemark?
     
@@ -63,17 +66,24 @@ class SearchLocationVC: UIViewController {
                     
                 case .success(let weather):
                     
-                    var weathers = self.weatherArchiver.fetch()
-                    print(weathers.count)
+                    //АРХИВЕР
+//                    var weathers = self.weatherArchiver.fetch()
+//                    print(weathers.count)
+//                    weathers.append(weather)
+//                    self.weatherArchiver.save(weathers)
+//                    let weathersUpdated = self.weatherArchiver.fetch()
+//                    print(weathersUpdated.count)
                     
-                    weathers.append(weather)
-
-                    self.weatherArchiver.save(weathers)
-                   
-                    let weathersUpdated = self.weatherArchiver.fetch()
-                    print(weathersUpdated.count)
+                    //КОРДАТА
+                    self.coreDataService.saveWeather(weather: weather)
                     
-                    //self.navigationController?.popViewController(animated: true)
+                    let weatherModels = self.coreDataService.fetchWeather()
+//                    print(weatherModels)
+//
+//                    print("------------------------------>")
+//                    for model in weatherModels {
+//                        printHours(weather: model)
+//                    }
                     self.coordinator.showMainViewController()
                     
                 case .failure(let error):

@@ -25,7 +25,6 @@ class LocationListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBarButton()
-        //fetchLocations()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,10 +53,6 @@ class LocationListVC: UIViewController {
         locations = locationArchiver.fetch()
         locationListView.update(locations)
         locationListView.tableView.reloadData()
-//        locations = weatherArchiver.fetch()
-//        locationListView.update(locations)
-//        locationListView.tableView.reloadData()
-        
     }
 }
 

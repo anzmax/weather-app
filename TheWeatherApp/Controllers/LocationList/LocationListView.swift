@@ -56,7 +56,7 @@ extension LocationListView: UITableViewDelegate, UITableViewDataSource {
         let location = locations[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         var content = cell.defaultContentConfiguration()
-        content.text = location.name 
+        content.text = location.name
         content.secondaryText = location.country
         cell.contentConfiguration = content
         return cell

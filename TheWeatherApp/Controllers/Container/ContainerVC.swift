@@ -1,19 +1,23 @@
 import UIKit
+import CoreData
 
 class ContainerVC: UIPageViewController {
     
     private let coordinator: AppCoordinator
     private var weatherArchiver = WeatherArchiver()
     private var weatherService = WeatherService()
+    private let coreDataService = CoreDataService()
+    
+    private var weatherData: [WeatherModel] = []
+    private var pages: [MainScreenVC] = []
     
     var pageControl: UIPageControl?
-    
-    private var pages: [MainScreenVC] = []
-    lazy var weatherData: [Weather] = []
     
     init(coordinator: AppCoordinator) {
         self.coordinator = coordinator
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        self.dataSource = self
+        self.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -23,116 +27,80 @@ class ContainerVC: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setupData()
         setupBarButton()
-
-        self.dataSource = self
-        self.delegate = self
-    }
-    
-  
-    
-    func setupBarButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "settings"), style: .plain, target: self, action: #selector(settingsButtonTapped(_:)))
-        navigationItem.leftBarButtonItem?.tintColor = .customBlack
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "locationImage"), style: .plain, target: self, action: #selector(locationButtonTapped(_:)))
-        navigationItem.rightBarButtonItem?.tintColor = .customBlack
-    }
-    
-    @objc func settingsButtonTapped(_ sender: UIBarButtonItem) {
-        coordinator.showSettingsViewController()
-    }
-    
-    @objc func locationButtonTapped(_ sender: UIBarButtonItem) {
-        coordinator.showListVC()
+        setupPageControl()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        let weathersFromArchiver = weatherArchiver.fetch()
-        print(weathersFromArchiver.count)
-        
-        weatherData = weathersFromArchiver
-        
-        self.pageControl?.numberOfPages = weatherData.count
-        
-        setupControllers()
-        
-    }
-    
-    func setupData() {
-        let weathersFromArchiver = weatherArchiver.fetch()
-        print(weathersFromArchiver.count)
-        
-        if weathersFromArchiver.isEmpty {
-            
-            weatherService.fetchWeather(latitude: 55.7522, longitude: 37.6156) { result in
-                
-                switch result {
-                case .success(let weather):
-                    self.weatherData.append(weather)
-                    self.setupPages()
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            }
-        } else {
-            weatherData = weathersFromArchiver
-            self.setupPages()
-        }
+        loadWeatherDataAndUpdateUI()
     }
 
-    func setupPages() {
-        setupPageControl()
+    private func loadWeatherDataAndUpdateUI() {
+        weatherData = coreDataService.fetchWeather()
+        setupPages()
+    }
+
+    private func setupPages() {
         setupControllers()
+        updatePageControl()
+        updateTitleBasedOnCurrentPage()
     }
     
-    func setupControllers() {
-        pages = []
-        for weather in weatherData {
+    private func setupControllers() {
+        pages = weatherData.map { weather in
             let mainVC = MainScreenVC(coordinator: coordinator)
             mainVC.currentWeather = weather
-            print(weather)
-            pages.append(mainVC)
+            return mainVC
         }
 
         if let firstPage = pages.first {
             setViewControllers([firstPage], direction: .forward, animated: true, completion: nil)
         }
-        if !weatherData.isEmpty {
-            self.title = "\(weatherData[0].geoObject.locality.name), \(weatherData[0].geoObject.country.name)"
-        }
-        
     }
-        
-    func setupPageControl() {
-        
-        self.pageControl = UIPageControl(frame: CGRect(x: 0,
-                                                       y: 80,
-                                                       width: UIScreen.main.bounds.width,
-                                                       height: 50))
-        
-        if let pageControl = self.pageControl {
-            pageControl.numberOfPages = weatherData.count
-            pageControl.currentPage = 0
-            pageControl.alpha = 0.5
-            pageControl.tintColor = UIColor.black
-            pageControl.pageIndicatorTintColor = UIColor.gray
-            pageControl.currentPageIndicatorTintColor = UIColor.black
-            pageControl.isUserInteractionEnabled = false
 
-            view.addSubview(pageControl)
+    private func updatePageControl() {
+        pageControl?.numberOfPages = weatherData.count
+        pageControl?.currentPage = 0
+    }
+
+    private func updateTitleBasedOnCurrentPage() {
+        if let currentPage = viewControllers?.first as? MainScreenVC,
+           let currentIndex = pages.firstIndex(of: currentPage) {
+            let currentWeather = weatherData[currentIndex]
+            title = "\(currentWeather.geoObject?.locality?.name ?? ""), \(currentWeather.geoObject?.country?.name ?? "")"
         }
+    }
+    
+    private func setupPageControl() {
+        pageControl = UIPageControl(frame: CGRect(x: 0, y: 80, width: UIScreen.main.bounds.width, height: 50))
+        pageControl?.alpha = 0.5
+        pageControl?.tintColor = .black
+        pageControl?.pageIndicatorTintColor = .gray
+        pageControl?.currentPageIndicatorTintColor = .black
+        pageControl?.isUserInteractionEnabled = false
+        view.addSubview(pageControl!)
+    }
+    
+    private func setupBarButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "settings"), style: .plain, target: self, action: #selector(settingsButtonTapped))
+        navigationItem.leftBarButtonItem?.tintColor = .customBlack
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "locationImage"), style: .plain, target: self, action: #selector(locationButtonTapped))
+        navigationItem.rightBarButtonItem?.tintColor = .customBlack
+    }
+    
+    @objc private func settingsButtonTapped() {
+        coordinator.showSettingsViewController()
+    }
+    
+    @objc private func locationButtonTapped() {
+        coordinator.showListVC()
     }
 }
 
 extension ContainerVC: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
-    func pageViewController(_ pageViewController: UIPageViewController,
-        viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let mainVC = viewController as? MainScreenVC,
               let currentIndex = pages.firstIndex(of: mainVC),
               currentIndex > 0 else {
@@ -142,9 +110,7 @@ extension ContainerVC: UIPageViewControllerDataSource, UIPageViewControllerDeleg
         return pages[currentIndex - 1]
     }
 
-    func pageViewController(_ pageViewController: UIPageViewController,
-                viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let mainVC = viewController as? MainScreenVC,
               let currentIndex = pages.firstIndex(of: mainVC),
               currentIndex < pages.count - 1 else {
@@ -154,18 +120,11 @@ extension ContainerVC: UIPageViewControllerDataSource, UIPageViewControllerDeleg
         return pages[currentIndex + 1]
     }
 
-    func pageViewController(_ pageViewController: UIPageViewController,
-                            didFinishAnimating finished: Bool,
-                            previousViewControllers: [UIViewController],
-                            transitionCompleted completed: Bool) {
-        
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed, let currentVC = pageViewController.viewControllers?.first as? MainScreenVC,
            let currentIndex = pages.firstIndex(of: currentVC) {
-            
-            self.pageControl?.currentPage = currentIndex
-            self.title = "\(weatherData[currentIndex].geoObject.locality.name), \(weatherData[currentIndex].geoObject.country.name)"
+            pageControl?.currentPage = currentIndex
+            updateTitleBasedOnCurrentPage()
         }
     }
 }
-
-

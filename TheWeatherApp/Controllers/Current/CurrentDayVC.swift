@@ -3,7 +3,7 @@ import UIKit
 class CurrentDayVC: UIViewController {
     
     private let currentDayView = CurrentDayView()
-    var currentWeather: Weather?
+    var currentWeather: WeatherModel?
     
     override func loadView() {
         view = currentDayView
@@ -12,9 +12,14 @@ class CurrentDayVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         currentDayView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        currentDayView.locationLabel.text = "\(currentWeather?.geoObject.locality.name ?? "")"
+        currentDayView.locationLabel.text = "\(currentWeather?.geoObject?.locality?.name ?? "")"
         
-        currentDayView.update(currentWeather?.forecasts ?? [])
+        if let forecastsSet = currentWeather?.forecasts as? Set<ForecastModel> {
+            let forecastsArray = Array(forecastsSet)
+            currentDayView.update(forecastsArray)
+        } else {
+            currentDayView.update([])
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

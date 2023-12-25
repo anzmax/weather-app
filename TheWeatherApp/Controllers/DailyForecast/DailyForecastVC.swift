@@ -4,7 +4,7 @@ class DailyForecastVC: UIViewController {
     
     private let dailyForecastView = DailyForecastView()
     private let coordinator: AppCoordinator
-    var currentWeather: Weather?
+    var currentWeather: WeatherModel?
     
     override func loadView() {
         view = dailyForecastView
@@ -22,10 +22,15 @@ class DailyForecastVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dailyForecastView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        dailyForecastView.locationLabel.text = "\(currentWeather?.geoObject.locality.name ?? "")"
+        dailyForecastView.locationLabel.text = "\(currentWeather?.geoObject?.locality?.name ?? "")"
         
-        guard let hours = currentWeather?.forecasts[0].hours else { return }
-        dailyForecastView.updateHour(hours)
+        if let forecastsSet = currentWeather?.forecasts as? Set<ForecastModel>,
+           let firstForecast = forecastsSet.first,
+           let hoursSet = firstForecast.hours as? Set<HourModel> {
+            let hoursArray = Array(hoursSet)
+            dailyForecastView.updateHour(hoursArray)
+        }
+
     }
     
     @objc func backButtonTapped() {

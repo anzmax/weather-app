@@ -2,7 +2,7 @@ import UIKit
 
 class DailyForecastView: UIView {
     
-    var hours: [Hour] = [] {
+    var hours: [HourModel] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -71,15 +71,27 @@ class DailyForecastView: UIView {
     }
     
     //MARK: - Update
-    func updateHour(_ hours: [Hour]) {
-        var result: [Hour] = []
-        for (index, hour) in hours.enumerated() {
-            if index % 3 == 0 {
-                result.append(hour)
-            }
+    func updateHour(_ hours: [HourModel]) {
+        // Преобразуем время из строк в числа (в формате часов от 0 до 23) для сортировки
+        let sortedHours = hours.sorted {
+            guard let firstHour = $0.hour, let secondHour = $1.hour,
+                  let firstHourInt = Int(firstHour.components(separatedBy: ":").first ?? ""),
+                  let secondHourInt = Int(secondHour.components(separatedBy: ":").first ?? "") else { return false }
+            return firstHourInt < secondHourInt
         }
+
+        // Фильтруем, чтобы получить часы с интервалом в 3 часа
+        var result: [HourModel] = []
+        for hour in sortedHours {
+            guard let hourString = hour.hour,
+                  let hourInt = Int(hourString.components(separatedBy: ":").first ?? ""),
+                  hourInt % 3 == 0 else { continue }
+            result.append(hour)
+        }
+
         self.hours = result
     }
+
 }
 
 //MARK: - Extension

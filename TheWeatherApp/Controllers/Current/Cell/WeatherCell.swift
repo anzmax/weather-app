@@ -44,20 +44,20 @@ class WeatherCell: UITableViewCell {
     }
     
     //MARK: - Update
-    func update(with day: Day) {
-        if let weatherCondition = WeatherCondition(rawValue: day.condition) {
+    func update(with day: DayModel) {
+        if let weatherCondition = WeatherCondition(rawValue: day.condition ?? "") {
             conditionLabel.text = "\(weatherCondition.ruDescription)"
         } else {
             conditionLabel.text = "Состояние погоды неизвестно"
         }
-        tempLabel.text = "\(day.temp ?? 0)°"
+        tempLabel.text = "\(day.temp)°"
         feelsLikePercentageLabel.text = "\(day.feelsLike)°"
         speedLabel.text = "\(day.windSpeed) m\\s ЗЮЗ"
-        uvNumberLabel.text = "\(day.uvIndex ?? 0)"
+        uvNumberLabel.text = "\(day.uvIndex)"
         rainPercentageLabel.text = "\(day.precipitation)%"
         cloudPercentageLabel.text = "\(Int(day.cloudness))%"
         
-        if let weatherCondition = WeatherCondition(rawValue: day.condition) {
+        if let weatherCondition = WeatherCondition(rawValue: day.condition ?? "") {
             currentImageView.image = imageForWeatherCondition(weatherCondition)
         } else {
             currentImageView.image = UIImage(named: "sun")

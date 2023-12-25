@@ -21,26 +21,16 @@ final class AppCoordinator {
     func showAddLocationScreen() {
         let vc = AddLocationVC(coordinator: self)
         navigation.pushViewController(vc, animated: true)
-//        navigation.present(vc, animated: true)
     }
     
     func showSearchLocationScreen() {
         let vc = SearchLocationVC(coordinator: self)
         navigation.pushViewController(vc, animated: true)
-        //navigation.present(vc, animated: true)
     }
-    
-//    func showMainViewController(with model: Weather) {
-//        let vc = MainScreenVC(coordinator: self)
-//        vc.currentWeather = model
-//        vc.title = "\(model.geoObject.locality.name), \(model.geoObject.country.name)"
-//        navigation.setViewControllers([vc], animated: true)
-//    }
     
     func showMainViewController() {
         let vc = ContainerVC(coordinator: self)
         navigation.setViewControllers([vc], animated: true)
-        //navigation.pushViewController(vc, animated: true)
     }
     
     func showSettingsViewController() {
@@ -48,14 +38,14 @@ final class AppCoordinator {
         navigation.present(vc, animated: true)
     }
     
-    func showDailyForecastVC(with model: Weather) {
+    func showDailyForecastVC(with model: WeatherModel) {
         let vc = DailyForecastVC(coordinator: self)
         vc.currentWeather = model
         vc.modalPresentationStyle = .fullScreen
         navigation.present(vc, animated: true)
     }
     
-    func showCurrentDayVC(with model: Weather) {
+    func showCurrentDayVC(with model: WeatherModel) {
         let vc = CurrentDayVC()
         vc.currentWeather = model
         vc.modalPresentationStyle = .fullScreen
@@ -64,7 +54,6 @@ final class AppCoordinator {
     
     func showListVC() {
         let vc = LocationListVC(coordinator: self)
-//        navigation.present(vc, animated: true)
         navigation.pushViewController(vc, animated: true)
     }
 }

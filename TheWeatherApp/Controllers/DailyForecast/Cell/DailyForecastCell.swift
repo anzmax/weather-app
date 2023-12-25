@@ -36,10 +36,10 @@ class DailyForecastCell: UITableViewCell {
     }
     
     //MARK: - Update
-    func update(with hour: Hour) {
-        timeLabel.text = formattedTime(hourString: hour.hour)
+    func update(with hour: HourModel) {
+        timeLabel.text = formattedTime(hourString: hour.hour ?? "")
         currentDegreeLabel.text = "\(hour.temp)°"
-        if let weatherCondition = WeatherCondition(rawValue: hour.condition) {
+        if let weatherCondition = WeatherCondition(rawValue: hour.condition ?? "") {
             moonLabel.text = "\(weatherCondition.ruDescription). По ощущению \(hour.feelsLike)°"
         } else {
             moonLabel.text = "Состояние погоды неизвестно"

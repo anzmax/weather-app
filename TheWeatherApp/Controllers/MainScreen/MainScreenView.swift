@@ -12,16 +12,24 @@ class MainScreenView: UIView {
     var onButtonTapped: ((IndexPath) -> Void)?
     var actionButtonTapped: ((IndexPath) -> Void)?
     
-    var weather: Weather?
-    
-//    lazy var pageControl: UIPageControl = {
-//        let control = UIPageControl()
-//        control.currentPageIndicatorTintColor = .customBlack
-//        control.pageIndicatorTintColor = .customGray
-//        control.numberOfPages = 3
-//        return control
-//    }()
+    var weather: WeatherModel? {
+        didSet {
+            if let forecastModel = weather?.forecasts?.allObjects.first as? ForecastModel,
+               let hoursSet = forecastModel.hours as? Set<HourModel> {
+                self.hours = Array(hoursSet).sorted { $0.hour ?? "" < $1.hour ?? "" }
+            } else {
+                self.hours = []
+            }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
 
+    var hourModel: HourModel?
+    
+    var hours: [HourModel] = []
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
@@ -49,27 +57,23 @@ class MainScreenView: UIView {
     private func setupViews() {
         backgroundColor = .white
         addSubview(tableView)
-        //addSubview(pageControl)
     }
     
     private func setupConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        //pageControl.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: topAnchor, constant: 130),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            
-//            pageControl.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            pageControl.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -10)
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])
     }
 }
 
 //MARK: - Extensions
 extension MainScreenView {
-    func update(_ weather: Weather) {
+
+    func update(_ weather: WeatherModel) {
         self.weather = weather
     }
 }
@@ -114,10 +118,13 @@ extension MainScreenView: UITableViewDelegate, UITableViewDataSource {
             case .hourly:
                 let cell = tableView.dequeueReusableCell(withIdentifier: HourlyCell.id, for: indexPath) as! HourlyCell
                 cell.selectionStyle = .none
-                if let hours = weather?.forecasts[0].hours {
-                    cell.update(hours)
-                }
-                return cell
+                
+                if !self.hours.isEmpty {
+                        cell.update(self.hours)
+                    }
+                
+                   return cell
+
             case .forecast:
                 let cell = tableView.dequeueReusableCell(withIdentifier: ForecastCell.id, for: indexPath) as! ForecastCell
                 cell.selectionStyle = .none
@@ -130,9 +137,12 @@ extension MainScreenView: UITableViewDelegate, UITableViewDataSource {
                 }
                 
                 cell.dateLabel.attributedText = attributedDateString(daysToAdd: indexPath.row)
-                
-                if let forecast = weather?.forecasts[indexPath.row] {
-                    cell.update(with: forecast)
+                if let forecastsSet = weather?.forecasts as? Set<ForecastModel> {
+                    let forecastsArray = Array(forecastsSet)
+                    if indexPath.row < forecastsArray.count {
+                        let forecast = forecastsArray[indexPath.row]
+                        cell.update(with: forecast)
+                    }
                 }
 
                 return cell

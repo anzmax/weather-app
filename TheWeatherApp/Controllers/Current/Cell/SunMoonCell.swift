@@ -40,7 +40,7 @@ class SunMoonCell: UITableViewCell {
     }
     
     //MARK: - Update
-    func update(with forecast: Forecast) {
+    func update(with forecast: ForecastModel) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         
@@ -49,7 +49,7 @@ class SunMoonCell: UITableViewCell {
         moonriseTimeLabel.text = forecast.riseBegin
         moonsetTimeLabel.text = forecast.setEnd
  
-        if let sunriseDate = dateFormatter.date(from: forecast.sunrise), let sunsetDate = dateFormatter.date(from: forecast.sunset) {
+        if let sunriseDate = dateFormatter.date(from: forecast.sunrise ?? ""), let sunsetDate = dateFormatter.date(from: forecast.sunset ?? "") {
             let timeInterval = sunsetDate.timeIntervalSince(sunriseDate)
             
             let hours = Int(timeInterval) / 3600
@@ -57,7 +57,7 @@ class SunMoonCell: UITableViewCell {
             sunTimeLabel.text = "\(hours)ч \(minutes) мин"
         }
         
-        if let moonriseDate = dateFormatter.date(from: forecast.riseBegin), let moonsetDate = dateFormatter.date(from: forecast.setEnd) {
+        if let moonriseDate = dateFormatter.date(from: forecast.riseBegin ?? ""), let moonsetDate = dateFormatter.date(from: forecast.setEnd ?? "") {
             let moonTimeInterval = moonsetDate.timeIntervalSince(moonriseDate)
             
             let moonHours = Int(moonTimeInterval) / 3600

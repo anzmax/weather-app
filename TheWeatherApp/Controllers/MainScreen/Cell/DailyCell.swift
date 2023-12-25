@@ -39,15 +39,15 @@ class DailyCell: UITableViewCell {
     }
     
     //MARK: - Update
-    func update(with forecast: Forecast) {
-        if let weatherCondition = WeatherCondition(rawValue: forecast.parts.dayShort.condition) {
+    func update(with forecast: ForecastModel) {
+        if let weatherCondition = WeatherCondition(rawValue: forecast.parts?.dayShort?.condition ?? "") {
             descriptionLabel.text = weatherCondition.ruDescription
         } else {
             descriptionLabel.text = "Неизвестно"
         }
-        percentageLabel.text = "\(forecast.parts.dayShort.precipitation)%"
-        let tempMin = forecast.parts.dayShort.tempMin ?? 0
-        let temp = forecast.parts.dayShort.temp ?? 0
+        percentageLabel.text = "\(forecast.parts?.dayShort?.precipitation ?? 0)%"
+        let tempMin = forecast.parts?.dayShort?.tempMin ?? 0
+        let temp = forecast.parts?.dayShort?.temp ?? 0
         tempLabel.text = "\(tempMin)° - \(temp)°"
     }
     
@@ -95,7 +95,6 @@ extension DailyCell {
             descriptionLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 19),
             descriptionLabel.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -18),
             descriptionLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 66),
-            //descriptionLabel.widthAnchor.constraint(equalToConstant: 206),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 19),
             
             tempLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 17),

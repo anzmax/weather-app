@@ -5,8 +5,16 @@ class MainScreenVC: UIViewController {
     
     let mainScreenView = MainScreenView()
     private let coordinator: AppCoordinator
-    var currentWeather: Weather?
-    
+    var currentWeather: WeatherModel? {
+        didSet {
+            
+            if let currentWeather {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.mainScreenView.update(currentWeather)
+                }
+            }
+        }
+    }
     
     override func loadView() {
         view = mainScreenView
@@ -26,29 +34,24 @@ class MainScreenVC: UIViewController {
         buttonAction()
         //setupBarButton()
         
+//        if let currentWeather {
+//            mainScreenView.update(currentWeather)
+//        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         if let currentWeather {
             mainScreenView.update(currentWeather)
         }
-//        mainScreenView.pageControl.addTarget(self, action: #selector(pageControlChanged(_:)), for: .valueChanged)
     }
-
-//    @objc private func pageControlChanged(_ sender: UIPageControl) {
-//        pageChanged?(sender.currentPage)
-//    }
-    
-//    func setupBarButton() {
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "settings"), style: .plain, target: self, action: #selector(settingsButtonTapped(_:)))
-//        navigationItem.leftBarButtonItem?.tintColor = .customBlack
-//        
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "locationImage"), style: .plain, target: self, action: #selector(locationButtonTapped(_:)))
-//        navigationItem.rightBarButtonItem?.tintColor = .customBlack
-//    }
     
     //MARK: - Action
 //    @objc func settingsButtonTapped(_ sender: UIBarButtonItem) {
 //        coordinator.showSettingsViewController()
 //    }
-//    
+//
 //    @objc func locationButtonTapped(_ sender: UIBarButtonItem) {
 //        coordinator.showListVC()
 //    }

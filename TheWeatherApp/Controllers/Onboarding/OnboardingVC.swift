@@ -54,7 +54,6 @@ class OnboardingVC: UIViewController {
                         
                         print("Долгота: \(latitude), Широта: \(longitude)")
                         print(weather)
-                        //self?.coordinator.showMainViewController(with: weather)
                         self?.coordinator.showMainViewController()
                     case .failure(let error):
                         print("Ошибка при запросе погоды: \(error)")

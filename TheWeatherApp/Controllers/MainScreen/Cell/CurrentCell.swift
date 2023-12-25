@@ -56,21 +56,34 @@ final class CurrentCell: UITableViewCell {
     }
     
     //MARK: - Update
-    func update(with weather: Weather) {
-        let tempMin = weather.forecasts[0].parts.dayShort.temp ?? 0
-        let tempMax = weather.forecasts[0].parts.nightShort.temp ?? 0
+    func update(with weather: WeatherModel) {
+        var tempMin = 0
+        var tempMax = 0
+        var firstForecast: ForecastModel?
+        if let forecastsSet = weather.forecasts as? Set<ForecastModel>,
+           let forecast = forecastsSet.first {
+            
+            firstForecast = forecast
+            
+            if let dayShort = firstForecast?.parts?.dayShort, let nightShot = firstForecast?.parts?.nightShort {
+                tempMin = Int(dayShort.temp)
+                tempMax = Int(nightShot.temp)
+            }
+            
+        }
         
-        if let weatherCondition = WeatherCondition(rawValue: weather.fact.condition) {
+        if let weatherCondition = WeatherCondition(rawValue: weather.fact?.condition ?? "") {
             descriptionLabel.text = weatherCondition.ruDescription
         } else {
             descriptionLabel.text = "Неизвестно"
         }
-        sunriseTimeLabel.text = "\(weather.forecasts[0].riseBegin)"
-        sunsetTimeLabel.text = "\(weather.forecasts[0].setEnd)"
-        degreeLabel.text = "\(weather.fact.temp)°"
-        cloudLabel.text = "\(weather.fact.cloudness)%"
-        windLabel.text = "\(weather.fact.windSpeed) м/с"
-        humidityLabel.text = "\(weather.fact.humidity)%"
+        
+        sunriseTimeLabel.text = "\(firstForecast?.riseBegin ?? "")"
+        sunsetTimeLabel.text = "\(firstForecast?.setEnd ?? "")"
+        degreeLabel.text = "\(weather.fact?.temp ?? 0)°"
+        cloudLabel.text = "\(weather.fact?.cloudness ?? 0)%"
+        windLabel.text = "\(weather.fact?.windSpeed ?? 0.0) м/с"
+        humidityLabel.text = "\(weather.fact?.humidity ?? 0)%"
         degreeRangeLabel.text = "\(tempMin)° /\(tempMax)°"
     }
     
@@ -167,8 +180,6 @@ extension CurrentCell {
             humidityLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 138),
             humidityLabel.leadingAnchor.constraint(equalTo: humidityImageView.trailingAnchor, constant: 5),
             
-            currentDayTimeLabel.heightAnchor.constraint(equalToConstant: 20),
-            currentDayTimeLabel.widthAnchor.constraint(equalToConstant: 158),
             currentDayTimeLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 171),
             currentDayTimeLabel.centerXAnchor.constraint(equalTo: mainView.centerXAnchor)
         ])

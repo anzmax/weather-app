@@ -49,10 +49,10 @@ final class HourlyCollectionCell: UICollectionViewCell {
     }
     
     //MARK: - Update
-    func updateHour(with hour: Hour) {
-        timeLabel.text = formattedTime(hourString: hour.hour)
+    func updateHour(with hour: HourModel) {
+        timeLabel.text = formattedTime(hourString: hour.hour ?? "")
         tempLabel.text = "\(hour.temp)°"
-        if let weatherCondition = WeatherCondition(rawValue: hour.condition) {
+        if let weatherCondition = WeatherCondition(rawValue: hour.condition ?? "") {
             imageView.image = imageForWeatherCondition(weatherCondition)
         } else {
             imageView.image = UIImage(named: "sun")
@@ -64,7 +64,11 @@ class HourlyCell: UITableViewCell {
     
     static let id = "HourlyCell"
     
-    var hours: [Hour] = []
+    var hours: [HourModel] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -108,14 +112,22 @@ class HourlyCell: UITableViewCell {
     }
     
     //MARK: - Update
-    func update(_ hours: [Hour]) {
-        var result: [Hour] = []
-        for (index, hour) in hours.enumerated() {
-            
-            if index % 3 == 0 {
-                result.append(hour)
-            }
+    func update(_ hours: [HourModel]) {
+        let sortedHours = hours.sorted {
+            guard let firstHour = $0.hour, let secondHour = $1.hour,
+                  let firstHourInt = Int(firstHour.components(separatedBy: ":").first ?? ""),
+                  let secondHourInt = Int(secondHour.components(separatedBy: ":").first ?? "") else { return false }
+            return firstHourInt < secondHourInt
         }
+        
+        var result: [HourModel] = []
+        for hour in sortedHours {
+            guard let hourString = hour.hour,
+                  let hourInt = Int(hourString.components(separatedBy: ":").first ?? ""),
+                  hourInt % 3 == 0 else { continue }
+            result.append(hour)
+        }
+        
         self.hours = result
     }
 }

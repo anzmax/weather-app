@@ -10,13 +10,15 @@ enum CurrentCellType: Int, CaseIterable {
 
 class CurrentDayView: UIView {
     
-    var forecasts: [Forecast] = []
+    var forecasts: [ForecastModel] = []
     
-    var currentParts: Parts? {
+    var currentParts: PartsModel? {
         didSet {
             tableView.reloadData()
         }
     }
+    
+    //var currentParts: PartsModel?
     
     lazy var detailLabel = RegularLabel(text: "Дневная погода", color: .customGray, size: 16)
     lazy var locationLabel = MediumLabel(text: "Location", color: .customBlack, size: 18)
@@ -52,7 +54,7 @@ class CurrentDayView: UIView {
     }
     
     //MARK: - Update
-    func update(_ forecast: [Forecast]) {
+    func update(_ forecast: [ForecastModel]) {
         self.forecasts = forecast
     }
 }
@@ -89,7 +91,14 @@ extension CurrentDayView: UITableViewDelegate, UITableViewDataSource {
                 
                 cell.onDateCellTapped = { index in
                     
-                    self.currentParts = self.forecasts[index].parts
+                    //self.currentParts = self.forecasts[index].parts
+                    print("Index: \(index), Forecasts Count: \(self.forecasts.count)")
+                    if index < self.forecasts.count {
+                        self.currentParts = self.forecasts[index].parts
+                    } else {
+                        print("Index out of range")
+                    }
+
                 }
                 return cell
                 
