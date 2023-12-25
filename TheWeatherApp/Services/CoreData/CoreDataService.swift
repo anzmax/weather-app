@@ -25,10 +25,9 @@ class CoreDataService {
             for forecast in weather.forecasts {
                 let model = createForecastModel(forecast: forecast)
                 forecasts.append(model)
-                break
             }
             
-            weatherModel.forecasts = NSSet(array:  forecasts)
+            weatherModel.forecasts = NSSet(array: forecasts)
 
             do {
                 try context.save()

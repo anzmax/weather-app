@@ -109,8 +109,9 @@ extension DateCell: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! DateCollectionCell
-        cell.contentView.backgroundColor = .white
-        cell.dateLabel.textColor = .black
+        if let cell = collectionView.cellForItem(at: indexPath) as? DateCollectionCell {
+            cell.contentView.backgroundColor = .white
+            cell.dateLabel.textColor = .black
+        }
     }
 }

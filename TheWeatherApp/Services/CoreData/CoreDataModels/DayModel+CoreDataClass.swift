@@ -1,11 +1,3 @@
-//
-//  DayModel+CoreDataClass.swift
-//  TheWeatherApp
-//
-//  Created by Lika Maksimovic on 25.12.2023.
-//
-//
-
 import Foundation
 import CoreData
 

@@ -85,7 +85,7 @@ extension LocationListView: UITableViewDelegate, UITableViewDataSource {
             let weatherArchiver = WeatherArchiver()
             var weathers = weatherArchiver.fetch()
             weathers.remove(at: indexPath.row)
-            
+
             weatherArchiver.save(weathers)
 
         }

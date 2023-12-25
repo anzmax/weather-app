@@ -91,7 +91,6 @@ extension CurrentDayView: UITableViewDelegate, UITableViewDataSource {
                 
                 cell.onDateCellTapped = { index in
                     
-                    //self.currentParts = self.forecasts[index].parts
                     print("Index: \(index), Forecasts Count: \(self.forecasts.count)")
                     if index < self.forecasts.count {
                         self.currentParts = self.forecasts[index].parts
