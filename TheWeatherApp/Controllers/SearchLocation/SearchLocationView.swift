@@ -59,10 +59,9 @@ class SearchLocationView: UIView {
     }
 }
 
+//MARK: - Update
 extension SearchLocationView {
-    
     func update(_ placemark: CLPlacemark? = nil) {
-        
         guard let placemark else {
             cityLabel.text = ""
             return
@@ -75,6 +74,5 @@ extension SearchLocationView {
         
         cityLabel.text = formattedString
         addLocationButton.isHidden = false
-        
     }
 }

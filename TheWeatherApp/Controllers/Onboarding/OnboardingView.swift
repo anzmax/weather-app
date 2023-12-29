@@ -81,32 +81,32 @@ class OnboardingView: UIView {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 148),
+            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 135),
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 196),
             imageView.widthAnchor.constraint(equalToConstant: 180),
             
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 400),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 27),
+            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30),
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             titleLabel.widthAnchor.constraint(equalToConstant: 322),
             titleLabel.heightAnchor.constraint(equalToConstant: 63),
             
-            secondaryLabel.topAnchor.constraint(equalTo: topAnchor, constant: 519),
-            secondaryLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 31),
+            secondaryLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            secondaryLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             secondaryLabel.widthAnchor.constraint(equalToConstant: 314),
             secondaryLabel.heightAnchor.constraint(equalToConstant: 36),
             
-            thirdLabel.topAnchor.constraint(equalTo: topAnchor, constant: 569),
-            thirdLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 31),
+            thirdLabel.topAnchor.constraint(equalTo: secondaryLabel.bottomAnchor, constant: 20),
+            thirdLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             thirdLabel.widthAnchor.constraint(equalToConstant: 314),
             thirdLabel.heightAnchor.constraint(equalToConstant: 36),
             
-            useGeoButton.topAnchor.constraint(equalTo: topAnchor, constant: 649),
+            useGeoButton.topAnchor.constraint(equalTo: thirdLabel.bottomAnchor, constant: 30),
             useGeoButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             useGeoButton.widthAnchor.constraint(equalToConstant: 340),
             useGeoButton.heightAnchor.constraint(equalToConstant: 40),
             
-            dismissGeoButton.topAnchor.constraint(equalTo: topAnchor, constant: 714),
+            dismissGeoButton.topAnchor.constraint(equalTo: useGeoButton.bottomAnchor, constant: 20),
             dismissGeoButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 66),
             dismissGeoButton.widthAnchor.constraint(equalToConstant: 291),
             dismissGeoButton.heightAnchor.constraint(equalToConstant: 21),

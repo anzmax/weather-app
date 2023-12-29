@@ -4,7 +4,9 @@ import CoreData
 class ContainerVC: UIPageViewController {
     
     private let coordinator: AppCoordinator
-    private var weatherArchiver = WeatherArchiver()
+    
+    //MARK: - Services
+    private var locationArchiver = LocationsArchiver()
     private var weatherService = WeatherService()
     private let coreDataService = CoreDataService()
     
@@ -23,7 +25,7 @@ class ContainerVC: UIPageViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -35,12 +37,28 @@ class ContainerVC: UIPageViewController {
         super.viewWillAppear(animated)
         loadWeatherDataAndUpdateUI()
     }
-
+    
     private func loadWeatherDataAndUpdateUI() {
         weatherData = coreDataService.fetchWeather()
-        setupPages()
+        
+        if weatherData.isEmpty {
+            weatherService.fetchWeather(latitude: 55.7522, longitude: 37.6156) { result in
+                
+                switch result {
+                case .success(let weather):
+                    self.coreDataService.saveWeather(weather: weather)
+                    let weatherModels = self.coreDataService.fetchWeather()
+                    self.weatherData = weatherModels
+                    self.setupPages()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        } else {
+            setupPages()
+        }
     }
-
+    
     private func setupPages() {
         setupControllers()
         updatePageControl()
@@ -53,17 +71,17 @@ class ContainerVC: UIPageViewController {
             mainVC.currentWeather = weather
             return mainVC
         }
-
+        
         if let firstPage = pages.first {
             setViewControllers([firstPage], direction: .forward, animated: true, completion: nil)
         }
     }
-
+    
     private func updatePageControl() {
         pageControl?.numberOfPages = weatherData.count
         pageControl?.currentPage = 0
     }
-
+    
     private func updateTitleBasedOnCurrentPage() {
         if let currentPage = viewControllers?.first as? MainScreenVC,
            let currentIndex = pages.firstIndex(of: currentPage) {
@@ -98,6 +116,7 @@ class ContainerVC: UIPageViewController {
     }
 }
 
+//MARK: - Extension
 extension ContainerVC: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -106,10 +125,10 @@ extension ContainerVC: UIPageViewControllerDataSource, UIPageViewControllerDeleg
               currentIndex > 0 else {
             return nil
         }
-
+        
         return pages[currentIndex - 1]
     }
-
+    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let mainVC = viewController as? MainScreenVC,
               let currentIndex = pages.firstIndex(of: mainVC),
@@ -119,7 +138,7 @@ extension ContainerVC: UIPageViewControllerDataSource, UIPageViewControllerDeleg
         
         return pages[currentIndex + 1]
     }
-
+    
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed, let currentVC = pageViewController.viewControllers?.first as? MainScreenVC,
            let currentIndex = pages.firstIndex(of: currentVC) {

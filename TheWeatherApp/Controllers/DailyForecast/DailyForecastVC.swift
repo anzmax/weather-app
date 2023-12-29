@@ -30,7 +30,6 @@ class DailyForecastVC: UIViewController {
             let hoursArray = Array(hoursSet)
             dailyForecastView.updateHour(hoursArray)
         }
-
     }
     
     @objc func backButtonTapped() {

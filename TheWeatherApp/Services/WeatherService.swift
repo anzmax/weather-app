@@ -27,7 +27,7 @@ class WeatherService {
                     if let jsonString = String(data: data, encoding: .utf8) {
                         print(jsonString)
                     }
-                        
+                    
                     do {
                         let weather = try jsonDecoder.decode(Weather.self, from: data)
                         print(weather)
@@ -41,9 +41,9 @@ class WeatherService {
                 }
             }
             
-                task.resume()
-            } else {
-                print("Некорректный URL")
-            }
+            task.resume()
+        } else {
+            print("Некорректный URL")
         }
     }
+}

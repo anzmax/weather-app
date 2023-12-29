@@ -25,6 +25,7 @@ class CoreDataService {
             for forecast in weather.forecasts {
                 let model = createForecastModel(forecast: forecast)
                 forecasts.append(model)
+                break
             }
             
             weatherModel.forecasts = NSSet(array: forecasts)
@@ -128,6 +129,26 @@ class CoreDataService {
         } catch {
             print("Ошибка при извлечении данных: \(error)")
             return []
+        }
+    }
+    
+    func deleteWeatherByLocalitiy(localityName: String) {
+        
+        let fetchRequest: NSFetchRequest<WeatherModel> = WeatherModel.fetchRequest()
+    
+        do {
+            let weatherModels = try context.fetch(fetchRequest)
+            
+            for model in weatherModels {
+                if model.geoObject?.locality?.name == localityName {
+                    
+                    context.delete(model)
+                    try context.save()
+                }
+            }
+            
+        } catch {
+            print("Ошибка при извлечении или удалении данных: \(error)")
         }
     }
 }

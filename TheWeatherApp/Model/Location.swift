@@ -6,9 +6,6 @@ struct Location: Codable {
     var id: String
     var latitude: Double
     var longtitude: Double
-//    var uuid = UUID().uuidString
-    
-    
 }
 
 

@@ -10,7 +10,6 @@ class SearchLocationVC: UIViewController {
     private let locationSearchService = GeocodeService.shared
     private let locationArchiver = LocationsArchiver()
     private let weatherService = WeatherService()
-    private let weatherArchiver = WeatherArchiver()
     private let coreDataService = CoreDataService()
     
     var currentPlacemark: CLPlacemark?
@@ -27,7 +26,7 @@ class SearchLocationVC: UIViewController {
     override func loadView() {
         view = searchLocationView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Добавить город"
@@ -35,6 +34,7 @@ class SearchLocationVC: UIViewController {
         searchLocationView.addLocationButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
     }
     
+    //MARK: - Action
     @objc func addButtonTapped() {
         
         guard let placemark = currentPlacemark else { return }
@@ -44,11 +44,11 @@ class SearchLocationVC: UIViewController {
         let lat = Double(placemark.location?.coordinate.latitude ?? 0.0)
         let lon = Double(placemark.location?.coordinate.longitude ?? 0.0)
         let country = placemark.country ?? ""
-
+        
         let newLocation = Location(name: name, country: country, id: id, latitude: lat, longtitude: lon)
         
         var locations = locationArchiver.fetch()
-
+        
         if !locations.contains(where: {
             $0.latitude == newLocation.latitude &&
             $0.longtitude == newLocation.longtitude &&
@@ -57,51 +57,27 @@ class SearchLocationVC: UIViewController {
             locations.append(newLocation)
             locationArchiver.save(locations)
             
-            //Запрос на модель если она нужна
-            
             weatherService.fetchWeather(latitude: lat, longitude: lon) { result in
                 
                 switch result {
-                    
-                    
                 case .success(let weather):
                     
-                    //АРХИВЕР
-//                    var weathers = self.weatherArchiver.fetch()
-//                    print(weathers.count)
-//                    weathers.append(weather)
-//                    self.weatherArchiver.save(weathers)
-//                    let weathersUpdated = self.weatherArchiver.fetch()
-//                    print(weathersUpdated.count)
-                    
-                    //КОРДАТА
                     self.coreDataService.saveWeather(weather: weather)
                     
                     let weatherModels = self.coreDataService.fetchWeather()
-//                    print(weatherModels)
-//
-//                    print("------------------------------>")
-//                    for model in weatherModels {
-//                        printHours(weather: model)
-//                    }
                     self.coordinator.showMainViewController()
                     
                 case .failure(let error):
                     print(error)
                 }
             }
-            
-            
         } else {
             print("Location already exists")
         }
-        
-    
-       
     }
-
 }
 
+//MARK: - Delegate
 extension SearchLocationVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

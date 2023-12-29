@@ -4,7 +4,6 @@ class LocationListVC: UIViewController {
     
     private let locationListView = LocationListView()
     private let locationArchiver = LocationsArchiver()
-    private let weatherArchiver = WeatherArchiver()
     var locations: [Location] = []
     
     private let coordinator: AppCoordinator

@@ -32,11 +32,6 @@ class MainScreenVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         buttonAction()
-        //setupBarButton()
-        
-//        if let currentWeather {
-//            mainScreenView.update(currentWeather)
-//        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -48,14 +43,6 @@ class MainScreenVC: UIViewController {
     }
     
     //MARK: - Action
-//    @objc func settingsButtonTapped(_ sender: UIBarButtonItem) {
-//        coordinator.showSettingsViewController()
-//    }
-//
-//    @objc func locationButtonTapped(_ sender: UIBarButtonItem) {
-//        coordinator.showListVC()
-//    }
-    
     func buttonAction() {
         mainScreenView.onButtonTapped = { [weak self] indexPath in
             guard let currentWeather = self?.currentWeather else { return }

@@ -18,8 +18,6 @@ class CurrentDayView: UIView {
         }
     }
     
-    //var currentParts: PartsModel?
-    
     lazy var detailLabel = RegularLabel(text: "Дневная погода", color: .customGray, size: 16)
     lazy var locationLabel = MediumLabel(text: "Location", color: .customBlack, size: 18)
     
@@ -59,7 +57,7 @@ class CurrentDayView: UIView {
     }
 }
 
-//MARK: - Extension
+//MARK: - Delegate
 extension CurrentDayView: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         CurrentCellType.allCases.count
@@ -97,7 +95,6 @@ extension CurrentDayView: UITableViewDelegate, UITableViewDataSource {
                     } else {
                         print("Index out of range")
                     }
-
                 }
                 return cell
                 

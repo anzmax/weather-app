@@ -14,7 +14,6 @@ class LocationManagerService: NSObject {
 
     func requestLocationAuthorization() {
         locationManager.requestWhenInUseAuthorization()
-        
         startUpdatingLocation()
     }
     

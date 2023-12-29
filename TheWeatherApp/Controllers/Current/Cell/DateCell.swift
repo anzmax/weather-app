@@ -40,6 +40,7 @@ class DateCollectionCell: UICollectionViewCell {
     }
 }
 
+//MARK: - TableViewCell
 class DateCell: UITableViewCell {
     
     var onDateCellTapped: ((Int)->())?
@@ -88,6 +89,7 @@ class DateCell: UITableViewCell {
     }
 }
 
+//MARK: - Delegate
 extension DateCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

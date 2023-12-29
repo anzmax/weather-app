@@ -19,7 +19,6 @@ class RegularLabel: UILabel {
             .kern: 0.14
         ])
         self.numberOfLines = 0
-        //self.textAlignment = .center
         self.attributedText = attributedString
     }
 }

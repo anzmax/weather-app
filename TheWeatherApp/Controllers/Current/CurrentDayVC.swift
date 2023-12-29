@@ -32,6 +32,7 @@ class CurrentDayVC: UIViewController {
         }
     }
     
+    //MARK: - Action
     @objc func backButtonTapped() {
         self.dismiss(animated: true, completion: nil)
     }

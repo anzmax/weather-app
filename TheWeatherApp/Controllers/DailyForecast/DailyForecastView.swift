@@ -72,7 +72,6 @@ class DailyForecastView: UIView {
     
     //MARK: - Update
     func updateHour(_ hours: [HourModel]) {
-        // Преобразуем время из строк в числа (в формате часов от 0 до 23) для сортировки
         let sortedHours = hours.sorted {
             guard let firstHour = $0.hour, let secondHour = $1.hour,
                   let firstHourInt = Int(firstHour.components(separatedBy: ":").first ?? ""),
@@ -80,7 +79,6 @@ class DailyForecastView: UIView {
             return firstHourInt < secondHourInt
         }
 
-        // Фильтруем, чтобы получить часы с интервалом в 3 часа
         var result: [HourModel] = []
         for hour in sortedHours {
             guard let hourString = hour.hour,
@@ -88,10 +86,8 @@ class DailyForecastView: UIView {
                   hourInt % 3 == 0 else { continue }
             result.append(hour)
         }
-
         self.hours = result
     }
-
 }
 
 //MARK: - Extension

@@ -3,10 +3,12 @@ import UIKit
 
 class OnboardingVC: UIViewController {
     
+    private let coordinator: AppCoordinator
+    
+    //MARK: - Services
     private let onboardingView = OnboardingView()
     private let locationService = LocationManagerService()
     private let geocodeService = GeocodeService.shared
-    private let coordinator: AppCoordinator
     
     override func loadView() {
         view = onboardingView

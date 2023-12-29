@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F414A2612B2C21D700354095 /* WeatherTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F414A2602B2C21D700354095 /* WeatherTestModel.swift */; };
 		F443F0912B13B3E200066907 /* ForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F443F0902B13B3E200066907 /* ForecastCell.swift */; };
 		F443F0932B13BBBA00066907 /* DailyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F443F0922B13BBB900066907 /* DailyCell.swift */; };
 		F443F09B2B16212700066907 /* DailyForecastVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F443F09A2B16212700066907 /* DailyForecastVC.swift */; };
@@ -70,7 +69,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F414A2602B2C21D700354095 /* WeatherTestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTestModel.swift; sourceTree = "<group>"; };
 		F443F0902B13B3E200066907 /* ForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCell.swift; sourceTree = "<group>"; };
 		F443F0922B13BBB900066907 /* DailyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCell.swift; sourceTree = "<group>"; };
 		F443F09A2B16212700066907 /* DailyForecastVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecastVC.swift; sourceTree = "<group>"; };
@@ -160,7 +158,6 @@
 			children = (
 				F443F09D2B177AA400066907 /* Weather.swift */,
 				F46312642B2324CD00AAD692 /* Location.swift */,
-				F414A2602B2C21D700354095 /* WeatherTestModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -506,7 +503,6 @@
 				F48E7D4D2B1A2650006A4F9C /* WeatherCondition.swift in Sources */,
 				F4C0EAAD2B18EF6B00A52F17 /* WeatherCell.swift in Sources */,
 				F44476382B06306A005A5CA7 /* AppDelegate.swift in Sources */,
-				F414A2612B2C21D700354095 /* WeatherTestModel.swift in Sources */,
 				F4C0EAA02B18AC2500A52F17 /* DailyForecastView.swift in Sources */,
 				F4B703C82B0779AE002B1029 /* CustomLabel.swift in Sources */,
 				F444764F2B0630D9005A5CA7 /* OnboardingVC.swift in Sources */,

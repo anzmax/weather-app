@@ -1,8 +1,9 @@
 import UIKit
 
 class LocationListView: UIView {
-
+    
     var locations: [Location] = []
+    var coreDataService = CoreDataService()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -13,7 +14,7 @@ class LocationListView: UIView {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         return tableView
     }()
-  
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -33,7 +34,7 @@ class LocationListView: UIView {
         backgroundColor = .white
         addSubview(tableView)
     }
-
+    
     private func setupConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -41,12 +42,11 @@ class LocationListView: UIView {
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
         ])
     }
-    
 }
 
+//MARK: - Extension
 extension LocationListView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         locations.count
@@ -62,32 +62,16 @@ extension LocationListView: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            locations.remove(at: indexPath.row)
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//            let archiver = LocationsArchiver()
-//            archiver.save(locations)
-//        }
-//    }
-    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let locationToRemove = locations[indexPath.row]
             locations.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-
-            //
+            
             let archiver = LocationsArchiver()
             archiver.save(locations)
             
-            //
-            let weatherArchiver = WeatherArchiver()
-            var weathers = weatherArchiver.fetch()
-            weathers.remove(at: indexPath.row)
-
-            weatherArchiver.save(weathers)
-
+            coreDataService.deleteWeatherByLocalitiy(localityName: locationToRemove.name)
         }
     }
 }
