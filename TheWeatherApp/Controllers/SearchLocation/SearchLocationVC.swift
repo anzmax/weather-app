@@ -64,7 +64,7 @@ class SearchLocationVC: UIViewController {
                     
                     self.coreDataService.saveWeather(weather: weather)
                     
-                    let weatherModels = self.coreDataService.fetchWeather()
+                    _ = self.coreDataService.fetchWeather()
                     self.coordinator.showMainViewController()
                     
                 case .failure(let error):

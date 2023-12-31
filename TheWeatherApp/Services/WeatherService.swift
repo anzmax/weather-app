@@ -9,7 +9,7 @@ class WeatherService {
         
         let jsonDecoder = JSONDecoder()
         
-        let API_KEY = "acc18e80-17fe-4fa1-896a-90236f0d3278"
+        let API_KEY = "20d3e84b-5589-45b6-8a8d-397a4b59d34f"
         let urlString = "https://api.weather.yandex.ru/v2/forecast?lat=\(latitude)&lon=\(longitude)&lang=ru_RU&limit=7&hours=true&extra=true"
         
         if let url = URL(string: urlString) {
