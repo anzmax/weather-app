@@ -9,7 +9,7 @@ class DailyForecastView: UIView {
     }
     
     lazy var detailLabel = RegularLabel(text: "Прогноз на 24 часа".localized, color: .customGray, size: 16)
-    lazy var locationLabel = MediumLabel(text: "Location", color: .customBlack, size: 18)
+    lazy var locationLabel = MediumLabel(text: "Location".localized, color: .customBlack, size: 18)
     
     lazy var backButton: UIButton = {
         let button = UIButton()
