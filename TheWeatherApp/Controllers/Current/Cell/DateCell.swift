@@ -24,7 +24,7 @@ class DateCollectionCell: UICollectionViewCell {
     private func setupConstraints() {
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            dateLabel.widthAnchor.constraint(equalToConstant: 82),
+            dateLabel.widthAnchor.constraint(equalToConstant: 70),
             dateLabel.heightAnchor.constraint(equalToConstant: 22),
             dateLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             dateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 7),
@@ -50,7 +50,7 @@ class DateCell: UITableViewCell {
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         
-        layout.itemSize = CGSize(width: 90, height: 36)
+        layout.itemSize = CGSize(width: 107, height: 36)
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 18
         

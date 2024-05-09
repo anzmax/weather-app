@@ -4,14 +4,14 @@ class AirInfoCell: UITableViewCell {
     
     static let id = "AirInfoCell"
     
-    lazy var qualityLabel = RegularLabel(text: "Качество воздуха", color: .customBlack, size: 18)
+    lazy var qualityLabel = RegularLabel(text: "Качество воздуха".localized, color: .customBlack, size: 18)
     lazy var numberLabel = RegularLabel(text: "42", color: .customBlack, size: 30)
     lazy var descriptionLabel = RegularLabel(text: .descriptionText, color: .customGray, size: 14)
     
     lazy var ratinglabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .customGreen
-        label.text = "хорошо"
+        label.text = "хорошо".localized
         label.textAlignment = .center
         label.textColor = .white
         label.font = UIFont.rubik(.regular, size: 16)

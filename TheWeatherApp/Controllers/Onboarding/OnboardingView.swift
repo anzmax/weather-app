@@ -10,7 +10,7 @@ class OnboardingView: UIView {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Разрешить приложению Weather использовать данные о местоположении вашего устройства"
+        label.text = "Разрешить приложению Weather использовать данные о местоположении вашего устройства".localized
         label.textColor = .white
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -21,7 +21,7 @@ class OnboardingView: UIView {
     
     lazy var secondaryLabel: UILabel = {
         let label = UILabel()
-        label.text = "Чтобы получить более точные прогнозы погоды во время движения или путешествия"
+        label.text = "Чтобы получить более точные прогнозы погоды во время движения или путешествия".localized
         label.textColor = .white
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -32,7 +32,7 @@ class OnboardingView: UIView {
     
     lazy var thirdLabel: UILabel = {
         let label = UILabel()
-        label.text = "Вы можете изменить свой выбор в любое время из меню приложения"
+        label.text = "Вы можете изменить свой выбор в любое время из меню приложения".localized
         label.textColor = .white
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -43,7 +43,7 @@ class OnboardingView: UIView {
     
     lazy var useGeoButton: UIButton = {
         let button = UIButton()
-        button.setTitle("ИСПОЛЬЗОВАТЬ МЕСТОПОЛОЖЕНИЕ  УСТРОЙСТВА", for: .normal)
+        button.setTitle("ИСПОЛЬЗОВАТЬ МЕСТОПОЛОЖЕНИЕ  УСТРОЙСТВА".localized, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont(name: "Rubik-Medium", size: 12)
         button.backgroundColor = .customOrange
@@ -53,7 +53,7 @@ class OnboardingView: UIView {
     
     lazy var dismissGeoButton: UIButton = {
         let button = UIButton()
-        button.setTitle("НЕТ, Я БУДУ ДОБАВЛЯТЬ ЛОКАЦИИ", for: .normal)
+        button.setTitle("НЕТ, Я БУДУ ДОБАВЛЯТЬ ЛОКАЦИИ".localized, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont(name: "Rubik-Regular", size: 16)
         button.backgroundColor = .customBlue

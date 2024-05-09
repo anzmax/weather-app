@@ -44,7 +44,6 @@ class OnboardingVC: UIViewController {
     private func handleUseGeoButtonTap() {
         locationService.requestLocationAuthorization()
         locationService.onLocationUpdated = { [weak self] location in
-            print("Получено местоположение: \(location)")
             
             WeatherService.shared.fetchWeather(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude) { result in
                 DispatchQueue.main.async {
@@ -53,12 +52,11 @@ class OnboardingVC: UIViewController {
                         
                         let latitude = weather.info.lat
                         let longitude = weather.info.lon
-                        
-                        print("Долгота: \(latitude), Широта: \(longitude)")
+
                         print(weather)
                         self?.coordinator.showMainViewController()
                     case .failure(let error):
-                        print("Ошибка при запросе погоды: \(error)")
+                        print(error.localizedDescription)
                     }
                 }
             }

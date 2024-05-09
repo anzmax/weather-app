@@ -10,19 +10,19 @@ class SunMoonCell: UITableViewCell {
     lazy var sunImageView = CustomImageView(named: "sun")
     lazy var moonImageView = CustomImageView(named: "moon")
     
-    lazy var sunriseLabel = RegularLabel(text: "Восход", color: .customGray, size: 14)
-    lazy var sunsetLabel = RegularLabel(text: "Заход", color: .customGray, size: 14)
-    lazy var sunTimeLabel = RegularLabel(text: "14ч 27 мин", color: .customBlack, size: 16)
+    lazy var sunriseLabel = RegularLabel(text: "Восход".localized, color: .customGray, size: 14)
+    lazy var sunsetLabel = RegularLabel(text: "Заход".localized, color: .customGray, size: 14)
+    lazy var sunTimeLabel = RegularLabel(text: "14ч 27 мин".localized, color: .customBlack, size: 16)
     lazy var sunriseTimeLabel = RegularLabel(text: "05:19", color: .customBlack, size: 16)
     lazy var sunsetTimeLabel = RegularLabel(text: "19:46", color: .customBlack, size: 16)
-    lazy var sunMoonLabel = RegularLabel(text: "Солнце и Луна", color: .customGray, size: 18)
+    lazy var sunMoonLabel = RegularLabel(text: "Солнце и Луна".localized, color: .customGray, size: 18)
     
-    lazy var fullMoonLabel = RegularLabel(text: "Полнолуние", color: .customBlack, size: 14)
-    lazy var moonriseLabel = RegularLabel(text: "Восход", color: .customGray, size: 14)
-    lazy var moonsetLabel = RegularLabel(text: "Заход", color: .customGray, size: 14)
+    lazy var fullMoonLabel = RegularLabel(text: "Полнолуние".localized, color: .customBlack, size: 14)
+    lazy var moonriseLabel = RegularLabel(text: "Восход".localized, color: .customGray, size: 14)
+    lazy var moonsetLabel = RegularLabel(text: "Заход".localized, color: .customGray, size: 14)
     lazy var moonriseTimeLabel = RegularLabel(text: "05:19", color: .customBlack, size: 16)
     lazy var moonsetTimeLabel = RegularLabel(text: "19:46", color: .customBlack, size: 16)
-    lazy var moonTimeLabel = RegularLabel(text: "14ч 27 мин", color: .customBlack, size: 16)
+    lazy var moonTimeLabel = RegularLabel(text: "14ч 27 мин".localized, color: .customBlack, size: 16)
     
     lazy var sunriseDashedLine = DashedLineView()
     lazy var sunsetDashedLine = DashedLineView()
@@ -48,21 +48,19 @@ class SunMoonCell: UITableViewCell {
         sunsetTimeLabel.text = forecast.sunset
         moonriseTimeLabel.text = forecast.riseBegin
         moonsetTimeLabel.text = forecast.setEnd
- 
+        
+        let timeIntervalFormatter = DateComponentsFormatter()
+        timeIntervalFormatter.allowedUnits = [.hour, .minute]
+        timeIntervalFormatter.unitsStyle = .abbreviated
+        
         if let sunriseDate = dateFormatter.date(from: forecast.sunrise ?? ""), let sunsetDate = dateFormatter.date(from: forecast.sunset ?? "") {
             let timeInterval = sunsetDate.timeIntervalSince(sunriseDate)
-            
-            let hours = Int(timeInterval) / 3600
-            let minutes = Int(timeInterval) % 3600 / 60
-            sunTimeLabel.text = "\(hours)ч \(minutes) мин"
+            sunTimeLabel.text = timeIntervalFormatter.string(from: timeInterval)
         }
         
         if let moonriseDate = dateFormatter.date(from: forecast.riseBegin ?? ""), let moonsetDate = dateFormatter.date(from: forecast.setEnd ?? "") {
             let moonTimeInterval = moonsetDate.timeIntervalSince(moonriseDate)
-            
-            let moonHours = Int(moonTimeInterval) / 3600
-            let moonMinutes = Int(moonTimeInterval) % 3600 / 60
-            moonTimeLabel.text = "\(moonHours)ч \(moonMinutes) мин"
+            moonTimeLabel.text = timeIntervalFormatter.string(from: moonTimeInterval)
         }
     }
 }

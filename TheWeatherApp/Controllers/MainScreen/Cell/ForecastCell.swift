@@ -4,11 +4,11 @@ final class ForecastCell: UITableViewCell {
     
     static let id = "ForecastCell"
     
-    lazy var forecastLabel = MediumLabel(text: "Ежедневный прогноз", color: .customBlack, size: 18)
+    lazy var forecastLabel = MediumLabel(text: "Ежедневный прогноз".localized, color: .customBlack, size: 18)
     
     lazy var detailButton: UIButton = {
         let button = UIButton()
-        let titleString = "25 дней"
+        let titleString = "25 дней".localized
         let attributedTitle = NSMutableAttributedString(string: titleString)
 
         let rubikFont = UIFont.rubik(.regular, size: 16)

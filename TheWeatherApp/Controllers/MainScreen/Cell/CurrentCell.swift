@@ -19,7 +19,7 @@ final class CurrentCell: UITableViewCell {
     lazy var windLabel = RegularLabel(text: "3 м/с", color: .white, size: 14)
     lazy var humidityLabel = RegularLabel(text: "75%", color: .white, size: 14)
     lazy var degreeRangeLabel = RegularLabel(text: "7°/13°", color: .white, size: 16)
-    lazy var descriptionLabel = RegularLabel(text: "Возможен небольшой дождь", color: .white, size: 16)
+    lazy var descriptionLabel = RegularLabel(text: "Возможен небольшой дождь".localized, color: .white, size: 16)
     
     lazy var sunriseTimeLabel = MediumLabel(text: "05:41", color: .white, size: 14)
     lazy var sunsetTimeLabel = MediumLabel(text: "19:31", color: .white, size: 14)
@@ -33,7 +33,7 @@ final class CurrentCell: UITableViewCell {
     
     lazy var detailButton: UIButton = {
         let button = UIButton()
-        let titleString = "Подробнее на 24 часа"
+        let titleString = "Подробнее на 24 часа".localized
         let attributedTitle = NSMutableAttributedString(string: titleString)
         if let rubikFont = UIFont(name: "Rubik-Regular", size: 16) {
             attributedTitle.addAttribute(.font, value: rubikFont, range: NSRange(location: 0, length: titleString.count))
@@ -75,14 +75,15 @@ final class CurrentCell: UITableViewCell {
         if let weatherCondition = WeatherCondition(rawValue: weather.fact?.condition ?? "") {
             descriptionLabel.text = weatherCondition.ruDescription
         } else {
-            descriptionLabel.text = "Неизвестно"
+            descriptionLabel.text = "Неизвестно".localized
         }
         
         sunriseTimeLabel.text = "\(firstForecast?.riseBegin ?? "")"
         sunsetTimeLabel.text = "\(firstForecast?.setEnd ?? "")"
         degreeLabel.text = "\(weather.fact?.temp ?? 0)°"
         cloudLabel.text = "\(weather.fact?.cloudness ?? 0)%"
-        windLabel.text = "\(weather.fact?.windSpeed ?? 0.0) м/с"
+        let windSpeedUnit = NSLocalizedString("м/с", comment: "Units for wind speed in meters per second")
+        windLabel.text = "\(weather.fact?.windSpeed ?? 0.0) \(windSpeedUnit)"
         humidityLabel.text = "\(weather.fact?.humidity ?? 0)%"
         degreeRangeLabel.text = "\(tempMin)° /\(tempMax)°"
     }

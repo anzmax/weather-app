@@ -12,7 +12,7 @@ class CurrentDayVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         currentDayView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        currentDayView.locationLabel.text = "\(currentWeather?.geoObject?.locality?.name ?? "")"
+        currentDayView.locationLabel.text = translateLocationName(currentWeather?.geoObject?.locality?.name ?? "")
         
         if let forecastsSet = currentWeather?.forecasts as? Set<ForecastModel> {
             let forecastsArray = Array(forecastsSet)

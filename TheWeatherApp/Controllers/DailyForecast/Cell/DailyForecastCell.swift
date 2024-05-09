@@ -4,14 +4,14 @@ class DailyForecastCell: UITableViewCell {
     
     static let id = "DailyForecastCell"
     
-    lazy var windLabel = RegularLabel(text: "Ветер", color: .customBlack, size: 14)
-    lazy var cloudLabel = RegularLabel(text: "Облачность", color: .customBlack, size: 14)
+    lazy var windLabel = RegularLabel(text: "Ветер".localized, color: .customBlack, size: 14)
+    lazy var cloudLabel = RegularLabel(text: "Облачность".localized, color: .customBlack, size: 14)
     lazy var windIndicatorLabel = RegularLabel(text: "2 m/s CCЗ", color: .customGray, size: 14)
     lazy var precipIndicatorLabel = RegularLabel(text: "0%", color: .customGray, size: 14)
     lazy var cloudIndicatorLabel = RegularLabel(text: "29%", color: .customGray, size: 14)
     lazy var timeLabel = RegularLabel(text: "00:00", color: .customGray, size: 14)
     lazy var moonLabel = RegularLabel(text: "Преимуществен.. По ощущению 10°", color: .customBlack, size: 14)
-    lazy var precipitationLabel = RegularLabel(text: "Атмосферные осадки", color: .customBlack, size: 14)
+    lazy var precipitationLabel = RegularLabel(text: "Атмосферные осадки".localized, color: .customBlack, size: 14)
     lazy var currentDegreeLabel = MediumLabel(text: "12°", color: .customBlack, size: 18)
     
     lazy var moonImageView = CustomImageView(named: "moon")
@@ -40,9 +40,9 @@ class DailyForecastCell: UITableViewCell {
         timeLabel.text = formattedTime(hourString: hour.hour ?? "")
         currentDegreeLabel.text = "\(hour.temp)°"
         if let weatherCondition = WeatherCondition(rawValue: hour.condition ?? "") {
-            moonLabel.text = "\(weatherCondition.ruDescription). По ощущению \(hour.feelsLike)°"
+            moonLabel.text = "\(weatherCondition.ruDescription). \(String(format: NSLocalizedString("По ощущению %d°", comment: "Label for feels-like temperature"), hour.feelsLike))"
         } else {
-            moonLabel.text = "Состояние погоды неизвестно"
+            moonLabel.text = "Состояние погоды неизвестно".localized
         }
         windIndicatorLabel.text = "\(hour.windSpeed) m/s CCS"
         precipIndicatorLabel.text = "\(hour.precipitation) %"

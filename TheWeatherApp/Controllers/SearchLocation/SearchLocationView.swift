@@ -7,14 +7,14 @@ class SearchLocationView: UIView {
     
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.placeholder = "Введите название города"
+        searchBar.placeholder = "Введите название города".localized
         searchBar.searchBarStyle = .minimal
         return searchBar
     }()
     
     lazy var addLocationButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Добавить", for: .normal)
+        button.setTitle("Добавить".localized, for: .normal)
         button.titleLabel?.font = UIFont.rubik(.medium, size: 22)
         button.backgroundColor = .customOrange
         button.setTitleColor(.white, for: .normal)

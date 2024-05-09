@@ -18,7 +18,7 @@ class CurrentDayView: UIView {
         }
     }
     
-    lazy var detailLabel = RegularLabel(text: "Дневная погода", color: .customGray, size: 16)
+    lazy var detailLabel = RegularLabel(text: "Дневная погода".localized, color: .customGray, size: 16)
     lazy var locationLabel = MediumLabel(text: "Location", color: .customBlack, size: 18)
     
     lazy var backButton: UIButton = {
@@ -111,7 +111,7 @@ extension CurrentDayView: UITableViewDelegate, UITableViewDataSource {
                 if let day = currentParts?.nightShort {
                     cell.update(with: day)
                 }
-                cell.titleLabel.text = "Ночь"
+                cell.titleLabel.text = "Ночь".localized
                 return cell
                 
             case .sunMoon:
