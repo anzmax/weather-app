@@ -31,7 +31,7 @@ Before you can run the app, you'll need:
 
 ### Installation
 
-1. Clone this repository, specifically the `develop` branch
+1. Clone this repository
 2. Open `TheWeatherApp.xcodeproj` in Xcode.
 3. Insert your Yandex API key into the designated place in the network manager.
 4. Build and run the app on your iOS device or simulator.
