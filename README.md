@@ -46,7 +46,15 @@ Contributions to the Weather App are welcome! Please feel free to fork the repos
 
 ## Screenshots
 
-|     |     |     |     |
-| --- | --- | --- | --- |
-| ![Image 1](https://github.com/anzmax/weather-app/blob/develop/1.png) | ![Image 2](https://github.com/anzmax/weather-app/blob/develop/2.png) | ![Image 3](https://github.com/anzmax/weather-app/blob/develop/3.png) | ![Image 4](https://github.com/anzmax/weather-app/blob/develop/4.png) |
-| ![Image 5](https://github.com/anzmax/weather-app/blob/develop/5.png) | ![Image 6](https://github.com/anzmax/weather-app/blob/develop/6.png) | ![Image 7](https://github.com/anzmax/weather-app/blob/develop/7.png) | ![Image 8](https://github.com/anzmax/weather-app/blob/develop/8.png) |
+<div style="display: flex; flex-wrap: wrap;">
+    <img src="https://github.com/anzmax/weather-app/blob/main/1.png" style="width: 30%;" />
+    <img src="https://github.com/anzmax/weather-app/blob/main/2.png" style="width: 30%;" />
+    <img src="https://github.com/anzmax/weather-app/blob/main/3.png" style="width: 30%;" />
+    <img src="https://github.com/anzmax/weather-app/blob/main/4.png" style="width: 30%;" />
+    <img src="https://github.com/anzmax/weather-app/blob/main/5.png" style="width: 30%;" />
+    <img src="https://github.com/anzmax/weather-app/blob/main/6.png" style="width: 30%;" />
+    <img src="https://github.com/anzmax/weather-app/blob/main/7.png" style="width: 30%;" />
+    <img src="https://github.com/anzmax/weather-app/blob/main/8.png" style="width: 30%;" />
+    <img src="https://github.com/anzmax/weather-app/blob/main/9.png" style="width: 30%;" />
+</div>
+
