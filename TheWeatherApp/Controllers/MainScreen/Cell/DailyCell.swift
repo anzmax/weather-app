@@ -10,7 +10,7 @@ class DailyCell: UITableViewCell {
     lazy var weatherImageView = CustomImageView(named: "precIcon")
     
     lazy var percentageLabel = RegularLabel(text: "57%", color: .customBlue, size: 12)
-    lazy var descriptionLabel = RegularLabel(text: "Местами дождь", color: .customBlack, size: 16)
+    lazy var descriptionLabel = RegularLabel(text: "Местами дождь".localized, color: .customBlack, size: 16)
     lazy var tempLabel = RegularLabel(text: "4°-11°", color: .customBlack, size: 18)
     
     lazy var dateLabel: UILabel = {
@@ -43,7 +43,7 @@ class DailyCell: UITableViewCell {
         if let weatherCondition = WeatherCondition(rawValue: forecast.parts?.dayShort?.condition ?? "") {
             descriptionLabel.text = weatherCondition.ruDescription
         } else {
-            descriptionLabel.text = "Неизвестно"
+            descriptionLabel.text = "Неизвестно".localized
         }
         percentageLabel.text = "\(forecast.parts?.dayShort?.precipitation ?? 0)%"
         let tempMin = forecast.parts?.dayShort?.tempMin ?? 0

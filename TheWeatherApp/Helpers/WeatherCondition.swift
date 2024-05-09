@@ -23,41 +23,41 @@ enum WeatherCondition: String {
     var ruDescription: String {
         switch self {
         case .clear:
-            return "Ясно"
+            return "Ясно".localized
         case .partlyCloudy:
-            return "Малооблачно"
+            return "Малооблачно".localized
         case .cloudy:
-            return "Облачно с прояснениями"
+            return "Облачно с прояснениями".localized
         case .overcast:
-            return "Пасмурно"
+            return "Пасмурно".localized
         case .drizzle:
-            return "Морось"
+            return "Морось".localized
         case .lightRain:
-            return "Небольшой дождь"
+            return "Небольшой дождь".localized
         case .rain:
-            return "Дождь"
+            return "Дождь".localized
         case .moderateRain:
-            return "Умеренно сильный дождь"
+            return "Умеренно сильный дождь".localized
         case .heavyRain:
-            return "Сильный дождь"
+            return "Сильный дождь".localized
         case .showers:
-            return "Ливень"
+            return "Ливень".localized
         case .lightSnow:
-            return "Небольшой снег"
+            return "Небольшой снег".localized
         case .snow:
-            return "Снег"
+            return "Снег".localized
         case .wetSnow:
-            return "Дождь со снегом"
+            return "Дождь со снегом".localized
         case .snowShowers:
-            return "Снегопад"
+            return "Снегопад".localized
         case .hail:
-            return "Град"
+            return "Град".localized
         case .thunderstorm:
-            return "Гроза"
+            return "Гроза".localized
         case .thunderstormRain:
-            return "Дождь с грозой"
+            return "Дождь с грозой".localized
         case .thunderstormHail:
-            return "Гроза с градом"
+            return "Гроза с градом".localized
         }
     }
 }

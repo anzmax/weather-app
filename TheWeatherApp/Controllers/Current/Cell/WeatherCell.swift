@@ -6,13 +6,13 @@ class WeatherCell: UITableViewCell {
     
     lazy var tempLabel = RegularLabel(text: "13°", color: .customBlack, size: 30)
     lazy var conditionLabel = MediumLabel(text: "Ливни", color: .customBlack, size: 18)
-    lazy var titleLabel = RegularLabel(text: "День", color: .customBlack, size: 18)
+    lazy var titleLabel = RegularLabel(text: "День".localized, color: .customBlack, size: 18)
     
-    lazy var feelsLikeLabel = RegularLabel(text: "По ощущениям", color: .customBlack, size: 14)
-    lazy var windLabel = RegularLabel(text: "Ветер", color: .customBlack, size: 14)
-    lazy var uvIndexLabel = RegularLabel(text: "УФ индекс", color: .customBlack, size: 14)
-    lazy var rainChanceLabel = RegularLabel(text: "Осадки", color: .customBlack, size: 14)
-    lazy var cloudinessLabel = RegularLabel(text: "Облачность", color: .customBlack, size: 14)
+    lazy var feelsLikeLabel = RegularLabel(text: "По ощущениям".localized, color: .customBlack, size: 14)
+    lazy var windLabel = RegularLabel(text: "Ветер".localized, color: .customBlack, size: 14)
+    lazy var uvIndexLabel = RegularLabel(text: "УФ индекс".localized, color: .customBlack, size: 14)
+    lazy var rainChanceLabel = RegularLabel(text: "Осадки".localized, color: .customBlack, size: 14)
+    lazy var cloudinessLabel = RegularLabel(text: "Облачность".localized, color: .customBlack, size: 14)
     
     lazy var currentImageView = CustomImageView(named: "precIcon")
     lazy var feelsLikeImageView = CustomImageView(named: "feelsLike")
@@ -48,11 +48,11 @@ class WeatherCell: UITableViewCell {
         if let weatherCondition = WeatherCondition(rawValue: day.condition ?? "") {
             conditionLabel.text = "\(weatherCondition.ruDescription)"
         } else {
-            conditionLabel.text = "Состояние погоды неизвестно"
+            conditionLabel.text = "Состояние погоды неизвестно".localized
         }
         tempLabel.text = "\(day.temp)°"
         feelsLikePercentageLabel.text = "\(day.feelsLike)°"
-        speedLabel.text = "\(day.windSpeed) m\\s ЗЮЗ"
+        speedLabel.text = "\(day.windSpeed) m\\s"
         uvNumberLabel.text = "\(day.uvIndex)"
         rainPercentageLabel.text = "\(day.precipitation)%"
         cloudPercentageLabel.text = "\(Int(day.cloudness))%"

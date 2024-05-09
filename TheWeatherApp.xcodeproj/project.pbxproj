@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F43A9A732BED36F60089E2DC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F43A9A712BED36F60089E2DC /* Localizable.strings */; };
+		F43A9A752BED37250089E2DC /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43A9A742BED37250089E2DC /* String+Ext.swift */; };
+		F43A9A772BED41940089E2DC /* Translation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43A9A762BED41940089E2DC /* Translation.swift */; };
 		F443F0912B13B3E200066907 /* ForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F443F0902B13B3E200066907 /* ForecastCell.swift */; };
 		F443F0932B13BBBA00066907 /* DailyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F443F0922B13BBB900066907 /* DailyCell.swift */; };
 		F443F09B2B16212700066907 /* DailyForecastVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F443F09A2B16212700066907 /* DailyForecastVC.swift */; };
@@ -69,6 +72,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F43A9A722BED36F60089E2DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F43A9A742BED37250089E2DC /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		F43A9A762BED41940089E2DC /* Translation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Translation.swift; sourceTree = "<group>"; };
 		F443F0902B13B3E200066907 /* ForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCell.swift; sourceTree = "<group>"; };
 		F443F0922B13BBB900066907 /* DailyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCell.swift; sourceTree = "<group>"; };
 		F443F09A2B16212700066907 /* DailyForecastVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecastVC.swift; sourceTree = "<group>"; };
@@ -210,6 +216,7 @@
 				F44476402B06306B005A5CA7 /* Assets.xcassets */,
 				F44476422B06306B005A5CA7 /* LaunchScreen.storyboard */,
 				F44476452B06306B005A5CA7 /* Info.plist */,
+				F43A9A712BED36F60089E2DC /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -236,6 +243,8 @@
 				F44476512B063182005A5CA7 /* Extensions.swift */,
 				F48224E02B1DE053000B5F32 /* TimeDateFormat.swift */,
 				F48E7D4C2B1A2650006A4F9C /* WeatherCondition.swift */,
+				F43A9A742BED37250089E2DC /* String+Ext.swift */,
+				F43A9A762BED41940089E2DC /* Translation.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -471,6 +480,7 @@
 				F44476442B06306B005A5CA7 /* LaunchScreen.storyboard in Resources */,
 				F44476412B06306B005A5CA7 /* Assets.xcassets in Resources */,
 				F44476582B0636ED005A5CA7 /* rubik-semi-bold.ttf in Resources */,
+				F43A9A732BED36F60089E2DC /* Localizable.strings in Resources */,
 				F444763F2B06306A005A5CA7 /* Main.storyboard in Resources */,
 				F44476572B0636ED005A5CA7 /* rubik-medium.ttf in Resources */,
 				F44476592B0636ED005A5CA7 /* rubik-regular.ttf in Resources */,
@@ -498,6 +508,7 @@
 				F44476652B0650CC005A5CA7 /* AddLocationVC.swift in Sources */,
 				F4620D7E2B3042E80046CD7C /* CoreDataService.swift in Sources */,
 				F4A8078D2B39AFCA00EAD698 /* FactModel+CoreDataClass.swift in Sources */,
+				F43A9A772BED41940089E2DC /* Translation.swift in Sources */,
 				F443F0912B13B3E200066907 /* ForecastCell.swift in Sources */,
 				F444766C2B065D2A005A5CA7 /* SearchLocationView.swift in Sources */,
 				F48E7D4D2B1A2650006A4F9C /* WeatherCondition.swift in Sources */,
@@ -520,6 +531,7 @@
 				F46312602B230BAB00AAD692 /* LocationListView.swift in Sources */,
 				F45721CC2B109DB000EE7248 /* CurrentCell.swift in Sources */,
 				F4B703C52B076A47002B1029 /* SettingsView.swift in Sources */,
+				F43A9A752BED37250089E2DC /* String+Ext.swift in Sources */,
 				F4C0EAA22B18B53400A52F17 /* DailyForecastCell.swift in Sources */,
 				F44476732B067551005A5CA7 /* MainScreenView.swift in Sources */,
 				F444765C2B064453005A5CA7 /* OnboardingView.swift in Sources */,
@@ -543,6 +555,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		F43A9A712BED36F60089E2DC /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F43A9A722BED36F60089E2DC /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		F444763D2B06306A005A5CA7 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

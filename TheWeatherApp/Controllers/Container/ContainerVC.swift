@@ -17,7 +17,7 @@ class ContainerVC: UIPageViewController {
     
     init(coordinator: AppCoordinator) {
         self.coordinator = coordinator
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        super.init(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
         self.dataSource = self
         self.delegate = self
     }
@@ -86,7 +86,15 @@ class ContainerVC: UIPageViewController {
         if let currentPage = viewControllers?.first as? MainScreenVC,
            let currentIndex = pages.firstIndex(of: currentPage) {
             let currentWeather = weatherData[currentIndex]
-            title = "\(currentWeather.geoObject?.locality?.name ?? ""), \(currentWeather.geoObject?.country?.name ?? "")"
+            
+            if let localityName = currentWeather.geoObject?.locality?.name,
+               let countryName = currentWeather.geoObject?.country?.name {
+                let translatedLocalityName = translateLocationName(localityName)
+                let translatedCountryName = translateLocationName(countryName)
+                title = "\(translatedLocalityName), \(translatedCountryName)"
+            } else {
+                title = "Location unknown"
+            }
         }
     }
     

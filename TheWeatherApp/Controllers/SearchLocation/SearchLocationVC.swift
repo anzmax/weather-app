@@ -29,7 +29,7 @@ class SearchLocationVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Добавить город"
+        navigationItem.title = "Добавить город".localized
         searchLocationView.searchBar.delegate = self
         searchLocationView.addLocationButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
     }

@@ -4,11 +4,11 @@ class SettingsView: UIView {
     
     lazy var backgroundImageView = CustomImageView(named: "settingsBG")
     
-    lazy var settingsLabel = MediumLabel(text: "Настройки", color: .customBlack, size: 18)
-    lazy var tempLabel = RegularLabel(text: "Температура", color: .customGray, size: 16)
-    lazy var speedLabel = RegularLabel(text: "Скорость ветра", color: .customGray, size: 16)
-    lazy var dateFormatLabel = RegularLabel(text: "Формат времени", color: .customGray, size: 16)
-    lazy var notificationLabel = RegularLabel(text: "Уведомления", color: .customGray, size: 16)
+    lazy var settingsLabel = MediumLabel(text: "Настройки".localized, color: .customBlack, size: 18)
+    lazy var tempLabel = RegularLabel(text: "Температура".localized, color: .customGray, size: 16)
+    lazy var speedLabel = RegularLabel(text: "Скорость ветра".localized, color: .customGray, size: 16)
+    lazy var dateFormatLabel = RegularLabel(text: "Формат времени".localized, color: .customGray, size: 16)
+    lazy var notificationLabel = RegularLabel(text: "Уведомления".localized, color: .customGray, size: 16)
     
     lazy var tempSegmentControl = CustomSegmentedControl(items: ["C", "F"])
     lazy var speedSegmentControl = CustomSegmentedControl(items: ["Mi", "Km"])
@@ -25,7 +25,7 @@ class SettingsView: UIView {
     lazy var acceptSettingsButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .customOrange
-        button.setTitle("Установить", for: .normal)
+        button.setTitle("Установить".localized, for: .normal)
         button.titleLabel?.font = UIFont(name: "Rubik-Regular", size: 16)
         button.setTitleColor(.customLightBlue, for: .normal)
         button.titleLabel?.textAlignment = .center

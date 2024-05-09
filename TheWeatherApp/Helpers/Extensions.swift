@@ -18,7 +18,7 @@ extension String {
         return prefix(1).lowercased() + dropFirst()
     }
     
-    static let descriptionText = "Качество воздуха считается\nудовлетворительным и загрязнения \nвоздуха представляются незначительными \nв пределах нормы"
+    static let descriptionText = "Качество воздуха считается\nудовлетворительным и загрязнения \nвоздуха представляются незначительными \nв пределах нормы".localized
 }
 
 extension UIFont {
